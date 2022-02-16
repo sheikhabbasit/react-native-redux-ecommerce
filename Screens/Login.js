@@ -145,7 +145,7 @@ const Login = props => {
             placeholder="Enter Password"
             placeholderTextColor="#ccc"
             style={[styles.input, id === 'password' && styles.focus]}
-            keyboardType="password"
+            keyboardType="default"
             returnKeyType="done"
             autoCapitalize="none"
             ref={passwordRef}
