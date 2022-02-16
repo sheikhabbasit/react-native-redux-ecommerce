@@ -13,7 +13,13 @@ const Tabs = ({activeTab, setActiveTab}) => {
           android_ripple={{color: 'white'}}
           style={[styles.navItem, activeTab === tab.index && styles.activeNav]}
           onPress={() => setActiveTab(index)}>
-          <Text style={styles.navItemLabel}>{tab.name}</Text>
+          <Text
+            style={[
+              styles.navItemLabel,
+              activeTab === tab.index && styles.activeLabel,
+            ]}>
+            {tab.name}
+          </Text>
         </Pressable>
       ))}
     </View>
@@ -24,7 +30,7 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   navigationWrapper: {
-    backgroundColor: '#3FC1C9',
+    backgroundColor: '#404040',
     borderRadius: 5,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -42,5 +48,8 @@ const styles = StyleSheet.create({
   navItemLabel: {
     color: '#fff',
     fontSize: 16,
+  },
+  activeLabel: {
+    fontWeight: 'bold',
   },
 });
