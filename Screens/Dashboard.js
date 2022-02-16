@@ -5,8 +5,15 @@ import Tabs from '../components/Tabs';
 const Dashboard = props => {
   const [activeTab, setActiveTab] = useState(0);
   const {name, email, address, mobileNo, age} = props.route.params.data;
-  const publicData = [name, email, age];
-  const privateData = [address, mobileNo];
+  const publicData = [
+    {fieldValue: name, label: 'Name'},
+    {fieldValue: email, label: 'Email'},
+    {fieldValue: age, label: 'Age'},
+  ];
+  const privateData = [
+    {fieldValue: address, label: 'Address'},
+    {fieldValue: mobileNo, label: 'Mobile No.'},
+  ];
   return (
     <View style={styles.wrapper}>
       <ScrollView>
@@ -16,7 +23,8 @@ const Dashboard = props => {
           <View>
             {publicData.map((data, index) => (
               <View style={styles.contentWrapper} key={index}>
-                <Text style={styles.label}>{data}</Text>
+                <Text style={styles.contentLabel}>{data.label}:</Text>
+                <Text style={styles.label}>{data.fieldValue}</Text>
               </View>
             ))}
           </View>
@@ -25,7 +33,8 @@ const Dashboard = props => {
           <View>
             {privateData.map((data, index) => (
               <View style={styles.contentWrapper} key={index}>
-                <Text style={styles.label}>{data}</Text>
+                <Text style={styles.contentLabel}>{data.label}:</Text>
+                <Text style={styles.label}>{data.fieldValue}</Text>
               </View>
             ))}
           </View>
@@ -48,9 +57,13 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 5,
   },
+  contentLabel: {
+    color: '#393E46',
+    fontWeight: 'bold',
+  },
   label: {
     fontSize: 16,
-    color: '#393E46',
+    color: '#000',
   },
 });
 
