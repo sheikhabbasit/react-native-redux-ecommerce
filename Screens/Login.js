@@ -154,7 +154,10 @@ const Login = props => {
             value={password}
             onFocus={() => setId('password')}
           />
-          <Pressable onPress={handleSubmit} style={styles.buttonWrapper}>
+          <Pressable
+            android_ripple={{color: 'white'}}
+            onPress={handleSubmit}
+            style={styles.buttonWrapper}>
             <Text style={styles.buttonLabel}>Login</Text>
           </Pressable>
         </View>
