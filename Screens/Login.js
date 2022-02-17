@@ -7,7 +7,6 @@ import {
   Pressable,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
-
 const Login = props => {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -15,7 +14,6 @@ const Login = props => {
   const mobileNoRef = useRef(null);
   const addressRef = useRef(null);
   const passwordRef = useRef(null);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -39,6 +37,7 @@ const Login = props => {
         <View style={styles.box}>
           <Text style={styles.heading}>Login Page</Text>
         </View>
+
         <View>
           <TextInput
             autoFocus
@@ -52,8 +51,6 @@ const Login = props => {
             keyboardType="name-phone-pad"
             textContentType="givenName"
             autoCapitalize="none"
-            autoCorrect={true}
-            autoComplete="name"
             returnKeyType="next"
             ref={nameRef}
             onSubmitEditing={() => emailRef.current.focus()}
@@ -75,8 +72,6 @@ const Login = props => {
             keyboardType="email-address"
             textContentType="emailAddress"
             autoCapitalize="none"
-            autoCorrect={true}
-            autoComplete="email"
             returnKeyType="next"
             ref={emailRef}
             onSubmitEditing={() => mobileNoRef.current.focus()}
@@ -129,7 +124,6 @@ const Login = props => {
             keyboardType="default"
             textContentType="addressCity"
             autoCapitalize="words"
-            autoCorrect={true}
             returnKeyType="next"
             ref={addressRef}
             onSubmitEditing={() => passwordRef.current.focus()}
@@ -165,9 +159,7 @@ const Login = props => {
     </View>
   );
 };
-
 export default Login;
-
 const styles = StyleSheet.create({
   parent: {
     flex: 1,
