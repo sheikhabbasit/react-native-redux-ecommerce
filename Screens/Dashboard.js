@@ -22,7 +22,7 @@ const Dashboard = props => {
         {activeTab === 0 && (
           <View>
             {publicData.map((data, index) => (
-              <View style={styles.contentWrapper} key={index}>
+              <View style={styles.contentWrapper} key={data.label}>
                 <Text style={styles.contentLabel}>{data.label}:</Text>
                 <Text style={styles.label}>{data.fieldValue}</Text>
               </View>
@@ -32,7 +32,7 @@ const Dashboard = props => {
         {activeTab === 1 && (
           <View>
             {privateData.map((data, index) => (
-              <View style={styles.contentWrapper} key={index}>
+              <View style={styles.contentWrapper} key={data.label}>
                 <Text style={styles.contentLabel}>{data.label}:</Text>
                 <Text style={styles.label}>{data.fieldValue}</Text>
               </View>
