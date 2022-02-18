@@ -5,162 +5,150 @@ import {
   ScrollView,
   TextInput,
   Pressable,
+  ImageBackground,
 } from 'react-native';
+import {Field, Formik} from 'formik';
 import React, {useRef, useState} from 'react';
-const Login = props => {
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const ageRef = useRef(null);
-  const mobileNoRef = useRef(null);
-  const addressRef = useRef(null);
-  const passwordRef = useRef(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [mobileNo, setMobileNo] = useState('');
-  const [address, setAddress] = useState('');
-  const [id, setId] = useState('');
-  const [errorId, setErrorId] = useState('');
+import {
+  LoginValidationModel,
+  LoginInitialValues,
+} from '../Source/Models/LoginValidationModel';
+import ErrorMessage from '../Source/Components/Typography/ErrorMessage';
 
-  const handleSubmit = () => {
-    const data = {email, password, name, age, mobileNo, address};
-    if (!email || !password || !name || !age || !mobileNo || !address) {
-      return;
-    }
-    props.navigation.navigate('Dashboard', {data});
+const Login = props => {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const [id, setId] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const submitForm = values => {
+    props.navigation.navigate('PrivateStackNavigator', {values});
   };
 
   return (
-    <View style={styles.parent}>
+    <ImageBackground
+      source={require('../Resources/Images/loginbg.jpg')}
+      style={styles.bg}>
       <ScrollView>
         <View style={styles.box}>
           <Text style={styles.heading}>Login Page</Text>
         </View>
 
         <View>
-          <TextInput
-            autoFocus
-            placeholder="Enter Full Name"
-            placeholderTextColor="#ccc"
-            style={[
-              styles.input,
-              id === 'name' && styles.focus,
-              errorId === 'name' && styles.errorInput,
-            ]}
-            keyboardType="name-phone-pad"
-            textContentType="givenName"
-            autoCapitalize="none"
-            returnKeyType="next"
-            ref={nameRef}
-            onSubmitEditing={() => emailRef.current.focus()}
-            onChangeText={setName}
-            value={name}
-            onFocus={() => setId('name')}
-            onBlur={() => {
-              !name.includes(' ') ? setErrorId('name') : setErrorId('');
-            }}
-          />
-          <TextInput
-            placeholder="Enter Email"
-            placeholderTextColor="#ccc"
-            style={[
-              styles.input,
-              id === 'email' && styles.focus,
-              errorId === 'email' && styles.errorInput,
-            ]}
-            keyboardType="email-address"
-            textContentType="emailAddress"
-            autoCapitalize="none"
-            returnKeyType="next"
-            ref={emailRef}
-            onSubmitEditing={() => mobileNoRef.current.focus()}
-            onChangeText={setEmail}
-            value={email}
-            onFocus={() => setId('email')}
-            onBlur={() => {
-              !email.includes('@') ? setErrorId('email') : setErrorId('');
-            }}
-          />
-          <TextInput
-            placeholder="Enter Mobile Number"
-            placeholderTextColor="#ccc"
-            style={[
-              styles.input,
-              id === 'mobileNo' && styles.focus,
-              errorId === 'mobileNo' && styles.errorInput,
-            ]}
-            keyboardType="number-pad"
-            returnKeyType="next"
-            ref={mobileNoRef}
-            onSubmitEditing={() => ageRef.current.focus()}
-            onChangeText={setMobileNo}
-            value={mobileNo}
-            onFocus={() => setId('mobileNo')}
-            onBlur={() => {
-              mobileNo.length < 10 ? setErrorId('mobileNo') : setErrorId('');
-            }}
-          />
-          <TextInput
-            placeholder="Enter Age"
-            placeholderTextColor="#ccc"
-            style={[styles.input, id === 'age' && styles.focus]}
-            keyboardType="number-pad"
-            returnKeyType="next"
-            ref={ageRef}
-            onSubmitEditing={() => addressRef.current.focus()}
-            onChangeText={setAge}
-            value={age}
-            onFocus={() => setId('age')}
-          />
-          <TextInput
-            placeholder="Enter Address"
-            placeholderTextColor="#ccc"
-            style={[
-              styles.input,
-              id === 'address' && styles.focus,
-              errorId === 'address' && styles.errorInput,
-            ]}
-            keyboardType="default"
-            textContentType="addressCity"
-            autoCapitalize="words"
-            returnKeyType="next"
-            ref={addressRef}
-            onSubmitEditing={() => passwordRef.current.focus()}
-            onChangeText={setAddress}
-            value={address}
-            onFocus={() => setId('address')}
-            onBlur={() => {
-              address.length === 0 ? setErrorId('mobileNo') : setErrorId('');
-            }}
-          />
-          <TextInput
-            secureTextEntry={true}
-            placeholder="Enter Password"
-            placeholderTextColor="#ccc"
-            style={[styles.input, id === 'password' && styles.focus]}
-            keyboardType="default"
-            returnKeyType="done"
-            autoCapitalize="none"
-            ref={passwordRef}
-            onSubmitEditing={handleSubmit}
-            onChangeText={setPassword}
-            value={password}
-            onFocus={() => setId('password')}
-          />
-          <Pressable
-            android_ripple={{color: 'white'}}
-            onPress={handleSubmit}
-            style={styles.buttonWrapper}>
-            <Text style={styles.buttonLabel}>Login</Text>
-          </Pressable>
+          <Formik
+            initialValues={LoginInitialValues}
+            onSubmit={values => submitForm(values)}
+            validationSchema={LoginValidationModel}
+            validateOnMount>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              isValid,
+              errors,
+              touched,
+            }) => (
+              <React.Fragment>
+                <Field>
+                  {() => (
+                    <TextInput
+                      placeholder="Enter Email"
+                      placeholderTextColor="#ccc"
+                      style={[
+                        styles.input,
+                        id === 'email' && styles.focus,
+                        touched.email && errors.email && styles.errorInput,
+                      ]}
+                      keyboardType="email-address"
+                      textContentType="emailAddress"
+                      autoCapitalize="none"
+                      returnKeyType="next"
+                      ref={emailRef}
+                      onSubmitEditing={() => passwordRef.current.focus()}
+                      onChangeText={handleChange('email')}
+                      value={values.email}
+                      onFocus={() => setId('email')}
+                      onBlur={handleBlur('email')}
+                    />
+                  )}
+                </Field>
+                {touched.email && errors.email && (
+                  <ErrorMessage
+                    touched={touched}
+                    errors={errors}
+                    inputKey="email"
+                  />
+                )}
+                <View style={styles.passwordFlex}>
+                  <Field>
+                    {() => (
+                      <TextInput
+                        component={TextInput}
+                        secureTextEntry={hidePassword}
+                        placeholder="Enter Password"
+                        placeholderTextColor="#ccc"
+                        style={[
+                          styles.passwordInput,
+                          id === 'password' && styles.focus,
+                          touched.password &&
+                            errors.password &&
+                            styles.errorInput,
+                        ]}
+                        keyboardType="default"
+                        returnKeyType="done"
+                        autoCapitalize="none"
+                        ref={passwordRef}
+                        onSubmitEditing={handleSubmit}
+                        onChangeText={handleChange('password')}
+                        value={values.password}
+                        onFocus={() => setId('password')}
+                        onBlur={handleBlur('password')}
+                      />
+                    )}
+                  </Field>
+
+                  <Pressable
+                    style={styles.passwordIcon}
+                    onPress={() => setHidePassword(state => !state)}>
+                    <Text style={styles.showHideLabel}>Show</Text>
+                  </Pressable>
+                </View>
+                {touched.password && errors.password && (
+                  <ErrorMessage
+                    touched={touched}
+                    errors={errors}
+                    inputKey="password"
+                  />
+                )}
+                <Pressable
+                  android_ripple={{color: 'white'}}
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  style={[
+                    styles.buttonWrapper,
+                    !isValid && styles.disabledButton,
+                  ]}>
+                  <Text style={styles.buttonLabel}>Login</Text>
+                </Pressable>
+              </React.Fragment>
+            )}
+          </Formik>
+          {/*  */}
         </View>
       </ScrollView>
-    </View>
+    </ImageBackground>
   );
 };
+
 export default Login;
+
 const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   parent: {
     flex: 1,
     backgroundColor: '#FDEFF4',
@@ -179,10 +167,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     padding: 8,
     backgroundColor: '#fff',
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom: 2,
   },
   buttonWrapper: {
-    backgroundColor: '#1261c0',
+    backgroundColor: '#FF5C8D',
     margin: 20,
     paddingVertical: 10,
     borderRadius: 5,
@@ -194,6 +183,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  disabledButton: {
+    backgroundColor: '#d3d3d3',
+  },
   focus: {
     borderColor: 'green',
     color: 'black',
@@ -203,5 +195,31 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     color: 'red',
     borderWidth: 1,
+  },
+  passwordFlex: {
+    flexDirection: 'row',
+    width: '90%',
+    marginTop: 10,
+    marginBottom: 2,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    opacity: 0.7,
+    height: 47,
+  },
+  passwordInput: {
+    flex: 1,
+    borderRadius: 5,
+  },
+  passwordIcon: {
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  showHideLabel: {
+    color: 'black',
+    marginHorizontal: 5,
   },
 });
