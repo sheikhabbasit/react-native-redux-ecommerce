@@ -2,7 +2,7 @@ import {View, TextInput, ScrollView, StyleSheet, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import Tabs from '../Source/Components/Tabs';
 
-const Dashboard = props => {
+const Home = props => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -17,13 +17,14 @@ const Dashboard = props => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#393E46',
+    backgroundColor: '#FFCBCB',
     flex: 1,
     padding: 20,
   },
   input: {
+    marginTop: 20,
     backgroundColor: '#fff',
   },
 });
 
-export default Dashboard;
+export default Home;

@@ -7,12 +7,20 @@ const Stack = createNativeStackNavigator();
 
 const PublicStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="SignUp">
+    <Stack.Navigator
+      screenOptions={{
+        tabBarHideOnKeyboard: true,
+        headerShown: false,
+      }}
+      initialRouteName="SignUp">
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
         name="PrivateStackNavigator"
         component={PrivateStackNavigator}
+        screenOptions={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

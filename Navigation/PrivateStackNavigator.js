@@ -1,7 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Dashboard from '../Screens/Dashboard';
 import Profile from '../Screens/Profile';
+import Home from '../Screens/Home';
+import Settings from '../Screens/Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,8 +13,9 @@ const PrivateStackNavigator = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
       }}>
-      <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 };
