@@ -18,9 +18,6 @@ const PublicStackNavigator = () => {
       <Stack.Screen
         name="PrivateStackNavigator"
         component={PrivateStackNavigator}
-        screenOptions={{
-          headerShown: false,
-        }}
       />
     </Stack.Navigator>
   );
