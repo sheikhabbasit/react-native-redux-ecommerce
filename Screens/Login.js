@@ -14,6 +14,7 @@ import {
   LoginInitialValues,
 } from '../Source/Models/LoginValidationModel';
 import ErrorMessage from '../Source/Components/Typography/ErrorMessage';
+import HyperLink from '../Source/Components/Views/HyperLink';
 
 const Login = props => {
   const emailRef = useRef(null);
@@ -22,7 +23,10 @@ const Login = props => {
   const [hidePassword, setHidePassword] = useState(true);
 
   const submitForm = values => {
-    props.navigation.navigate('PrivateStackNavigator', {values});
+    props.navigation.reset({
+      index: 0,
+      routes: [{name: 'PrivateStackNavigator'}],
+    });
   };
 
   return (
@@ -136,7 +140,7 @@ const Login = props => {
               </React.Fragment>
             )}
           </Formik>
-          {/*  */}
+          <HyperLink path="SignUp" label="Go back to sign up" />
         </View>
       </ScrollView>
     </ImageBackground>
