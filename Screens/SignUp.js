@@ -171,7 +171,9 @@ const SignUp = props => {
                 <Pressable
                   style={styles.passwordIcon}
                   onPress={() => setHidePassword(state => !state)}>
-                  <Text style={styles.showHideLabel}>Show</Text>
+                  <Text style={styles.showHideLabel}>
+                    {hidePassword ? 'Show' : 'Hide'}
+                  </Text>
                 </Pressable>
               </View>
               {touched.password && errors.password && (

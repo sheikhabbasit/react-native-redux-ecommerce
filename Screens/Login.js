@@ -111,7 +111,9 @@ const Login = props => {
                   <Pressable
                     style={styles.passwordIcon}
                     onPress={() => setHidePassword(state => !state)}>
-                    <Text style={styles.showHideLabel}>Show</Text>
+                    <Text style={styles.showHideLabel}>
+                      {hidePassword ? 'Show' : 'Hide'}
+                    </Text>
                   </Pressable>
                 </View>
                 {touched.password && errors.password && (
@@ -163,13 +165,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  input: {
-    marginHorizontal: 20,
-    padding: 8,
-    backgroundColor: '#fff',
-    marginTop: 10,
-    marginBottom: 2,
-  },
   buttonWrapper: {
     backgroundColor: '#FF5C8D',
     margin: 20,
@@ -196,9 +191,17 @@ const styles = StyleSheet.create({
     color: 'red',
     borderWidth: 1,
   },
+  input: {
+    marginHorizontal: 20,
+    padding: 8,
+    backgroundColor: '#fff',
+    marginTop: 10,
+    marginBottom: 2,
+    borderRadius: 5,
+  },
   passwordFlex: {
     flexDirection: 'row',
-    width: '90%',
+    width: '88%',
     marginTop: 10,
     marginBottom: 2,
     marginHorizontal: 20,
