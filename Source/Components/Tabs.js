@@ -31,20 +31,20 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   navigationWrapper: {
-    backgroundColor: '#404040',
+    backgroundColor: '#EF93CF',
     borderRadius: 5,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
   navItem: {
     padding: 10,
-    borderColor: 'grey',
+    borderColor: '#EF93CF',
     borderWidth: 1,
     width: '50%',
     alignItems: 'center',
   },
   activeNav: {
-    backgroundColor: '#3F90a7',
+    backgroundColor: '#FF5C8D',
   },
   navItemLabel: {
     color: '#fff',
