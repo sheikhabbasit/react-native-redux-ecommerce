@@ -15,6 +15,7 @@ import {
 } from '../Source/Models/LoginValidationModel';
 import ErrorMessage from '../Source/Components/Typography/ErrorMessage';
 import HyperLink from '../Source/Components/Views/HyperLink';
+import {UserSession} from '../Source/Models/Sessions/UserSession';
 
 const Login = props => {
   const emailRef = useRef(null);
@@ -22,7 +23,8 @@ const Login = props => {
   const [id, setId] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
 
-  const submitForm = values => {
+  const submitForm = async values => {
+    const res = await UserSession.setUserLoggedIn(values);
     props.navigation.reset({
       index: 0,
       routes: [{name: 'PrivateStackNavigator'}],
@@ -84,21 +86,19 @@ const Login = props => {
                     inputKey="email"
                   />
                 )}
-                <View style={styles.passwordFlex}>
+                <View
+                  style={[
+                    styles.passwordFlex,
+                    id === 'password' && styles.focus,
+                    touched.password && errors.password && styles.errorInput,
+                  ]}>
                   <Field>
                     {() => (
                       <TextInput
-                        component={TextInput}
                         secureTextEntry={hidePassword}
                         placeholder="Enter Password"
                         placeholderTextColor="#ccc"
-                        style={[
-                          styles.passwordInput,
-                          id === 'password' && styles.focus,
-                          touched.password &&
-                            errors.password &&
-                            styles.errorInput,
-                        ]}
+                        style={[styles.passwordInput]}
                         keyboardType="default"
                         returnKeyType="done"
                         autoCapitalize="none"
