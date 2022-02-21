@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import React from 'react';
 
 const ErrorMessage = ({inputKey, touched, errors}) => {
@@ -10,7 +10,10 @@ export default ErrorMessage;
 const styles = StyleSheet.create({
   label: {
     color: 'red',
-    fontSize: 15,
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  horizontal: {
     marginHorizontal: 20,
   },
 });
