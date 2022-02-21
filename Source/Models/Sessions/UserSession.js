@@ -1,6 +1,6 @@
 import {SessionManager} from './SessionManager';
 
-class UserSession {
+export class UserSession {
   static keys = {
     UserInfo: 'store_user_basic_info',
   };
