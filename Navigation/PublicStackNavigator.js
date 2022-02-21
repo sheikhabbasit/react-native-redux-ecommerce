@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUp from '../Screens/SignUp';
 import Login from '../Screens/Login';
 import PrivateStackNavigator from './PrivateStackNavigator';
+import Splash from '../Screens/Splash';
 const Stack = createNativeStackNavigator();
 
 const PublicStackNavigator = () => {
@@ -12,9 +13,10 @@ const PublicStackNavigator = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
       }}
-      initialRouteName="SignUp">
+      initialRouteName="Splash">
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen
         name="PrivateStackNavigator"
         component={PrivateStackNavigator}
