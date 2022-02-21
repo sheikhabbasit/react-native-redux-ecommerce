@@ -15,8 +15,6 @@ export const LoginValidationModel = Yup.object().shape({
 });
 
 export const LoginInitialValues = {
-  name: '',
   email: '',
   password: '',
-  mobileNo: '',
 };
