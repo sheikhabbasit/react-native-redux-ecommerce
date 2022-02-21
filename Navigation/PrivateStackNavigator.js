@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Profile from '../Screens/Profile';
 import Home from '../Screens/Home';
-import Settings from '../Screens/Settings';
+import SettingsStackNavigator from './SettingsStackNavigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const Tab = createBottomTabNavigator();
 
@@ -22,13 +22,13 @@ const PrivateStackNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'pink',
+        tabBarActiveTintColor: '#FF5C8D',
         tabBarInactiveTintColor: 'gray',
         tabBarHideOnKeyboard: true,
       })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Settings" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
 };
