@@ -14,6 +14,7 @@ import {
   SignupInitialValues,
 } from '../Models/SignupValidationModel';
 import ErrorMessage from '../Components/Typography/ErrorMessage';
+import HyperLink from '../Components/Views/HyperLink';
 
 const SignUp = props => {
   const nameRef = useRef(null);
@@ -25,10 +26,6 @@ const SignUp = props => {
   const [hidePassword, setHidePassword] = useState(true);
 
   const submitForm = values => {
-    props.navigation.navigate('Login');
-  };
-
-  const goToLogin = () => {
     props.navigation.navigate('Login');
   };
 
@@ -229,11 +226,7 @@ const SignUp = props => {
             </React.Fragment>
           )}
         </Formik>
-        <Pressable style={styles.buttonWrapper} onPress={goToLogin}>
-          <Text style={styles.loginButtonLabel}>
-            Already a user? <Text style={styles.labelEmphasis}>Log In</Text>
-          </Text>
-        </Pressable>
+        <HyperLink label="Already a user? Log In" path="Login" />
       </ScrollView>
     </ImageBackground>
   );
