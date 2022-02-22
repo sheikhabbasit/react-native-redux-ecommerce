@@ -140,8 +140,8 @@ const Login = props => {
               </React.Fragment>
             )}
           </Formik>
-          <HyperLink path="SignUp" label="Go back to sign up" />
         </View>
+        <HyperLink path="SignUp" label="Go back to sign up" />
       </ScrollView>
     </ImageBackground>
   );
