@@ -12,8 +12,8 @@ import {Field, Formik} from 'formik';
 import {
   SignupValidationModel,
   SignupInitialValues,
-} from '../Source/Models/SignupValidationModel';
-import ErrorMessage from '../Source/Components/Typography/ErrorMessage';
+} from '../Models/SignupValidationModel';
+import ErrorMessage from '../Components/Typography/ErrorMessage';
 
 const SignUp = props => {
   const nameRef = useRef(null);

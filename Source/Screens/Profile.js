@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect, useCallback} from 'react';
-import {UserSession} from '../Source/Models/Sessions/UserSession';
+import {UserSession} from '../Models/Sessions/UserSession';
 import {useIsFocused} from '@react-navigation/native';
 
 const Profile = props => {

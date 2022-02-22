@@ -1,7 +1,7 @@
 import {ScrollView, Text, StyleSheet, View, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import EditForm from '../Source/Components/Views/EditForm';
-import {UserSession} from '../Source/Models/Sessions/UserSession';
+import EditForm from '../Components/Views/EditForm';
+import {UserSession} from '../Models/Sessions/UserSession';
 
 const EditCredentials = props => {
   const [email, setEmail] = useState('');

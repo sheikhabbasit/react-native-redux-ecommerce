@@ -1,6 +1,6 @@
 import {View, TextInput, ScrollView, StyleSheet, Pressable} from 'react-native';
 import React, {useState} from 'react';
-import Tabs from '../Source/Components/Tabs';
+import Tabs from '../Components/Tabs';
 
 const Home = props => {
   const [activeTab, setActiveTab] = useState(0);

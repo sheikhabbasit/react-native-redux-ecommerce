@@ -1,6 +1,6 @@
 import {StyleSheet, Text, Pressable, SafeAreaView} from 'react-native';
 import React from 'react';
-import {SessionManager} from '../Source/Models/Sessions/SessionManager';
+import {SessionManager} from '../Models/Sessions/SessionManager';
 
 const Settings = props => {
   const handleLogout = () => {

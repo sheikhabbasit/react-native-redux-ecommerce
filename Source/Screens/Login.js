@@ -12,10 +12,10 @@ import React, {useRef, useState} from 'react';
 import {
   LoginValidationModel,
   LoginInitialValues,
-} from '../Source/Models/LoginValidationModel';
-import ErrorMessage from '../Source/Components/Typography/ErrorMessage';
-import HyperLink from '../Source/Components/Views/HyperLink';
-import {UserSession} from '../Source/Models/Sessions/UserSession';
+} from '../Models/LoginValidationModel';
+import ErrorMessage from '../Components/Typography/ErrorMessage';
+import HyperLink from '../Components/Views/HyperLink';
+import {UserSession} from '../Models/Sessions/UserSession';
 
 const Login = props => {
   const emailRef = useRef(null);

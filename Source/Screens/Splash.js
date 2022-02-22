@@ -1,6 +1,6 @@
 import {ImageBackground, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {UserSession} from '../Source/Models/Sessions/UserSession';
+import {UserSession} from '../Models/Sessions/UserSession';
 
 const Splash = props => {
   const [loading, setLoading] = useState(true);
