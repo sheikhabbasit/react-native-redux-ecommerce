@@ -54,10 +54,10 @@ const EditForm = props => {
                 placeholderTextColor="#ccc"
                 style={[
                   styles.input,
-                  id === 'email' && styles.focus,
-                  id === 'password' && styles.focus,
-                  touched.email && errors.email && styles.errorInput,
-                  touched.password && errors.password && styles.errorInput,
+                  (id === 'email' || id === 'password') && styles.focus,
+                  ((touched.email && errors.email) ||
+                    (touched.password && errors.password)) &&
+                    styles.errorInput,
                 ]}
                 keyboardType={emailActive ? 'email-address' : 'default'}
                 autoCapitalize="none"
