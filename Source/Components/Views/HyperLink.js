@@ -21,11 +21,12 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#FF5C5D',
     padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 20,
+    borderRadius: 5,
   },
   text: {
     textAlign: 'center',
     fontSize: 15,
+    color: '#fff',
   },
 });
