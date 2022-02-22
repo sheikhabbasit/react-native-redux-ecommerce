@@ -18,7 +18,9 @@ const EditCredentialBox = props => {
   return (
     <View style={styles.boxContainer}>
       <View style={styles.box}>
-        <Text>Email: </Text>
+        <Text style={styles.boldText}>
+          {emailActive ? 'Email' : 'Password'}:{' '}
+        </Text>
         <Text>{emailActive ? email : password}</Text>
       </View>
       <Pressable
@@ -58,16 +60,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 10,
     padding: 10,
+    borderRadius: 10,
   },
   box: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
+  boldText: {
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
   button: {
     backgroundColor: '#9C0F48',
-    padding: 5,
+    padding: 8,
     alignSelf: 'flex-start',
+    borderRadius: 5,
   },
   buttonLabel: {
     color: '#fff',
