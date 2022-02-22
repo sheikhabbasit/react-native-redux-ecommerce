@@ -16,6 +16,10 @@ const EditForm = props => {
     props.collapseForm(false);
   };
 
+  const handleCancel = () => {
+    props.collapseForm(false);
+  };
+
   let initialValuesDeclared = {};
 
   if (props.label === 'email') {
@@ -80,15 +84,23 @@ const EditForm = props => {
               inputKey="password"
             />
           )}
-          <Pressable
-            android_ripple={{color: 'white'}}
-            onPress={handleSubmit}
-            disabled={!isValid}
-            style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
-            <Text style={styles.buttonLabel}>
-              Change {emailActive ? 'Email' : 'Password'}
-            </Text>
-          </Pressable>
+          <View style={styles.box}>
+            <Pressable
+              android_ripple={{color: 'white'}}
+              onPress={handleSubmit}
+              disabled={!isValid}
+              style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
+              <Text style={styles.buttonLabel}>
+                Change {emailActive ? 'Email' : 'Password'}
+              </Text>
+            </Pressable>
+            <Pressable
+              android_ripple={{color: 'white'}}
+              onPress={handleCancel}
+              style={styles.buttonWrapper}>
+              <Text style={styles.buttonLabel}>Cancel</Text>
+            </Pressable>
+          </View>
         </View>
       )}
     </Formik>
@@ -100,15 +112,20 @@ export default EditForm;
 const styles = StyleSheet.create({
   formWrapper: {
     margin: 10,
-    padding: 10,
-    backgroundColor: '#EF93CF',
+    padding: 15,
+    backgroundColor: '#9C0F48',
     borderRadius: 10,
+  },
+  box: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   buttonWrapper: {
     backgroundColor: '#FF5C8D',
     padding: 8,
     borderRadius: 5,
     alignSelf: 'flex-start',
+    marginStart: 10,
   },
   buttonLabel: {
     color: '#fff',
@@ -127,6 +144,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   input: {
+    padding: 10,
     backgroundColor: '#fff',
     borderRadius: 5,
     marginBottom: 10,
