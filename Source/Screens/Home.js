@@ -1,4 +1,4 @@
-import {View, TextInput, ScrollView, StyleSheet, Pressable} from 'react-native';
+import {View, TextInput, ScrollView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import Tabs from '../Components/Tabs';
 
