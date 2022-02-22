@@ -7,133 +7,92 @@ import ErrorMessage from '../Typography/ErrorMessage';
 
 const EditForm = props => {
   const [id, setId] = useState('');
+  const [emailActive, setEmailActive] = useState(
+    props.label === 'email' ? true : false,
+  );
 
   const submitForm = async values => {
     const res = await UserSession.setUserLoggedIn(values);
     props.collapseForm(false);
   };
 
-  // Renders in case of email
+  let initialValuesDeclared = {};
+
   if (props.label === 'email') {
-    const initialValuesDeclared = {email: '', password: props.passwordValue};
-    return (
-      <Formik
-        initialValues={initialValuesDeclared}
-        onSubmit={values => submitForm(values)}
-        validationSchema={EditCredentialsValidationModel}
-        validateOnMount>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          isValid,
-          errors,
-          touched,
-        }) => (
-          <View style={styles.formWrapper}>
-            <Field>
-              {() => (
-                <TextInput
-                  placeholder="Enter New Email"
-                  placeholderTextColor="#ccc"
-                  style={[
-                    styles.input,
-                    id === 'email' && styles.focus,
-                    touched.email && errors.email && styles.errorInput,
-                  ]}
-                  keyboardType="email-address"
-                  textContentType="emailAddress"
-                  autoCapitalize="none"
-                  onChangeText={handleChange('email')}
-                  value={values.email}
-                  onFocus={() => setId('email')}
-                  onBlur={handleBlur('email')}
-                />
-              )}
-            </Field>
-            <Text>{isValid}</Text>
-            {touched.email && errors.email && (
-              <ErrorMessage
-                touched={touched}
-                errors={errors}
-                inputKey="email"
-              />
-            )}
-            <Pressable
-              android_ripple={{color: 'white'}}
-              onPress={handleSubmit}
-              disabled={!isValid}
-              style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
-              <Text style={styles.buttonLabel}>Change Email</Text>
-            </Pressable>
-          </View>
-        )}
-      </Formik>
-    );
+    initialValuesDeclared = {email: '', password: props.passwordValue};
+  }
+  if (props.label === 'password') {
+    initialValuesDeclared = {email: props.emailValue, password: ''};
   }
 
-  // Renders in case of password
-  if (props.label === 'password') {
-    const initialValuesDeclared = {email: props.emailValue, password: ''};
-    return (
-      <Formik
-        initialValues={initialValuesDeclared}
-        onSubmit={values => submitForm(values)}
-        validationSchema={EditCredentialsValidationModel}
-        validateOnMount>
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          isValid,
-          errors,
-          touched,
-        }) => (
-          <View style={styles.formWrapper}>
-            <Field>
-              {() => (
-                <TextInput
-                  secureTextEntry={true}
-                  placeholder="Enter Password"
-                  placeholderTextColor="#ccc"
-                  style={[
-                    styles.input,
-                    id === 'password' && styles.focus,
-                    touched.password && errors.password && styles.errorInput,
-                  ]}
-                  keyboardType="default"
-                  returnKeyType="done"
-                  autoCapitalize="none"
-                  onSubmitEditing={handleSubmit}
-                  onChangeText={handleChange('password')}
-                  value={values.password}
-                  onFocus={() => setId('password')}
-                  onBlur={handleBlur('password')}
-                />
-              )}
-            </Field>
-            <Text>{isValid}</Text>
-            {touched.password && errors.password && (
-              <ErrorMessage
-                touched={touched}
-                errors={errors}
-                inputKey="password"
+  return (
+    <Formik
+      initialValues={initialValuesDeclared}
+      onSubmit={values => submitForm(values)}
+      validationSchema={EditCredentialsValidationModel}
+      validateOnMount>
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        isValid,
+        errors,
+        touched,
+      }) => (
+        <View style={styles.formWrapper}>
+          <Field>
+            {() => (
+              <TextInput
+                placeholder={
+                  emailActive ? 'Enter New Email' : 'Enter New Password'
+                }
+                placeholderTextColor="#ccc"
+                style={[
+                  styles.input,
+                  id === 'email' && styles.focus,
+                  id === 'password' && styles.focus,
+                  touched.email && errors.email && styles.errorInput,
+                  touched.password && errors.password && styles.errorInput,
+                ]}
+                keyboardType={emailActive ? 'email-address' : 'default'}
+                autoCapitalize="none"
+                onChangeText={
+                  emailActive ? handleChange('email') : handleChange('password')
+                }
+                value={emailActive ? values.email : values.password}
+                onFocus={() =>
+                  emailActive ? setId('email') : setId('password')
+                }
+                onBlur={
+                  emailActive ? handleBlur('email') : handleBlur('password')
+                }
               />
             )}
-            <Pressable
-              android_ripple={{color: 'white'}}
-              onPress={handleSubmit}
-              disabled={!isValid}
-              style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
-              <Text style={styles.buttonLabel}>Change Password</Text>
-            </Pressable>
-          </View>
-        )}
-      </Formik>
-    );
-  }
+          </Field>
+          {touched.email && errors.email && (
+            <ErrorMessage touched={touched} errors={errors} inputKey="email" />
+          )}
+          {touched.password && errors.password && (
+            <ErrorMessage
+              touched={touched}
+              errors={errors}
+              inputKey="password"
+            />
+          )}
+          <Pressable
+            android_ripple={{color: 'white'}}
+            onPress={handleSubmit}
+            disabled={!isValid}
+            style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
+            <Text style={styles.buttonLabel}>
+              Change {emailActive ? 'Email' : 'Password'}
+            </Text>
+          </Pressable>
+        </View>
+      )}
+    </Formik>
+  );
 };
 
 export default EditForm;
@@ -168,9 +127,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   input: {
-    padding: 5,
     backgroundColor: '#fff',
     borderRadius: 5,
-    marginBottom: -10,
+    marginBottom: 10,
   },
 });
