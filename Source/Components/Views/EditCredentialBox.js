@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   boldText: {
     fontWeight: 'bold',
     fontSize: 15,
+    color: '#9C0F48',
   },
   button: {
     backgroundColor: '#9C0F48',
