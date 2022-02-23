@@ -4,14 +4,18 @@ import {EditCredentialsValidationModel} from '../../Models/EditCredentialsValida
 import {Formik, Field} from 'formik';
 import {UserSession} from '../../Models/Sessions/UserSession';
 import ErrorMessage from '../Typography/ErrorMessage';
+import {useDispatch} from 'react-redux';
+import {AppActions} from '../../Redux/Actions/AppActions';
 
 const EditForm = props => {
   const [id, setId] = useState('');
+  const dispatch = useDispatch();
   const [emailActive, setEmailActive] = useState(
     props.label === 'email' ? true : false,
   );
 
   const submitForm = async values => {
+    dispatch({type: AppActions.LOGIN, data: values});
     const res = await UserSession.setUserLoggedIn(values);
     props.collapseForm(false);
   };
@@ -32,7 +36,10 @@ const EditForm = props => {
   return (
     <Formik
       initialValues={initialValuesDeclared}
-      onSubmit={values => submitForm(values)}
+      onSubmit={values => {
+        console.log(values);
+        submitForm(values);
+      }}
       validationSchema={EditCredentialsValidationModel}
       validateOnMount>
       {({

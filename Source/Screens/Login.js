@@ -16,15 +16,19 @@ import {
 import ErrorMessage from '../Components/Typography/ErrorMessage';
 import HyperLink from '../Components/Views/HyperLink';
 import {UserSession} from '../Models/Sessions/UserSession';
+import {useDispatch} from 'react-redux';
+import {AppActions} from '../Redux/Actions/AppActions';
 
 const Login = props => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [id, setId] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+  const dispatch = useDispatch();
 
   const submitForm = async values => {
     const res = await UserSession.setUserLoggedIn(values);
+    dispatch({type: AppActions.LOGIN, data: values});
     props.navigation.reset({
       index: 0,
       routes: [{name: 'PrivateStackNavigator'}],
