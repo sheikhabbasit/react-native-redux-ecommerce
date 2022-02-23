@@ -14,6 +14,7 @@ export const AppReducer = (state = initialState, payload) => {
 
     case AppActions.LOGOUT:
       return {...initialState};
+
     default:
       return state;
   }
