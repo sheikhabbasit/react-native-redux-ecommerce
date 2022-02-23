@@ -2,7 +2,6 @@ import {Pressable, Text, TextInput, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {EditCredentialsValidationModel} from '../../Models/EditCredentialsValidationModel';
 import {Formik, Field} from 'formik';
-import {UserSession} from '../../Models/Sessions/UserSession';
 import ErrorMessage from '../Typography/ErrorMessage';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../../Redux/Actions/AppActions';
@@ -16,7 +15,6 @@ const EditForm = props => {
 
   const submitForm = async values => {
     dispatch({type: AppActions.LOGIN, data: values});
-    const res = await UserSession.setUserLoggedIn(values);
     props.collapseForm(false);
   };
 
