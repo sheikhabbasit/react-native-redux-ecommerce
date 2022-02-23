@@ -1,24 +1,12 @@
 import {ScrollView, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {UserSession} from '../Models/Sessions/UserSession';
 import EditCredentialBox from '../Components/Views/EditCredentialBox';
+import {useSelector} from 'react-redux';
 
 const EditCredentials = props => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {email, password} = useSelector(state => state.app.userInfo);
   const [emailFormActive, setEmailFormActive] = useState(false);
   const [passwordFormActive, setPasswordFormActive] = useState(false);
-
-  useEffect(() => {
-    checkUserSession();
-  }, [emailFormActive, passwordFormActive]);
-
-  const checkUserSession = async () => {
-    const user = await UserSession.getUserLoggedIn();
-    if (email === user.email && password === user.password) return;
-    setEmail(user.email);
-    setPassword(user.password);
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
