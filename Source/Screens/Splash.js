@@ -1,21 +1,18 @@
 import {ImageBackground, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {UserSession} from '../Models/Sessions/UserSession';
-import {useDispatch} from 'react-redux';
-import {AppActions} from '../Redux/Actions/AppActions';
+import {useSelector} from 'react-redux';
 
 const Splash = props => {
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
+  const {userInfo} = useSelector(state => state.app);
   useEffect(() => {
     checkUserSession();
   }, []);
 
   const checkUserSession = async () => {
-    const user = await UserSession.getUserLoggedIn();
+    const isLogged = Object.keys(userInfo).length > 0;
 
-    if (user) {
-      dispatch({type: AppActions.LOGIN, data: user});
+    if (isLogged) {
       handleNavigation('PrivateStackNavigator');
     } else {
       handleNavigation('Login');
