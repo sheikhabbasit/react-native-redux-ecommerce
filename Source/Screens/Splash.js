@@ -1,0 +1,44 @@
+import {ImageBackground, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+
+const Splash = props => {
+  const [loading, setLoading] = useState(true);
+  const {userInfo} = useSelector(state => state.app);
+  useEffect(() => {
+    checkUserSession();
+  }, []);
+
+  const checkUserSession = async () => {
+    const isLogged = Object.keys(userInfo).length > 0;
+
+    if (isLogged) {
+      handleNavigation('PrivateStackNavigator');
+    } else {
+      handleNavigation('Login');
+    }
+  };
+
+  const handleNavigation = name => {
+    props.navigation.reset({
+      index: 0,
+      routes: [{name}],
+    });
+  };
+
+  return (
+    <ImageBackground
+      source={require('../Resources/Images/loginbg.jpg')}
+      style={{
+        width: '100%',
+        height: '100%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <ActivityIndicator size="large" color="#FF5C8D" animating={loading} />
+    </ImageBackground>
+  );
+};
+
+export default Splash;
