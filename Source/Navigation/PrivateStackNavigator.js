@@ -1,9 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Cart from '../Screens/Cart';
-import Home from '../Screens/Home';
+import HomeStackNavigator from './HomeStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CartStackNavigator from './CartStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,12 +23,13 @@ const PrivateStackNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#FF5C8D',
+        tabBarActiveTintColor: '#9C0F48',
         tabBarInactiveTintColor: 'gray',
         tabBarHideOnKeyboard: true,
+        headerShown: false,
       })}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Cart" component={Cart} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Cart" component={CartStackNavigator} />
       <Tab.Screen name="Settings" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
