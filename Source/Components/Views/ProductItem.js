@@ -2,6 +2,7 @@ import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
+import Button from '../HOC/Button';
 
 const ProductItem = props => {
   const {imageSource, name, price, discount} = props.product;
@@ -19,7 +20,7 @@ const ProductItem = props => {
           <Image style={styles.image} source={imageSource} />
           <View style={styles.detailsContainer}>
             <View style={styles.details}>
-              <Text style={styles.productLabel}>{name}</Text>
+              <Text style={styles.productName}>{name}</Text>
               <Text style={styles.productLabel}>Price: {price}</Text>
             </View>
             <Text style={styles.discount}>
@@ -28,12 +29,7 @@ const ProductItem = props => {
             </Text>
           </View>
         </View>
-        <Pressable
-          onPress={navigateTo}
-          style={styles.cartButton}
-          android_ripple={{color: 'white'}}>
-          <Text style={styles.buttonLabel}>Details</Text>
-        </Pressable>
+        <Button onPress={navigateTo} label="Details" />
       </Pressable>
     </Card>
   );
@@ -42,19 +38,6 @@ const ProductItem = props => {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-  buttonLabel: {
-    fontWeight: 'bold',
-    color: '#9C0F48',
-  },
-  cartButton: {
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFBBBB',
-    elevation: 10,
-  },
   container: {
     flexDirection: 'row',
   },
@@ -72,6 +55,8 @@ const styles = StyleSheet.create({
   },
   discount: {
     textAlign: 'center',
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
   discountLabel: {
     fontWeight: 'bold',
@@ -80,12 +65,22 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '48%',
-    height: 150,
+    height: 170,
     borderRadius: 10,
+    opacity: 0.7,
+  },
+  productName: {
+    fontSize: 18,
+    color: '#9C0F48',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
   },
   productLabel: {
     fontSize: 15,
     color: '#9C0F48',
     fontWeight: 'bold',
+    opacity: 0.7,
+    textAlign: 'center',
   },
 });
