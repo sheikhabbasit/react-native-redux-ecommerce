@@ -1,12 +1,17 @@
-import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import React from 'react';
+import ProductItem from '../Components/Views/ProductItem';
+import {Products} from '../DummyData/ProductList';
 
 const Home = props => {
-  const [activeTab, setActiveTab] = useState(0);
-
   return (
     <SafeAreaView style={styles.wrapper}>
-      <ScrollView></ScrollView>
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={Products}
+        renderItem={({item}) => <ProductItem product={item} />}
+        keyExtractor={item => item.id}
+      />
     </SafeAreaView>
   );
 };
@@ -15,11 +20,10 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#FFCBCB',
     flex: 1,
-    padding: 20,
   },
-  input: {
-    marginTop: 20,
-    backgroundColor: '#fff',
+  list: {
+    borderRadius: 10,
+    padding: 20,
   },
 });
 
