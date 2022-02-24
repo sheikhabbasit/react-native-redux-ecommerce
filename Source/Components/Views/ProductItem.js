@@ -38,17 +38,16 @@ export default ProductItem;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
   },
   detailsContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    marginStart: 10,
   },
   productLabel: {
     fontSize: 15,
     color: '#FFBBBB',
-    fontWeight: 'normal',
+    fontWeight: 'bold',
   },
   image: {
     width: 150,
@@ -62,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFBBBB',
+    elevation: 10,
   },
   buttonLabel: {
     fontWeight: 'bold',
