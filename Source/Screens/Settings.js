@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: '#FDEFF4',
+    padding: 10,
   },
   card: {
     marginHorizontal: 10,
