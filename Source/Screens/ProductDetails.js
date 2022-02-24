@@ -3,9 +3,21 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import Card from '../Components/HOC/Card';
 import Button from '../Components/HOC/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import {CartActions} from '../Redux/Actions/CartActions';
 
 const ProductDetails = props => {
   const {imageSource, name, price, description} = props.route.params.product;
+  const {product} = props.route.params;
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch({type: CartActions.ADD, data: {product}});
+  };
+
+  // const addToCart = () => {
+  //   dispatch({type: CartActions.REMOVE});
+  // };
 
   return (
     <SafeAreaView>
@@ -20,7 +32,7 @@ const ProductDetails = props => {
             Cost:{'\n'}
             <Text style={styles.productSpecifics}>{price}</Text>
           </Text>
-          <Button label="Add to Cart" />
+          <Button onPress={addToCart} label="Add to Cart" />
         </Card>
         <Card style={styles.cardSpecific}>
           <Text style={[styles.label, styles.description]}>Description:</Text>
