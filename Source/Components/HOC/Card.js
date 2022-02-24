@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#9C0F48',
     padding: 20,
     borderRadius: 10,
-    marginVertical: 10,
+    marginBottom: 30,
     elevation: 10,
+    borderWidth: 1,
+    borderColor: '#FFCBCB',
   },
 });
