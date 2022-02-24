@@ -19,7 +19,7 @@ const SettingsStackNavigator = () => {
           />
         ),
       }}>
-      <Stack.Screen name="Setting" component={Settings} />
+      <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="EditCredentials" component={EditCredentials} />
     </Stack.Navigator>
   );
