@@ -4,7 +4,7 @@ import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
 
 const ProductItem = props => {
-  const {imageSource, name, price} = props.product;
+  const {imageSource, name, price, discount} = props.product;
   const {product} = props;
   const navigation = useNavigation();
 
@@ -18,8 +18,14 @@ const ProductItem = props => {
         <View style={styles.container}>
           <Image style={styles.image} source={imageSource} />
           <View style={styles.detailsContainer}>
-            <Text style={styles.productLabel}>{name}</Text>
-            <Text style={styles.productLabel}>{price}</Text>
+            <View style={styles.details}>
+              <Text style={styles.productLabel}>{name}</Text>
+              <Text style={styles.productLabel}>Price: {price}</Text>
+            </View>
+            <Text style={styles.discount}>
+              At a mega discount of{' '}
+              <Text style={styles.discountLabel}>{discount}</Text>
+            </Text>
           </View>
         </View>
         <Pressable
@@ -36,23 +42,9 @@ const ProductItem = props => {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
-  detailsContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginStart: 10,
-  },
-  productLabel: {
-    fontSize: 15,
-    color: '#FFBBBB',
+  buttonLabel: {
     fontWeight: 'bold',
-  },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
+    color: '#9C0F48',
   },
   cartButton: {
     marginTop: 20,
@@ -63,8 +55,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFBBBB',
     elevation: 10,
   },
-  buttonLabel: {
+  container: {
+    flexDirection: 'row',
+  },
+  detailsContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginStart: 10,
+    backgroundColor: '#e88eb2',
+    borderRadius: 10,
+    width: '48%',
+  },
+  details: {
+    padding: 10,
+  },
+  discount: {
+    textAlign: 'center',
+  },
+  discountLabel: {
     fontWeight: 'bold',
+    color: '#08a626',
+    fontSize: 20,
+  },
+  image: {
+    width: '48%',
+    height: 150,
+    borderRadius: 10,
+  },
+  productLabel: {
+    fontSize: 15,
     color: '#9C0F48',
+    fontWeight: 'bold',
   },
 });
