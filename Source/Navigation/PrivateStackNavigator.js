@@ -16,7 +16,7 @@ const PrivateStackNavigator = () => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'ios-home-outline';
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'Setting') {
             iconName = focused ? 'settings' : 'ios-settings-outline';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart' : 'ios-cart-outline';
@@ -30,7 +30,7 @@ const PrivateStackNavigator = () => {
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Cart" component={CartStackNavigator} />
-      <Tab.Screen name="Settings" component={SettingsStackNavigator} />
+      <Tab.Screen name="Setting" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
 };
