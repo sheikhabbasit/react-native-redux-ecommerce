@@ -23,10 +23,13 @@ const PrivateStackNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#9C0F48',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#eda6c2',
+        tabBarInactiveTintColor: 'white',
         tabBarHideOnKeyboard: true,
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#9C0F48',
+        },
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Cart" component={CartStackNavigator} />
