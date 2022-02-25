@@ -38,12 +38,12 @@ export default Settings;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#FDEFF4',
+    backgroundColor: '#FFBBBB',
     padding: 10,
   },
   card: {
     marginHorizontal: 10,
-    backgroundColor: '#FFBBBB',
+    backgroundColor: '#9C0F48',
     padding: 20,
     borderRadius: 15,
     elevate: 5,
