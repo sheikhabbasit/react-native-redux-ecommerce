@@ -16,18 +16,15 @@ const ProductItem = props => {
   return (
     <Card>
       <Pressable onPress={navigateTo}>
-        <View style={styles.container}>
-          <Image style={styles.image} source={imageSource} />
-          <View style={styles.detailsContainer}>
-            <View style={styles.details}>
-              <Text style={styles.productName}>{name}</Text>
-              <Text style={styles.productLabel}>Price: {price}</Text>
-            </View>
-            <Text style={styles.discount}>
-              At a mega discount of{' '}
-              <Text style={styles.discountLabel}>{discount}</Text>
-            </Text>
+        <Image style={styles.image} source={imageSource} />
+        <View style={styles.detailsContainer}>
+          <View style={styles.details}>
+            <Text style={styles.productName}>{name}</Text>
+            <Text style={styles.productLabel}>Price: {price}</Text>
           </View>
+          <Text style={styles.discount}>
+            <Text style={styles.discountLabel}>{discount}</Text> off
+          </Text>
         </View>
         <Button onPress={navigateTo} label="Details" />
       </Pressable>
@@ -38,25 +35,23 @@ const ProductItem = props => {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
+  details: {
+    width: '70%',
   },
   detailsContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginStart: 10,
-    backgroundColor: '#e88eb2',
     borderRadius: 10,
-    width: '48%',
-  },
-  details: {
-    padding: 10,
+    width: '100%',
   },
   discount: {
     textAlign: 'center',
     paddingHorizontal: 10,
-    marginBottom: 10,
+    alignSelf: 'flex-start',
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#eda6c2',
   },
   discountLabel: {
     fontWeight: 'bold',
@@ -64,23 +59,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   image: {
-    width: '48%',
+    width: '100%',
     height: 170,
+    marginBottom: 10,
     borderRadius: 10,
     opacity: 0.7,
   },
   productName: {
     fontSize: 18,
-    color: '#9C0F48',
+    color: '#eda6c2',
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
   },
   productLabel: {
     fontSize: 15,
-    color: '#9C0F48',
+    color: '#eda6c2',
     fontWeight: 'bold',
     opacity: 0.7,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
 });
