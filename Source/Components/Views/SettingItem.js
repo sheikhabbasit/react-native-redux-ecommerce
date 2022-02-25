@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 15,
     marginHorizontal: 10,
-    marginTop: 10,
+    marginTop: 5,
   },
   textLabel: {
     color: '#fff',
