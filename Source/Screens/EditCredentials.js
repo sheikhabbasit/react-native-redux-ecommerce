@@ -33,6 +33,6 @@ export default EditCredentials;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDEFF4',
+    backgroundColor: '#FFBBBB',
   },
 });
