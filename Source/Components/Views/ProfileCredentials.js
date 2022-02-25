@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   textLabel: {
-    color: '#FF5C8D',
+    color: '#eda6c2',
     fontWeight: 'bold',
   },
   credentials: {
-    color: 'grey',
+    color: '#a39696',
   },
 });
