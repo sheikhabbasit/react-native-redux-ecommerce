@@ -1,5 +1,6 @@
 import {CartActions} from '../Actions/CartActions';
 
+const initialState = {};
 export const CartReducer = (
   state = {cartItems: [], totalQuantity: 0, idWithQuantity: {}},
   payload,
@@ -8,7 +9,6 @@ export const CartReducer = (
     case CartActions.ADD:
       // when there is nothing in the cart
       if (!state.cartItems) {
-        console.log('first run');
         return {
           ...state,
           cartItems: [payload.data.product],
@@ -18,7 +18,6 @@ export const CartReducer = (
       } else {
         // when there is something in the cart already with same value
         if (state.cartItems.find(item => item.id === payload.data.product.id)) {
-          console.log('second run with same data');
           return {
             ...state,
             totalQuantity: state.totalQuantity + 1,
@@ -30,7 +29,6 @@ export const CartReducer = (
           };
         }
         // if product was never added before
-        console.log('second run with new data');
         return {
           ...state,
           cartItems: [...state.cartItems, payload.data.product],
