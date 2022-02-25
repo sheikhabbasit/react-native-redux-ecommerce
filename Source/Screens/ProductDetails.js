@@ -20,7 +20,7 @@ const ProductDetails = props => {
   // };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.parent}>
       <ScrollView style={styles.container}>
         <Card>
           <Image style={styles.image} source={imageSource} />
@@ -46,6 +46,10 @@ const ProductDetails = props => {
 export default ProductDetails;
 
 const styles = StyleSheet.create({
+  parent: {
+    backgroundColor: '#9C0F48',
+    paddingBottom: 16,
+  },
   container: {
     backgroundColor: '#9C0F48',
     padding: 20,
@@ -54,6 +58,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 250,
     borderRadius: 10,
+    opacity: 0.8,
   },
   label: {
     color: 'white',
