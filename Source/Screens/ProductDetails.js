@@ -3,7 +3,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import React from 'react';
 import Card from '../Components/HOC/Card';
 import Button from '../Components/HOC/Button';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {CartActions} from '../Redux/Actions/CartActions';
 
 const ProductDetails = props => {
