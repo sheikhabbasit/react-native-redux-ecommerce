@@ -12,11 +12,18 @@ const SettingsStackNavigator = () => {
         name="FoodKhana"
         component={Home}
         options={{
+          headerTintColor: '#eda6c2',
+          headerStyle: {
+            backgroundColor: '#9C0F48',
+          },
+          headerTitleStyle: {
+            fontWeight: '700',
+          },
           headerLeft: props => (
             <Ionicons
               name="fast-food"
               size={30}
-              color="#9C0F48"
+              color="#eda6c2"
               style={{marginEnd: 10}}
             />
           ),
