@@ -6,10 +6,13 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {Fragment} from 'react';
 import CartItem from '../Components/Views/CartItem';
 import {useSelector} from 'react-redux';
+import Card from '../Components/HOC/Card';
+import CartTotals from '../Components/Views/CartTotals';
 
 const Cart = props => {
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
@@ -23,16 +26,30 @@ const Cart = props => {
           <CartItem product={item} idWithQuantity={idWithQuantity} />
         )}
         keyExtractor={item => item.id}
+        ListFooterComponent={
+          <Fragment>
+            <Card>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Enter delivery location"
+              />
+              <Text style={styles.generalText}>
+                <Text style={styles.boldText}>Destination: </Text>Dummy Selected
+                Location
+              </Text>
+            </Card>
+            <Card>
+              <CartTotals label="Cart Total:" amount="400" />
+              <CartTotals label="Shipping:" amount="10" />
+              <CartTotals label="Tax:" amount="18" />
+              <CartTotals label="Amount Payable:" amount="428$" />
+            </Card>
+            <Pressable style={styles.checkoutButton}>
+              <Text style={styles.checkoutLabel}>Checkout</Text>
+            </Pressable>
+          </Fragment>
+        }
       />
-      <ScrollView style={styles.checkoutParent}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Enter delivery location"
-        />
-        <View style={styles.checkoutContainer}>
-          <Text>Checkout</Text>
-        </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -52,8 +69,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   checkoutParent: {
-    borderTopWidth: 3,
-    borderTopColor: '#eda6c2',
     backgroundColor: '#9C0F48',
     padding: 20,
     height: '50%',
@@ -64,6 +79,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#9C0F48',
     justifyContent: 'flex-end',
     borderRadius: 10,
+  },
+  boldText: {
+    fontWeight: 'bold',
+    color: '#ffcbcb',
+  },
+  generalText: {
+    color: '#FFCBCB',
+  },
+  checkoutButton: {
+    backgroundColor: '#9C0F48',
+    padding: 10,
+    borderRadius: 10,
+  },
+  checkoutLabel: {
+    color: '#FFCBCB',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
