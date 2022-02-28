@@ -10,7 +10,7 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#9C0F48',
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
     marginBottom: 30,
     elevation: 10,
