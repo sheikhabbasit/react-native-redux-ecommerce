@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   list: {
     borderRadius: 10,
-    padding: 20,
+    padding: 10,
   },
 });
 
