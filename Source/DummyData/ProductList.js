@@ -2,7 +2,7 @@ export const Products = [
   {
     id: 1,
     name: 'Yummy Burger 🍔',
-    price: '$100',
+    price: 100,
     imageSource: require('../Resources/Images/product1.jpg'),
     discount: '10%',
     description:
@@ -11,7 +11,7 @@ export const Products = [
   {
     id: 2,
     name: 'The Berry Pastry 🍰',
-    price: '$200',
+    price: 200,
     imageSource: require('../Resources/Images/product2.jpg'),
     discount: '20%',
     description:
@@ -20,7 +20,7 @@ export const Products = [
   {
     id: 3,
     name: 'Black Sandwich 🥪',
-    price: '$300',
+    price: 300,
     imageSource: require('../Resources/Images/product3.jpg'),
     discount: '30%',
     description:
@@ -29,7 +29,7 @@ export const Products = [
   {
     id: 4,
     name: 'Popular Pizza 🍕',
-    price: '$400',
+    price: 400,
     imageSource: require('../Resources/Images/product4.jpg'),
     discount: '40%',
     description:
@@ -38,7 +38,7 @@ export const Products = [
   {
     id: 5,
     name: 'Our Special 🍪',
-    price: '$500',
+    price: 500,
     imageSource: require('../Resources/Images/product5.jpg'),
     discount: '50%',
     description:
