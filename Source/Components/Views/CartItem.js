@@ -49,11 +49,12 @@ const CartItem = ({product, idWithQuantity}) => {
     </Card>
   );
 };
-
+//
 export default CartItem;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
@@ -64,17 +65,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   detailsContainer: {
+    flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#eda6c2',
     fontWeight: '700',
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#eda6c2',
   },
   quantityWrapper: {
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
   quantityChangerWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   amountContainer: {
     justifyContent: 'center',
