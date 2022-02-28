@@ -8,41 +8,36 @@ import {CartActions} from '../Redux/Actions/CartActions';
 import {useNavigation} from '@react-navigation/native';
 
 const ProductDetails = props => {
-  const {imageSource, name, price, description} = props.route.params.product;
   const {product} = props.route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({title: name});
+    navigation.setOptions({title: product.name});
   });
 
   const addToCart = () => {
     dispatch({type: CartActions.ADD, data: {product}});
   };
 
-  // const addToCart = () => {
-  //   dispatch({type: CartActions.REMOVE});
-  // };
-
   return (
     <SafeAreaView style={styles.parent}>
       <ScrollView style={styles.container}>
         <Card>
-          <Image style={styles.image} source={imageSource} />
+          <Image style={styles.image} source={product.imageSource} />
           <Text style={styles.label}>
             Product Name:{'\n'}
-            <Text style={styles.productSpecifics}>{name}</Text>
+            <Text style={styles.productSpecifics}>{product.name}</Text>
           </Text>
           <Text style={styles.label}>
             Cost:{'\n'}
-            <Text style={styles.productSpecifics}>{price}</Text>
+            <Text style={styles.productSpecifics}>{product.price}</Text>
           </Text>
           <Button onPress={addToCart} label="Add to Cart" />
         </Card>
         <Card style={styles.cardSpecific}>
           <Text style={[styles.label, styles.description]}>Description:</Text>
-          <Text style={styles.productDescription}>{description}</Text>
+          <Text style={styles.productDescription}>{product.description}</Text>
         </Card>
       </ScrollView>
     </SafeAreaView>
@@ -53,12 +48,11 @@ export default ProductDetails;
 
 const styles = StyleSheet.create({
   parent: {
-    backgroundColor: '#9C0F48',
-    paddingBottom: 16,
+    backgroundColor: '#eda6c2',
   },
   container: {
-    backgroundColor: '#9C0F48',
-    padding: 20,
+    backgroundColor: '#eda6c2',
+    padding: 10,
   },
   image: {
     width: '100%',
