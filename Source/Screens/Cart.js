@@ -8,7 +8,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React, {Fragment} from 'react';
+import React, {Fragment, useLayoutEffect} from 'react';
 import CartItem from '../Components/Views/CartItem';
 import {useSelector} from 'react-redux';
 import Card from '../Components/HOC/Card';
@@ -16,6 +16,14 @@ import CartTotals from '../Components/Views/CartTotals';
 
 const Cart = props => {
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
+
+  const cart = useSelector(state => state.cart);
+
+  const cartTotalValue = cart.cartItems.reduce(
+    (accumulator, currentValue) =>
+      accumulator + currentValue.price * idWithQuantity[currentValue.id],
+    0,
+  );
 
   return (
     <SafeAreaView style={styles.wrapper}>
