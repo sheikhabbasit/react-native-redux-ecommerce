@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 const Splash = props => {
   const [loading, setLoading] = useState(true);
   const {userInfo} = useSelector(state => state.app);
+
   useEffect(() => {
     checkUserSession();
   }, []);
@@ -28,7 +29,7 @@ const Splash = props => {
 
   return (
     <ImageBackground
-      source={require('../Resources/Images/loginbg.jpg')}
+      source={require('../Resources/Images/splash.jpg')}
       style={{
         width: '100%',
         height: '100%',
