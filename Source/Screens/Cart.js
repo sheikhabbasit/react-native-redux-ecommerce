@@ -19,11 +19,15 @@ const Cart = props => {
 
   const cart = useSelector(state => state.cart);
 
-  const cartTotalValue = cart.cartItems.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue.price * idWithQuantity[currentValue.id],
-    0,
-  );
+  const cartTotalValue =
+    cart.cartItems?.reduce(
+      (accumulator, currentValue) =>
+        accumulator + currentValue.price * idWithQuantity[currentValue.id],
+      0,
+    ) ?? 0;
+  const shipping = cartTotalValue > 100 || cartTotalValue < 1 ? 0 : 10;
+  const tax = cartTotalValue * 0.18;
+  const amountPayable = cartTotalValue + shipping + tax;
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -47,10 +51,10 @@ const Cart = props => {
               </Text>
             </Card>
             <Card>
-              <CartTotals label="Cart Total:" amount="400" />
-              <CartTotals label="Shipping:" amount="10" />
-              <CartTotals label="Tax:" amount="18" />
-              <CartTotals label="Amount Payable:" amount="428$" />
+              <CartTotals label="Cart Total:" amount={cartTotalValue} />
+              <CartTotals label="Shipping:" amount={shipping} />
+              <CartTotals label="Tax:" amount={tax} />
+              <CartTotals label="Amount Payable:" amount={amountPayable} />
             </Card>
             <Pressable style={styles.checkoutButton}>
               <Text style={styles.checkoutLabel}>Checkout</Text>
