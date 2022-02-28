@@ -41,7 +41,7 @@ const CartItem = ({product, idWithQuantity}) => {
               </Pressable>
             </View>
             <View style={styles.deleteContainer}>
-              <MaterialCommunityIcons name="delete" size={20} color="#292329" />
+              <MaterialCommunityIcons name="delete" size={25} color="#9C0F48" />
             </View>
           </View>
         </View>
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addSubButton: {
-    height: 22,
-    width: 22,
+    height: 25,
+    width: 25,
     backgroundColor: '#eda6c2',
     borderRadius: 5,
     justifyContent: 'center',
