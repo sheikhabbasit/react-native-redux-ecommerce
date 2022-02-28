@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 const PrivateStackNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -28,7 +29,7 @@ const PrivateStackNavigator = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#9C0F48',
+          backgroundColor: '#470D21',
         },
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
