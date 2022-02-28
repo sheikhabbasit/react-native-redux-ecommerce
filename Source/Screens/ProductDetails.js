@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'white',
-    marginTop: 10,
+    marginTop: 5,
     fontSize: 15,
   },
   description: {
