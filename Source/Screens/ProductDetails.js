@@ -1,15 +1,21 @@
 import {Text, StyleSheet, ScrollView, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import Card from '../Components/HOC/Card';
 import Button from '../Components/HOC/Button';
 import {useDispatch} from 'react-redux';
 import {CartActions} from '../Redux/Actions/CartActions';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductDetails = props => {
   const {imageSource, name, price, description} = props.route.params.product;
   const {product} = props.route.params;
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({title: name});
+  });
 
   const addToCart = () => {
     dispatch({type: CartActions.ADD, data: {product}});
