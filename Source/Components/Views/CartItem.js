@@ -1,7 +1,7 @@
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {CartActions} from '../../Redux/Actions/CartActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,6 +14,14 @@ const CartItem = ({product, idWithQuantity}) => {
     dispatch({type: CartActions.ADD, data: {product}});
   };
 
+  const reduceQuantity = () => {
+    dispatch({type: CartActions.REDUCE, data: {product}});
+  };
+
+  const deleteFromCart = () => {
+    dispatch({type: CartActions.REMOVE, data: {product}});
+  };
+
   return (
     <Card>
       <View style={styles.container}>
@@ -21,11 +29,14 @@ const CartItem = ({product, idWithQuantity}) => {
         <View style={styles.detailsContainer}>
           <View>
             <Text style={styles.title}>{name}</Text>
-            <Text style={styles.price}>{price}</Text>
+            <Text style={styles.price}>
+              Subtotal: {price * productQuantity}
+            </Text>
           </View>
           <View style={styles.quantityWrapper}>
             <View style={styles.quantityChangerWrapper}>
               <Pressable
+                onPress={reduceQuantity}
                 android_ripple={{color: 'white'}}
                 style={styles.addSubButton}>
                 <Text style={styles.buttonLabel}>-</Text>
@@ -40,9 +51,12 @@ const CartItem = ({product, idWithQuantity}) => {
                 <Text style={styles.buttonLabel}>+</Text>
               </Pressable>
             </View>
-            <View style={styles.deleteContainer}>
+            <Pressable
+              android_ripple={{color: 'white'}}
+              onPress={deleteFromCart}
+              style={styles.deleteContainer}>
               <MaterialCommunityIcons name="delete" size={25} color="#9C0F48" />
-            </View>
+            </Pressable>
           </View>
         </View>
       </View>
