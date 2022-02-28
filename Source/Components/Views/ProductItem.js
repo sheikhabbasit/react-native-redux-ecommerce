@@ -26,7 +26,6 @@ const ProductItem = props => {
             <Text style={styles.discountLabel}>{discount}</Text> off
           </Text>
         </View>
-        <Button onPress={navigateTo} label="Details" />
       </Pressable>
     </Card>
   );
@@ -60,7 +59,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 170,
+    height: 180,
+    margin: 0,
     marginBottom: 10,
     borderRadius: 10,
     opacity: 0.7,
@@ -75,6 +75,5 @@ const styles = StyleSheet.create({
     color: '#eda6c2',
     fontWeight: 'bold',
     opacity: 0.7,
-    // textAlign: 'center',
   },
 });
