@@ -1,9 +1,18 @@
 import {FlatList, SafeAreaView, StyleSheet, TextInput} from 'react-native';
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import ProductItem from '../Components/Views/ProductItem';
 import {Products} from '../DummyData/ProductList';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const Home = props => {
+  const navigation = useNavigation();
+  const {email} = useSelector(state => state.app.userInfo);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({title: `Welcome "${email}"`});
+  });
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <TextInput style={styles.textInput} placeholder="Search" />
