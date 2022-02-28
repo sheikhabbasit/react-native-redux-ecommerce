@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     color: '#9C0F48',
   },
   cartButton: {
-    marginTop: 20,
+    marginTop: 10,
     padding: 10,
     borderRadius: 10,
     justifyContent: 'center',
