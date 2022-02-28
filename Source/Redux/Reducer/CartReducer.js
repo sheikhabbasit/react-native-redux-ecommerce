@@ -44,13 +44,10 @@ export const CartReducer = (
     case CartActions.REDUCE:
       // when there is nothing in the carT
       if (state.cartItems.length === 0) {
-        console.log('Condition 1', state);
         return;
       }
 
       if (state.idWithQuantity[payload.data.product.id] === 1) {
-        console.log('condition 2', payload.data.product.id);
-
         return {
           ...state,
           idWithQuantity: {
@@ -65,7 +62,6 @@ export const CartReducer = (
       }
 
       if (state.idWithQuantity[payload.data.product.id] > 1) {
-        console.log('condition 3', state);
         return {
           ...state,
           idWithQuantity: {
