@@ -28,6 +28,7 @@ export const CartReducer = (
             },
           };
         }
+
         // if product was never added before
         return {
           ...state,
@@ -40,10 +41,57 @@ export const CartReducer = (
         };
       }
 
+    case CartActions.REDUCE:
+      // when there is nothing in the carT
+      if (state.cartItems.length === 0) {
+        console.log('Condition 1', state);
+        return;
+      }
+
+      if (state.idWithQuantity[payload.data.product.id] === 1) {
+        console.log('condition 2', payload.data.product.id);
+
+        return {
+          ...state,
+          idWithQuantity: {
+            ...state.idWithQuantity,
+            [payload.data.product.id]: 0,
+          },
+          totalQuantity: state.totalQuantity - 1,
+          cartItems: state.cartItems.filter(
+            item => item.id !== payload.data.product.id,
+          ),
+        };
+      }
+
+      if (state.idWithQuantity[payload.data.product.id] > 1) {
+        console.log('condition 3', state);
+        return {
+          ...state,
+          idWithQuantity: {
+            ...state.idWithQuantity,
+            [payload.data.product.id]:
+              state.idWithQuantity[payload.data.product.id] - 1,
+          },
+          totalQuantity: state.totalQuantity - 1,
+        };
+      }
+
     case CartActions.REMOVE:
-      return {...initialState};
+      return {
+        ...state,
+        idWithQuantity: {
+          ...state.idWithQuantity,
+          [payload.data.product.id]: 0,
+        },
+        totalQuantity:
+          state.totalQuantity - state.idWithQuantity[payload.data.product.id],
+        cartItems: state.cartItems.filter(
+          item => item.id !== payload.data.product.id,
+        ),
+      };
 
     default:
-      return state;
+      return {...initialState};
   }
 };
