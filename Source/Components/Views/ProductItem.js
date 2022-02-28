@@ -2,7 +2,6 @@ import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
-import Button from '../HOC/Button';
 
 const ProductItem = props => {
   const {imageSource, name, price, discount} = props.product;
@@ -20,7 +19,7 @@ const ProductItem = props => {
         <View style={styles.detailsContainer}>
           <View style={styles.details}>
             <Text style={styles.productName}>{name}</Text>
-            <Text style={styles.productLabel}>Price: {price}</Text>
+            <Text style={styles.productLabel}>Price: ${price}</Text>
           </View>
           <Text style={styles.discount}>
             <Text style={styles.discountLabel}>{discount}</Text> off
