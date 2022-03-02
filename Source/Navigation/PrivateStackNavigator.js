@@ -4,10 +4,13 @@ import HomeStackNavigator from './HomeStackNavigator';
 import SettingsStackNavigator from './SettingsStackNavigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CartStackNavigator from './CartStackNavigator';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const PrivateStackNavigator = () => {
+  const {totalQuantity} = useSelector(state => state.cart);
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,7 +36,11 @@ const PrivateStackNavigator = () => {
         },
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Cart" component={CartStackNavigator} />
+      <Tab.Screen
+        name="Cart"
+        component={CartStackNavigator}
+        options={{tabBarBadge: totalQuantity === 0 ? null : totalQuantity}}
+      />
       <Tab.Screen name="Setting" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
