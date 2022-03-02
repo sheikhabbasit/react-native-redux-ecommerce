@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     borderRadius: 10,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     marginBottom: 10,
   },
   boldText: {
