@@ -13,7 +13,12 @@ const ProductDetails = props => {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({title: product.name});
+    navigation.setOptions({
+      title:
+        product.name.length > 23
+          ? product.name.slice(0, 22) + '...'
+          : product.name,
+    });
   });
 
   const addToCart = () => {
