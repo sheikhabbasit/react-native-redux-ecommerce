@@ -24,8 +24,12 @@ const Settings = props => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.card}>
-        <ProfileCredentials label="Email ID:" attribute={email} />
-        <ProfileCredentials label="Password:" attribute={password} />
+        <Pressable
+          style={styles.credentialsDisplay}
+          android_ripple={{color: 'white'}}>
+          <ProfileCredentials label="Email ID:" attribute={email} />
+          <ProfileCredentials label="Password:" attribute={password} />
+        </Pressable>
       </View>
       <SettingItem onPress={handleEditing} label="Edit Credentials" />
       <SettingItem onPress={handleLogout} label="Logout" />
@@ -42,11 +46,15 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   card: {
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    overflow: 'hidden',
     marginHorizontal: 10,
-    backgroundColor: '#9C0F48',
-    padding: 20,
     borderRadius: 15,
     elevate: 5,
-    marginBottom: 10,
+  },
+  credentialsDisplay: {
+    backgroundColor: '#9C0F48',
+    padding: 20,
   },
 });
