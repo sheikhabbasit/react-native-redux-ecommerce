@@ -6,6 +6,7 @@ import {
   TextInput,
   Text,
   View,
+  Keyboard,
 } from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import ProductItem from '../Components/Views/ProductItem';
@@ -28,6 +29,7 @@ const Home = props => {
   const clearSearch = () => {
     setSearchValue('');
     setProductList(Products);
+    Keyboard.dismiss();
   };
 
   const handleChange = e => {
