@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   Pressable,
+  Image,
 } from 'react-native';
 import React, {Fragment, useEffect, useState} from 'react';
 import CartItem from '../Components/Views/CartItem';
@@ -49,7 +50,10 @@ const Cart = props => {
         )}
         keyExtractor={item => item.id}
         ListEmptyComponent={
-          <Text style={styles.emptyCart}>Add something to cart!</Text>
+          <Image
+            source={require('../Resources/Images/emptycart.jpg')}
+            style={styles.emptyCart}
+          />
         }
         ListFooterComponent={
           !listEmpty && (
@@ -108,10 +112,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   emptyCart: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#9C0F48',
-    margin: 20,
+    flex: 1,
+    width: '100%',
+    borderRadius: 10,
   },
   boldText: {
     fontWeight: 'bold',
