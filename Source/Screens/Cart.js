@@ -8,7 +8,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React, {Fragment, useLayoutEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import CartItem from '../Components/Views/CartItem';
 import {useSelector} from 'react-redux';
 import Card from '../Components/HOC/Card';
@@ -16,16 +16,21 @@ import CartTotals from '../Components/Views/CartTotals';
 
 const Cart = props => {
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
-  const [listEmpty, setListEmpty] = useState(false);
-  const cart = useSelector(state => state.cart);
+  const [listEmpty, setListEmpty] = useState(cartItems ? true : false);
 
-  useLayoutEffect(() => {
-    if (cartItems.length === 0) setListEmpty(true);
-    if (cartItems.length > 0) setListEmpty(false);
+  useEffect(() => {
+    if (cartItems) {
+      console.log('Condition 1 run');
+      setListEmpty(false);
+    }
+    if (cartItems.length === 0) {
+      console.log('Condition 2 run');
+      setListEmpty(true);
+    }
   }, [cartItems]);
 
   const cartTotalValue =
-    cart.cartItems?.reduce(
+    cartItems?.reduce(
       (accumulator, currentValue) =>
         accumulator + currentValue.price * idWithQuantity[currentValue.id],
       0,
