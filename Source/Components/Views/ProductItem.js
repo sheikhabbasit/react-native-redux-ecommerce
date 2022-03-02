@@ -18,7 +18,9 @@ const ProductItem = props => {
         <Image style={styles.image} source={imageSource} />
         <View style={styles.detailsContainer}>
           <View style={styles.details}>
-            <Text style={styles.productName}>{name}</Text>
+            <Text numberOfLines={1} style={styles.productName}>
+              {name}
+            </Text>
             <Text style={styles.productLabel}>Price: ${price}</Text>
           </View>
           <Text style={styles.discount}>
