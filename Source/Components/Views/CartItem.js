@@ -1,12 +1,14 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useDispatch} from 'react-redux';
 import {CartActions} from '../../Redux/Actions/CartActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CartActionButton from './CartActionButton';
+import {useNavigation} from '@react-navigation/native';
 
 const CartItem = ({product, idWithQuantity}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {imageSource, name, price, id} = product;
   const productQuantity = idWithQuantity[id];
@@ -23,9 +25,13 @@ const CartItem = ({product, idWithQuantity}) => {
     dispatch({type: CartActions.REMOVE, data: {product}});
   };
 
+  const navigateToProduct = () => {
+    navigation.navigate('Product Details', {product});
+  };
+
   return (
     <Card>
-      <View style={styles.container}>
+      <Pressable onPress={navigateToProduct} style={styles.container}>
         <Image source={imageSource} style={styles.image} />
         <View style={styles.detailsContainer}>
           <View>
@@ -44,20 +50,22 @@ const CartItem = ({product, idWithQuantity}) => {
               </View>
               <CartActionButton label="+" onPress={incrementQuantity} />
             </View>
-            <CartActionButton
-              extraMargin={true}
-              label={
-                <MaterialCommunityIcons
-                  name="delete"
-                  size={25}
-                  color="#9C0F48"
-                />
-              }
-              onPress={deleteFromCart}
-            />
+            <View>
+              <CartActionButton
+                extraMargin={true}
+                label={
+                  <MaterialCommunityIcons
+                    name="delete"
+                    size={20}
+                    color="#9C0F48"
+                  />
+                }
+                onPress={deleteFromCart}
+              />
+            </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     </Card>
   );
 };
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
   quantity: {
     fontSize: 16,
     color: '#eda6c2',
-    marginEnd: 15,
+    marginHorizontal: 15,
   },
   deleteContainer: {
     backgroundColor: '#eda6c2',
