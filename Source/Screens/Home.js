@@ -35,7 +35,7 @@ const Home = props => {
     if (e.nativeEvent.text.length === 0) return setProductList(Products);
     setProductList(
       Products.filter(product =>
-        product.name.toLowerCase().includes(e.nativeEvent.text),
+        product.name.toLowerCase().includes(e.nativeEvent.text.toLowerCase()),
       ),
     );
   };
