@@ -1,7 +1,7 @@
 export const Products = [
   {
     id: 1,
-    name: 'Yummy Burger 🍔',
+    name: 'Yummy Burger 🍔 (100, 200 , 300) grams',
     price: 100,
     imageSource: require('../Resources/Images/product1.jpg'),
     discount: '10%',
@@ -10,7 +10,7 @@ export const Products = [
   },
   {
     id: 2,
-    name: 'The Berry Pastry 🍰',
+    name: 'The Berry Pastry 🍰 (100, 200 , 300) grams',
     price: 200,
     imageSource: require('../Resources/Images/product2.jpg'),
     discount: '20%',
@@ -19,7 +19,7 @@ export const Products = [
   },
   {
     id: 3,
-    name: 'Black Sandwich 🥪',
+    name: 'Black Sandwich 🥪 (100, 200 , 300) grams',
     price: 300,
     imageSource: require('../Resources/Images/product3.jpg'),
     discount: '30%',
@@ -28,7 +28,7 @@ export const Products = [
   },
   {
     id: 4,
-    name: 'Popular Pizza 🍕',
+    name: 'Popular Pizza 🍕 (100, 200 , 300) grams',
     price: 400,
     imageSource: require('../Resources/Images/product4.jpg'),
     discount: '40%',
@@ -37,7 +37,7 @@ export const Products = [
   },
   {
     id: 5,
-    name: 'Our Special 🍪',
+    name: 'Our Special 🍪 (100, 200 , 300) grams',
     price: 500,
     imageSource: require('../Resources/Images/product5.jpg'),
     discount: '50%',
