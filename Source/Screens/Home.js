@@ -1,4 +1,12 @@
-import {FlatList, SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+} from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import ProductItem from '../Components/Views/ProductItem';
 import {Products} from '../DummyData/ProductList';
@@ -17,6 +25,11 @@ const Home = props => {
     navigation.setOptions({title: `Welcome ${name}`});
   });
 
+  const clearSearch = () => {
+    setSearchValue('');
+    setProductList(Products);
+  };
+
   const handleChange = e => {
     setSearchValue(e.nativeEvent.text);
     if (e.nativeEvent.text.length === 0) return setProductList(Products);
@@ -29,12 +42,17 @@ const Home = props => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Search"
-        onChange={handleChange}
-        value={searchValue}
-      />
+      <View style={styles.searchWrapper}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Search"
+          onChange={handleChange}
+          value={searchValue}
+        />
+        <Pressable onPress={clearSearch} style={styles.crossButton}>
+          <Text style={styles.crossLabel}>X</Text>
+        </Pressable>
+      </View>
       <FlatList
         contentContainerStyle={styles.list}
         data={productList}
@@ -50,11 +68,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFCBCB',
     flex: 1,
   },
-  textInput: {
+  searchWrapper: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10,
+    marginHorizontal: 10,
+    borderColor: '#ccc',
+    borderRadius: 10,
     backgroundColor: '#fff',
-    margin: 10,
+  },
+  textInput: {
+    flex: 1,
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+  },
+  crossButton: {
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  crossLabel: {
+    opacity: 0.8,
   },
   list: {
     borderRadius: 10,
