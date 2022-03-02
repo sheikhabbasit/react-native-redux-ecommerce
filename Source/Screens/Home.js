@@ -49,9 +49,14 @@ const Home = props => {
           onChange={handleChange}
           value={searchValue}
         />
-        <Pressable onPress={clearSearch} style={styles.crossButton}>
-          <Text style={styles.crossLabel}>X</Text>
-        </Pressable>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            android_ripple={{color: 'grey'}}
+            onPress={clearSearch}
+            style={styles.crossButton}>
+            <Text style={styles.crossLabel}>X</Text>
+          </Pressable>
+        </View>
       </View>
       <FlatList
         contentContainerStyle={styles.list}
@@ -82,6 +87,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+  },
+  buttonContainer: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    borderRadius: 10,
+    margin: 3,
   },
   crossButton: {
     paddingHorizontal: 10,
