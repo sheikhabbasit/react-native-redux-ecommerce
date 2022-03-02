@@ -20,13 +20,11 @@ const Cart = props => {
   const [listEmpty, setListEmpty] = useState(cartItems ? true : false);
 
   useEffect(() => {
-    if (cartItems) {
-      console.log('Condition 1 run');
-      setListEmpty(false);
+    if (!cartItems) {
+      return setListEmpty(true);
     }
-    if (cartItems.length === 0) {
-      console.log('Condition 2 run');
-      setListEmpty(true);
+    if (cartItems.length > 0) {
+      return setListEmpty(false);
     }
   }, [cartItems]);
 
