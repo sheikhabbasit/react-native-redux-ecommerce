@@ -10,12 +10,14 @@ const Splash = props => {
     checkUserSession();
   }, []);
 
-  const checkUserSession = async () => {
+  const checkUserSession = () => {
     const isLogged = Object.keys(userInfo).length > 0;
 
     if (isLogged) {
+      setLoading(false);
       handleNavigation('PrivateStackNavigator');
     } else {
+      setLoading(false);
       handleNavigation('Login');
     }
   };
