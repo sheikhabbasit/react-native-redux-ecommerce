@@ -17,14 +17,15 @@ import CartTotals from '../Components/Views/CartTotals';
 
 const Cart = props => {
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
-  const [listEmpty, setListEmpty] = useState(cartItems ? true : false);
+  const [listNotEmpty, setListNotEmpty] = useState(cartItems ? true : false);
 
   useEffect(() => {
-    if (!cartItems) {
-      return setListEmpty(true);
+    if (cartItems?.length === 0) {
+      console.log('cart emptied');
+      return setListNotEmpty(false);
     }
-    if (cartItems.length > 0) {
-      return setListEmpty(false);
+    if (cartItems?.length > 0) {
+      return setListNotEmpty(true);
     }
   }, [cartItems]);
 
@@ -54,7 +55,7 @@ const Cart = props => {
           />
         }
         ListFooterComponent={
-          !listEmpty && (
+          listNotEmpty && (
             <Fragment>
               <Card>
                 <TextInput
@@ -113,6 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     borderRadius: 10,
+    resizeMode: 'contain',
+    marginBottom: 10,
   },
   boldText: {
     fontWeight: 'bold',
