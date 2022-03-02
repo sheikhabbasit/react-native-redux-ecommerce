@@ -94,9 +94,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textInput: {
-    borderRadius: 10,
+    borderRadius: 5,
     backgroundColor: '#fff',
     marginBottom: 10,
+    padding: 10,
   },
   checkoutParent: {
     backgroundColor: '#9C0F48',
