@@ -1,9 +1,10 @@
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useDispatch} from 'react-redux';
 import {CartActions} from '../../Redux/Actions/CartActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import CartActionButton from './CartActionButton';
 
 const CartItem = ({product, idWithQuantity}) => {
   const dispatch = useDispatch();
@@ -28,35 +29,32 @@ const CartItem = ({product, idWithQuantity}) => {
         <Image source={imageSource} style={styles.image} />
         <View style={styles.detailsContainer}>
           <View>
-            <Text style={styles.title}>{name}</Text>
+            <Text numberOfLines={1} style={styles.title}>
+              {name}
+            </Text>
             <Text style={styles.price}>
               Subtotal: {price * productQuantity}
             </Text>
           </View>
           <View style={styles.quantityWrapper}>
             <View style={styles.quantityChangerWrapper}>
-              <Pressable
-                onPress={reduceQuantity}
-                android_ripple={{color: 'white'}}
-                style={styles.addSubButton}>
-                <Text style={styles.buttonLabel}>-</Text>
-              </Pressable>
+              <CartActionButton label="-" onPress={reduceQuantity} />
               <View style={styles.amountContainer}>
                 <Text style={styles.quantity}>{productQuantity}</Text>
               </View>
-              <Pressable
-                onPress={incrementQuantity}
-                android_ripple={{color: 'white'}}
-                style={styles.addSubButton}>
-                <Text style={styles.buttonLabel}>+</Text>
-              </Pressable>
+              <CartActionButton label="+" onPress={incrementQuantity} />
             </View>
-            <Pressable
-              android_ripple={{color: 'white'}}
+            <CartActionButton
+              extraMargin={true}
+              label={
+                <MaterialCommunityIcons
+                  name="delete"
+                  size={25}
+                  color="#9C0F48"
+                />
+              }
               onPress={deleteFromCart}
-              style={styles.deleteContainer}>
-              <MaterialCommunityIcons name="delete" size={25} color="#9C0F48" />
-            </Pressable>
+            />
           </View>
         </View>
       </View>
@@ -108,20 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  addSubButton: {
-    height: 25,
-    width: 25,
-    backgroundColor: '#eda6c2',
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginEnd: 10,
-  },
-  buttonLabel: {
-    fontSize: 18,
-    color: '#9C0F48',
-    fontWeight: 'bold',
-  },
+
   quantity: {
     fontSize: 16,
     color: '#eda6c2',
