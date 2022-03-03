@@ -16,6 +16,7 @@ import {useSelector} from 'react-redux';
 
 const Home = props => {
   const [searchValue, setSearchValue] = useState('');
+  const [id, setId] = useState('');
   const navigation = useNavigation();
   const {email} = useSelector(state => state.app.userInfo);
   const [productList, setProductList] = useState(Products);
@@ -44,12 +45,14 @@ const Home = props => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <View style={styles.searchWrapper}>
+      <View style={[styles.searchWrapper, id === 'email' && styles.focus]}>
         <TextInput
           style={styles.textInput}
           placeholder="Search"
           onChange={handleChange}
           value={searchValue}
+          onFocus={() => setId('email')}
+          onBlur={() => setId('')}
         />
         <View style={styles.buttonContainer}>
           <Pressable
@@ -89,6 +92,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
+  },
+  focus: {
+    borderColor: '#383434',
+    color: 'black',
+    borderWidth: 1,
   },
   buttonContainer: {
     alignSelf: 'stretch',
