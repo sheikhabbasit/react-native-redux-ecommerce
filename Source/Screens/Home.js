@@ -56,7 +56,7 @@ const Home = props => {
         />
         <View style={styles.buttonContainer}>
           <Pressable
-            android_ripple={{color: 'grey'}}
+            android_ripple={{color: 'grey', borderless: true}}
             onPress={clearSearch}
             style={styles.crossButton}>
             <Text style={styles.crossLabel}>X</Text>
