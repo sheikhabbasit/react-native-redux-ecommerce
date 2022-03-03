@@ -49,10 +49,13 @@ const Cart = props => {
         )}
         keyExtractor={item => item.id}
         ListEmptyComponent={
-          <Image
-            source={require('../Resources/Images/emptycart.jpg')}
-            style={styles.emptyCart}
-          />
+          <Fragment>
+            <Image
+              source={require('../Resources/Images/emptycart1.png')}
+              style={styles.emptyCart}
+            />
+            <Text style={styles.emptyCartText}>Your cart is empty!</Text>
+          </Fragment>
         }
         ListFooterComponent={
           listNotEmpty && (
@@ -114,9 +117,13 @@ const styles = StyleSheet.create({
   emptyCart: {
     flex: 1,
     width: '100%',
-    borderRadius: 10,
-    resizeMode: 'cover',
-    marginBottom: 10,
+    height: 300,
+  },
+  emptyCartText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'normal',
+    color: '#323d5c',
   },
   boldText: {
     fontWeight: 'bold',
