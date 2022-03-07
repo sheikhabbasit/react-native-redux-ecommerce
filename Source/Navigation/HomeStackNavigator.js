@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 const SettingsStackNavigator = props => {
   const navigation = useNavigation();
+
   return (
     <Stack.Navigator initialRouteName="FoodKhana">
       <Stack.Screen
@@ -43,15 +44,6 @@ const SettingsStackNavigator = props => {
           headerTitleStyle: {
             fontWeight: '700',
           },
-          headerLeft: props => (
-            <Ionicons
-              name="arrow-back-circle-outline"
-              size={30}
-              color="#eda6c2"
-              style={{marginEnd: 10}}
-              onPress={() => navigation.goBack()}
-            />
-          ),
         }}
       />
     </Stack.Navigator>
