@@ -13,7 +13,6 @@ const CartDiscount = ({
   const [redeemCode, setRedeemCode] = useState('');
   const handleSubmit = () => {
     if (redeemCode === '10OFF') {
-      console.log(redeemCode);
       handleDiscount(true);
     } else {
       handleDiscount(false);
