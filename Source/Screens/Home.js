@@ -20,6 +20,7 @@ const Home = props => {
   const navigation = useNavigation();
   const {email} = useSelector(state => state.app.userInfo);
   const [productList, setProductList] = useState(Products);
+  const [displayCross, setDisplayCross] = useState(false);
 
   useLayoutEffect(() => {
     const fullName = email.split('@')[0];
@@ -29,13 +30,18 @@ const Home = props => {
 
   const clearSearch = () => {
     setSearchValue('');
+    setDisplayCross(false);
     setProductList(Products);
     Keyboard.dismiss();
   };
 
   const handleChange = e => {
     setSearchValue(e.nativeEvent.text);
-    if (e.nativeEvent.text.length === 0) return setProductList(Products);
+    if (e.nativeEvent.text.length === 0) {
+      setProductList(Products);
+      return setDisplayCross(false);
+    }
+    setDisplayCross(true);
     setProductList(
       Products.filter(product =>
         product.name.toLowerCase().includes(e.nativeEvent.text.toLowerCase()),
@@ -54,14 +60,16 @@ const Home = props => {
           onFocus={() => setId('email')}
           onBlur={() => setId('')}
         />
-        <View style={styles.buttonContainer}>
-          <Pressable
-            android_ripple={{color: 'grey', borderless: true}}
-            onPress={clearSearch}
-            style={styles.crossButton}>
-            <Text style={styles.crossLabel}>X</Text>
-          </Pressable>
-        </View>
+        {displayCross && (
+          <View style={styles.buttonContainer}>
+            <Pressable
+              android_ripple={{color: 'grey', borderless: true}}
+              onPress={clearSearch}
+              style={styles.crossButton}>
+              <Text style={styles.crossLabel}>X</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
       <FlatList
         contentContainerStyle={styles.list}
