@@ -35,7 +35,6 @@ const EditForm = props => {
     <Formik
       initialValues={initialValuesDeclared}
       onSubmit={values => {
-        console.log(values);
         submitForm(values);
       }}
       validationSchema={EditCredentialsValidationModel}
