@@ -1,11 +1,8 @@
 import {
   FlatList,
-  View,
   Text,
   SafeAreaView,
   StyleSheet,
-  TextInput,
-  ScrollView,
   Pressable,
   Image,
 } from 'react-native';
@@ -14,14 +11,17 @@ import CartItem from '../Components/Views/CartItem';
 import {useSelector} from 'react-redux';
 import Card from '../Components/HOC/Card';
 import CartTotals from '../Components/Views/CartTotals';
+import CartForm from '../Components/Views/CartForm';
+import CartDiscount from '../Components/Views/CartDiscount';
 
 const Cart = props => {
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
   const [listNotEmpty, setListNotEmpty] = useState(cartItems ? true : false);
+  const [discountActive, setDiscountActive] = useState(false);
 
   useEffect(() => {
     if (cartItems?.length === 0) {
-      console.log('cart emptied');
+      setDiscountActive(false);
       return setListNotEmpty(false);
     }
     if (cartItems?.length > 0) {
@@ -35,9 +35,10 @@ const Cart = props => {
         accumulator + currentValue.price * idWithQuantity[currentValue.id],
       0,
     ) ?? 0;
-  const shipping = cartTotalValue > 100 || cartTotalValue < 1 ? 0 : 10;
+  const shipping = cartTotalValue > 500 || cartTotalValue < 1 ? 0 : 10;
   const tax = cartTotalValue * 0.18;
-  const amountPayable = cartTotalValue + shipping + tax;
+  const discount = discountActive ? (cartTotalValue + shipping + tax) * 0.1 : 0;
+  const amountPayable = cartTotalValue + shipping + tax - discount;
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -60,20 +61,24 @@ const Cart = props => {
         ListFooterComponent={
           listNotEmpty && (
             <Fragment>
-              <Card>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Enter delivery location"
-                />
-                <Text style={styles.generalText}>
-                  <Text style={styles.boldText}>Destination: </Text>Dummy
-                  Selected Location
-                </Text>
-              </Card>
+              <CartForm
+                placeholder="Enter Delivery Location"
+                boldTextLabel="Destination:"
+                textLabel="Dummy Selected Location"
+              />
+              <CartDiscount
+                boldTextLabel="Have a redeem code? Apply here 👇"
+                placeholder="Enter Redeem Code"
+                handleDiscount={setDiscountActive}
+                discountActive={discountActive}
+              />
               <Card>
                 <CartTotals label="Cart Total:" amount={cartTotalValue} />
                 <CartTotals label="Shipping:" amount={shipping} />
                 <CartTotals label="Tax:" amount={tax} />
+                {discountActive && (
+                  <CartTotals label="Discount" amount={`- ${discount}`} />
+                )}
                 <CartTotals label="Amount Payable:" amount={amountPayable} />
               </Card>
               <Pressable style={styles.checkoutButton}>
