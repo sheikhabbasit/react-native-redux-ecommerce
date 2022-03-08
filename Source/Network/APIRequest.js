@@ -29,7 +29,24 @@ export const getDogGenres = async (limit = 1) => {
       },
     });
     let result = await res.json();
-    response = Object.keys(result.message);
+    response = {status: result.status, message: Object.keys(result.message)};
+  } catch (exception) {
+    response.status = 'error';
+  } finally {
+    return response;
+  }
+};
+
+export const getDogsByBreed = async (breedName, limit = 1) => {
+  let response = {};
+  try {
+    const res = await fetch(`${baseURL}/breed/${breedName}/images`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+    response = await res.json();
   } catch (exception) {
     response.status = 'error';
   } finally {
