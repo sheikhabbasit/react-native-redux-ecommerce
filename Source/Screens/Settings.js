@@ -1,12 +1,15 @@
-import {StyleSheet, Text, Pressable, View, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import ImagePicker from 'react-native-image-crop-picker';
+import {StyleSheet, Image, Pressable, View, SafeAreaView} from 'react-native';
 import SettingItem from '../Components/Views/SettingItem';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
 import {useSelector} from 'react-redux';
 import ProfileCredentials from '../Components/Views/ProfileCredentials';
+import Button from '../Components/HOC/Button';
 
 const Settings = props => {
+  const [imagePath, setImagePath] = useState('');
   const {email, password} = useSelector(state => state.app.userInfo);
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -17,6 +20,27 @@ const Settings = props => {
     });
   };
 
+  const takeCameraPhoto = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+      setImagePath(image.path);
+    });
+  };
+
+  const chooseFromLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      setImagePath(image.path);
+    });
+  };
+
   const handleEditing = () => {
     props.navigation.navigate('EditCredentials');
   };
@@ -24,6 +48,17 @@ const Settings = props => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.card}>
+        <Image
+          style={{
+            height: 200,
+            width: 200,
+            borderRadius: 200,
+            alignSelf: 'center',
+          }}
+          source={{uri: imagePath}}
+        />
+        <Button label="Capture" onPress={takeCameraPhoto} />
+        <Button label="Choose From Library" onPress={chooseFromLibrary} />
         <Pressable
           style={styles.credentialsDisplay}
           android_ripple={{color: 'white'}}>
@@ -58,3 +93,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
+// let imageURL = require('../Resources/Images/product1.jpg');
+
+{
+  /*
+   */
+}
