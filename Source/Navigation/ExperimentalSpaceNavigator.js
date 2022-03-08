@@ -11,7 +11,7 @@ const ExperimentalStackNavigator = () => {
   const navigation = useNavigation();
 
   return (
-    <Stack.Navigator initialRouteName="Image Home">
+    <Stack.Navigator initialRouteName="Image Genre">
       <Stack.Screen
         name="Image Home"
         component={ImageHome}
@@ -29,6 +29,7 @@ const ExperimentalStackNavigator = () => {
               size={30}
               color="#eda6c2"
               style={{marginEnd: 10}}
+              onPress={() => navigation.navigate('Image Genre')}
             />
           ),
           title: 'Images',
@@ -47,11 +48,10 @@ const ExperimentalStackNavigator = () => {
           },
           headerLeft: props => (
             <Ionicons
-              name="arrow-back-circle-outline"
+              name="md-images"
               size={30}
               color="#eda6c2"
               style={{marginEnd: 10}}
-              onPress={() => navigation.navigate('CartPage')}
             />
           ),
         }}
