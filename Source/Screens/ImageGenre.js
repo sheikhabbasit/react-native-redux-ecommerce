@@ -22,8 +22,8 @@ const ImageGenre = props => {
   const getListOfGenres = async () => {
     setLoading(true);
     const res = await getDogGenres();
-    if (res.length > 0) {
-      setGenreList(res);
+    if (res.message.length > 0) {
+      setGenreList(res.message);
     } else {
       Alert.alert(
         'Error',
@@ -33,12 +33,10 @@ const ImageGenre = props => {
       );
     }
     setLoading(false);
-    console.log('loadng state', loading);
-    console.log(genreList);
   };
 
   const handleNavigation = name => {
-    props.navigation.navigate('Image Home', {name});
+    props.navigation.navigate('Image With Breed', {name});
   };
 
   return (
