@@ -5,6 +5,7 @@ import SettingsStackNavigator from './SettingsStackNavigator';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CartStackNavigator from './CartStackNavigator';
 import {useSelector} from 'react-redux';
+import ExperimentalStackNavigator from './ExperimentalSpaceNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,8 @@ const PrivateStackNavigator = () => {
             iconName = focused ? 'settings' : 'ios-settings-outline';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart' : 'ios-cart-outline';
+          } else if (route.name === 'Images') {
+            iconName = focused ? 'md-images' : 'images-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -41,6 +44,7 @@ const PrivateStackNavigator = () => {
         component={CartStackNavigator}
         options={{tabBarBadge: totalQuantity === 0 ? null : totalQuantity}}
       />
+      <Tab.Screen name="Images" component={ExperimentalStackNavigator} />
       <Tab.Screen name="Setting" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
