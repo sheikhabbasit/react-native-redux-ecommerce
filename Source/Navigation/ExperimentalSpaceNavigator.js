@@ -25,13 +25,13 @@ const ExperimentalStackNavigator = () => {
           },
           headerLeft: props => (
             <Ionicons
-              name="cart"
+              name="md-images"
               size={30}
               color="#eda6c2"
               style={{marginEnd: 10}}
             />
           ),
-          title: 'Cart',
+          title: 'Images',
         }}
       />
       <Stack.Screen
