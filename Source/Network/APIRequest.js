@@ -18,3 +18,21 @@ export const getRandomDog = async (limit = 1, breed) => {
     return response;
   }
 };
+
+export const getDogGenres = async (limit = 1) => {
+  let response = {};
+  try {
+    const res = await fetch(`${baseURL}/breeds/list/all`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+    let result = await res.json();
+    response = Object.keys(result.message);
+  } catch (exception) {
+    response.status = 'error';
+  } finally {
+    return response;
+  }
+};
