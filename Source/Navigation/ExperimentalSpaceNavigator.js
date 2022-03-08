@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import ImageHome from '../Screens/ImageHome';
 import ImageGenre from '../Screens/ImageGenre';
+import ImageWithBreed from '../Screens/ImageWithBreed';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +12,7 @@ const ExperimentalStackNavigator = () => {
   const navigation = useNavigation();
 
   return (
-    <Stack.Navigator initialRouteName="Image Genre">
+    <Stack.Navigator initialRouteName="Image Home">
       <Stack.Screen
         name="Image Home"
         component={ImageHome}
@@ -38,6 +39,27 @@ const ExperimentalStackNavigator = () => {
       <Stack.Screen
         name="Image Genre"
         component={ImageGenre}
+        options={{
+          headerTintColor: '#eda6c2',
+          headerStyle: {
+            backgroundColor: '#9C0F48',
+          },
+          headerTitleStyle: {
+            fontWeight: '700',
+          },
+          headerLeft: props => (
+            <Ionicons
+              name="md-images"
+              size={30}
+              color="#eda6c2"
+              style={{marginEnd: 10}}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Image With Breed"
+        component={ImageWithBreed}
         options={{
           headerTintColor: '#eda6c2',
           headerStyle: {
