@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
+  Text,
   FlatList,
   RefreshControl,
   Alert,
@@ -8,18 +9,19 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+import Button from '../Components/HOC/Button';
 import {getRandomDog} from '../Network/APIRequest';
 
 const ImageHome = props => {
   const [imageList, setImageList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [showButton, setShowButton] = useState(true);
 
-  useEffect(() => {
-    getDogData();
-  }, []);
+  useEffect(() => {}, []);
 
   const getDogData = async () => {
+    setShowButton(false);
     setRefreshing(true);
     imageList.length === 0 ? setLoading(true) : setLoading(false);
     const res = await getRandomDog(40);
@@ -39,6 +41,13 @@ const ImageHome = props => {
 
   return (
     <View style={styles.wrapper}>
+      {showButton && (
+        <Button label="Fetch Random Images" onPress={getDogData} />
+      )}
+      <Button
+        label="List of Dog Breeds"
+        onPress={() => props.navigation.navigate('Image Genre')}
+      />
       {loading && (
         <View style={styles.loadingView}>
           <ActivityIndicator size={'large'} />
@@ -56,6 +65,11 @@ const ImageHome = props => {
               );
             }}
             keyExtractor={item => item.toString() + Math.random()}
+            ListHeaderComponent={() => (
+              <View style={styles.listHeader}>
+                <Text style={styles.listHeaderText}>Random Dog Images</Text>
+              </View>
+            )}
             numColumns={2}
             showsVerticalScrollIndicator={false}
             refreshControl={
@@ -89,5 +103,13 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     width: 150,
+  },
+  listHeader: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listHeaderText: {
+    fontSize: 20,
   },
 });
