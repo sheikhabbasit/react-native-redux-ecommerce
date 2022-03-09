@@ -9,19 +9,30 @@ import {
   RefreshControl,
   Pressable,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {getDogGenres} from '../Network/APIRequest';
 
 const ImageGenre = props => {
-  const [genreList, setGenreList] = useState([]);
+  const navigation = useNavigation();
+  const [genreList, setGenreList] = useState([
+    // 'australian',
+    // 'basenji',
+    // 'beagle',
+    // 'brabancon',
+    // 'bulldog',
+  ]);
   const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     getListOfGenres();
+    setCount(count => count + 1);
+    console.log('breed re-rendering', count);
   }, []);
 
   const getListOfGenres = async () => {
     setLoading(true);
-    const res = await getDogGenres();
+    const res = await getDogGenres(40);
     if (res.message.length > 0) {
       setGenreList(res.message);
     } else {
@@ -36,7 +47,7 @@ const ImageGenre = props => {
   };
 
   const handleNavigation = name => {
-    props.navigation.navigate('Image With Breed', {name});
+    navigation.navigate('Image With Breed', {name});
   };
 
   return (
@@ -47,29 +58,25 @@ const ImageGenre = props => {
         </View>
       )}
       {!loading && (
-        <React.Fragment>
-          <FlatList
-            contentContainerStyle={styles.flatlistContainer}
-            data={genreList}
-            renderItem={({item}) => {
-              return (
-                <Pressable
-                  onPress={() => handleNavigation(item)}
-                  style={styles.textCard}>
-                  <Text style={styles.text}>{item}</Text>
-                </Pressable>
-              );
-            }}
-            keyExtractor={item => item.toString() + Math.random()}
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-              <RefreshControl
-                refreshing={loading}
-                onRefresh={getListOfGenres}
-              />
-            }
-          />
-        </React.Fragment>
+        <FlatList
+          contentContainerStyle={styles.flatlistContainer}
+          data={genreList}
+          renderItem={({item}) => (
+            <Pressable
+              onPress={() => handleNavigation(item)}
+              style={styles.textCard}>
+              <Text style={styles.text}>{item}</Text>
+            </Pressable>
+          )}
+          keyExtractor={item => item.toString()}
+          showsVerticalScrollIndicator={false}
+          initialNumToRender={10}
+          maxToRenderPerBatch={15}
+          disableScrollViewPanResponder={true}
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={getListOfGenres} />
+          }
+        />
       )}
     </View>
   );
