@@ -55,7 +55,11 @@ const Settings = props => {
             borderRadius: 200,
             alignSelf: 'center',
           }}
-          source={{uri: imagePath}}
+          source={
+            imagePath
+              ? {uri: imagePath}
+              : require('../Resources/Images/product1.jpg')
+          }
         />
         <Button label="Capture" onPress={takeCameraPhoto} />
         <Button label="Choose From Library" onPress={chooseFromLibrary} />
