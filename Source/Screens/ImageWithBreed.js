@@ -1,10 +1,7 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   View,
-  FlatList,
-  RefreshControl,
   Alert,
-  Image,
   StyleSheet,
   ActivityIndicator,
   Dimensions,
@@ -13,6 +10,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getDogsByBreed} from '../Network/APIRequest';
 import {useNavigation} from '@react-navigation/native';
+import DisplayDogs from '../Components/Views/DisplayDogs';
 const {height, width} = Dimensions.get('window');
 
 const ImageWithBreed = props => {
@@ -72,26 +70,11 @@ const ImageWithBreed = props => {
         </View>
       )}
       {!loading && imageList.length > 0 && (
-        <React.Fragment>
-          <FlatList
-            data={imageList}
-            renderItem={({item}) => {
-              return (
-                <View style={styles.imageCard}>
-                  <Image style={styles.image} source={{uri: item}} />
-                </View>
-              );
-            }}
-            keyExtractor={item => item.toString() + Math.random()}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={getDogData} />
-            }
-            maxToRenderPerBatch={15}
-            initialNumToRender={8}
-          />
-        </React.Fragment>
+        <DisplayDogs
+          imageList={imageList}
+          onPress={getDogData}
+          refreshing={refreshing}
+        />
       )}
     </View>
   );
@@ -108,21 +91,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  imageCard: {
-    margin: 10,
-    width: '45%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    height: 150,
-    width: 150,
-  },
-  header: {
-    fontSize: 18,
-    color: '#eda6c2',
-    width: width - 70,
-    overflow: 'hidden',
   },
 });
