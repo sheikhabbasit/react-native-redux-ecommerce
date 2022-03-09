@@ -88,6 +88,8 @@ const ImageWithBreed = props => {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={getDogData} />
             }
+            maxToRenderPerBatch={15}
+            initialNumToRender={8}
           />
         </React.Fragment>
       )}
