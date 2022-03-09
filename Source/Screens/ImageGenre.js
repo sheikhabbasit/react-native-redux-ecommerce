@@ -14,20 +14,11 @@ import {getDogGenres} from '../Network/APIRequest';
 
 const ImageGenre = props => {
   const navigation = useNavigation();
-  const [genreList, setGenreList] = useState([
-    // 'australian',
-    // 'basenji',
-    // 'beagle',
-    // 'brabancon',
-    // 'bulldog',
-  ]);
+  const [genreList, setGenreList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     getListOfGenres();
-    setCount(count => count + 1);
-    console.log('breed re-rendering', count);
   }, []);
 
   const getListOfGenres = async () => {
