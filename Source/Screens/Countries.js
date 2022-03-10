@@ -6,8 +6,8 @@ import {
   SectionList,
   StyleSheet,
   FlatList,
-  Pressable,
 } from 'react-native';
+import SectionViewItem from '../Components/Views/SectionViewItem';
 import {DATA, CountriesList} from '../DummyData/CountryData';
 
 const Countries = () => {
@@ -16,7 +16,7 @@ const Countries = () => {
   const listRef = useRef(null);
 
   const handleScroll = name => {
-    const countryIndex = CountriesList.indexOf(name);
+    const countryIndex = countries.indexOf(name);
     listRef.current.scrollToIndex({index: countryIndex});
   };
 
@@ -29,6 +29,10 @@ const Countries = () => {
     const newSectionArray = sectionData[deleteIndex].data.filter(
       country => country !== item,
     );
+    if (newSectionArray.length === 0) {
+      sectionData.splice(deleteIndex, 1);
+      return setData(sectionData);
+    }
     sectionData[deleteIndex].data = newSectionArray;
     setData(sectionData);
   };
@@ -39,14 +43,12 @@ const Countries = () => {
         sections={data}
         keyExtractor={(item, index) => item + index}
         renderItem={({item, section}) => (
-          <Pressable style={styles.item} onPress={() => handleScroll(item)}>
-            <Text style={styles.item}>{item}</Text>
-            <Pressable
-              style={styles.deleteBtn}
-              onPress={() => deleteItem(item, section)}>
-              <Text style={styles.text}>Delete</Text>
-            </Pressable>
-          </Pressable>
+          <SectionViewItem
+            item={item}
+            section={section}
+            onDelete={deleteItem}
+            handleScroll={handleScroll}
+          />
         )}
         renderSectionHeader={({section: {title}}) => (
           <Text style={styles.header}>{title}</Text>
@@ -78,13 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 16,
   },
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 10,
-    marginVertical: 8,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
   header: {
     fontSize: 32,
     backgroundColor: '#fff',
@@ -106,12 +101,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-  },
-  deleteBtn: {
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
