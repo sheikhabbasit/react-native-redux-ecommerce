@@ -37,10 +37,11 @@ export const getDogGenres = async (limit = 1) => {
   }
 };
 
-export const getDogsByBreed = async (breedName, limit = 1) => {
+export const getDogsByBreed = async (breedName, limit = 1, signal) => {
   let response = {};
   try {
     const res = await fetch(`${baseURL}/breed/${breedName}/images`, {
+      signal: signal,
       method: 'GET',
       headers: {
         'content-type': 'application/json',
