@@ -7,6 +7,7 @@ import {
   Dimensions,
   Text,
 } from 'react-native';
+import Button from '../Components/HOC/Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getDogsByBreed} from '../Network/APIRequest';
 import {useNavigation} from '@react-navigation/native';
@@ -16,12 +17,15 @@ const {height, width} = Dimensions.get('window');
 const ImageWithBreed = props => {
   const navigation = useNavigation();
   const [imageList, setImageList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const name = props.route.params.name;
+  const controller = new AbortController();
 
   useEffect(() => {
-    getDogData();
+    setTimeout(() => {
+      getDogData();
+    }, 2000);
   }, []);
 
   useLayoutEffect(() => {
@@ -47,14 +51,16 @@ const ImageWithBreed = props => {
   const getDogData = async () => {
     setRefreshing(true);
     imageList.length === 0 ? setLoading(true) : setLoading(false);
-    const res = await getDogsByBreed(name, 40);
+    const signal = controller.signal;
+    const res = await getDogsByBreed(name, 40, signal);
     if (res.status === 'success') {
       setImageList(res.message);
     } else {
+      // console.log(typeof res.status);
       Alert.alert(
         'Error',
-        'Something went wrong',
-        [{text: 'OK'}, {text: 'Cancel', onPress: () => getDogData()}],
+        'Fetching cancelled or failed!',
+        [{text: 'OK'}, {text: 'Retry', onPress: () => getDogData()}],
         {cancelable: false},
       );
     }
@@ -62,10 +68,16 @@ const ImageWithBreed = props => {
     setLoading(false);
   };
 
+  const cancelFetching = () => {
+    console.log('click');
+    controller.abort();
+  };
+
   return (
     <View style={styles.wrapper}>
       {loading && (
         <View style={styles.loadingView}>
+          <Button label="Cancel Fetching" onPress={cancelFetching} />
           <ActivityIndicator size={'large'} />
         </View>
       )}
