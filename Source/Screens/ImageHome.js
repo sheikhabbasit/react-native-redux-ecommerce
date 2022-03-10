@@ -40,6 +40,10 @@ const ImageHome = props => {
         label="List of Dog Breeds"
         onPress={() => props.navigation.navigate('Image Genre')}
       />
+      <Button
+        label="List of Countries"
+        onPress={() => props.navigation.navigate('Countries')}
+      />
       {loading && (
         <View style={styles.loadingView}>
           <ActivityIndicator size={'large'} />
