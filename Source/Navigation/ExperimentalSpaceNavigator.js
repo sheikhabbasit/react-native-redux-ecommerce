@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import ImageHome from '../Screens/ImageHome';
 import ImageGenre from '../Screens/ImageGenre';
 import ImageWithBreed from '../Screens/ImageWithBreed';
+import Countries from '../Screens/Countries';
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +72,27 @@ const ExperimentalStackNavigator = () => {
           headerLeft: props => (
             <Ionicons
               name="md-images"
+              size={30}
+              color="#eda6c2"
+              style={{marginEnd: 10}}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Countries"
+        component={Countries}
+        options={{
+          headerTintColor: '#eda6c2',
+          headerStyle: {
+            backgroundColor: '#9C0F48',
+          },
+          headerTitleStyle: {
+            fontWeight: '700',
+          },
+          headerLeft: props => (
+            <Ionicons
+              name="map"
               size={30}
               color="#eda6c2"
               style={{marginEnd: 10}}
