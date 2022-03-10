@@ -11,6 +11,8 @@ import {
 import {DATA, CountriesList} from '../DummyData/CountryData';
 
 const Countries = () => {
+  const [countries, setCountries] = useState(CountriesList);
+  const [data, setData] = useState(DATA);
   const listRef = useRef(null);
 
   const handleScroll = name => {
@@ -18,27 +20,44 @@ const Countries = () => {
     listRef.current.scrollToIndex({index: countryIndex});
   };
 
-  const Item = ({title}) => (
-    <Pressable style={styles.item} onPress={() => handleScroll(title)}>
-      <Text style={styles.title}>{title}</Text>
-    </Pressable>
-  );
+  const deleteItem = (item, section, index) => {
+    const newData = countries.filter(country => country !== item);
+    setCountries(newData);
+
+    const sectionData = [...data];
+    const deleteIndex = sectionData.indexOf(section);
+    const newSectionArray = sectionData[deleteIndex].data.filter(
+      country => country !== item,
+    );
+    sectionData[deleteIndex].data = newSectionArray;
+    setData(sectionData);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <SectionList
-        sections={DATA}
+        sections={data}
         keyExtractor={(item, index) => item + index}
-        renderItem={({item}) => <Item title={item} />}
+        renderItem={({item, section}) => (
+          <Pressable style={styles.item} onPress={() => handleScroll(item)}>
+            <Text style={styles.item}>{item}</Text>
+            <Pressable
+              style={styles.deleteBtn}
+              onPress={() => deleteItem(item, section)}>
+              <Text style={styles.text}>Delete</Text>
+            </Pressable>
+          </Pressable>
+        )}
         renderSectionHeader={({section: {title}}) => (
           <Text style={styles.header}>{title}</Text>
         )}
+        extraData={countries}
       />
       <FlatList
         ref={listRef}
         initialScrollIndex={0}
         contentContainerStyle={styles.flatlistContainer}
-        data={CountriesList}
+        data={countries}
         renderItem={({item}) => (
           <View style={styles.textCard}>
             <Text style={styles.text}>{item}</Text>
@@ -46,6 +65,7 @@ const Countries = () => {
         )}
         keyExtractor={item => item.toString()}
         horizontal
+        extraData={countries}
       />
     </SafeAreaView>
   );
@@ -60,8 +80,10 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#f9c2ff',
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   header: {
     fontSize: 32,
@@ -85,74 +107,11 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
   },
+  deleteBtn: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
-
-// import React from 'react';
-// import {
-//   StyleSheet,
-//   Text,
-//   View,
-//   SafeAreaView,
-//   SectionList,
-//   StatusBar,
-// } from 'react-native';
-
-// const DATA = [
-//   {
-//     title: 'Main dishes',
-//     data: ['Pizza', 'Burger', 'Risotto'],
-//   },
-//   {
-//     title: 'Sides',
-//     data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-//   },
-//   {
-//     title: 'Drinks',
-//     data: ['Water', 'Coke', 'Beer'],
-//   },
-//   {
-//     title: 'Desserts',
-//     data: ['Cheese Cake', 'Ice Cream'],
-//   },
-// ];
-
-// const Item = ({title}) => (
-//   <View style={styles.item}>
-//     <Text style={styles.title}>{title}</Text>
-//   </View>
-// );
-
-// const Countries = () => (
-//   <SafeAreaView style={styles.container}>
-//     <SectionList
-//       sections={DATA}
-//       keyExtractor={(item, index) => item + index}
-//       renderItem={({item}) => <Item title={item} />}
-//       renderSectionHeader={({section: {title}}) => (
-//         <Text style={styles.header}>{title}</Text>
-//       )}
-//     />
-//   </SafeAreaView>
-// );
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: StatusBar.currentHeight,
-//     marginHorizontal: 16,
-//   },
-//   item: {
-//     backgroundColor: '#f9c2ff',
-//     padding: 20,
-//     marginVertical: 8,
-//   },
-//   header: {
-//     fontSize: 32,
-//     backgroundColor: '#fff',
-//   },
-//   title: {
-//     fontSize: 24,
-//   },
-// });
-
-// export default Countries;
