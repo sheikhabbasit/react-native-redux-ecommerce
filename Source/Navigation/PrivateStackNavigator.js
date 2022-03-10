@@ -25,7 +25,7 @@ const PrivateStackNavigator = () => {
             iconName = focused ? 'settings' : 'ios-settings-outline';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart' : 'ios-cart-outline';
-          } else if (route.name === 'Images') {
+          } else if (route.name === 'Experiments') {
             iconName = focused ? 'md-images' : 'images-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -44,7 +44,7 @@ const PrivateStackNavigator = () => {
         component={CartStackNavigator}
         options={{tabBarBadge: totalQuantity === 0 ? null : totalQuantity}}
       />
-      <Tab.Screen name="Images" component={ExperimentalStackNavigator} />
+      <Tab.Screen name="Experiments" component={ExperimentalStackNavigator} />
       <Tab.Screen name="Setting" component={SettingsStackNavigator} />
     </Tab.Navigator>
   );
