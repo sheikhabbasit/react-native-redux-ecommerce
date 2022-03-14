@@ -1,6 +1,7 @@
 import {combineReducers, createStore} from 'redux';
 import {AppReducer} from './Reducer/AppReducer';
 import {CartReducer} from './Reducer/CartReducer';
+import {ThemeReducer} from './Reducer/ThemeReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import persistReducer from 'redux-persist/es/persistReducer';
 import persistStore from 'redux-persist/es/persistStore';
@@ -8,12 +9,13 @@ import persistStore from 'redux-persist/es/persistStore';
 const AllReducers = {
   app: AppReducer,
   cart: CartReducer,
+  theme: ThemeReducer,
 };
 
 const PersistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['app', 'cart'],
+  whitelist: ['app', 'cart', 'theme'],
 };
 const mergedReducer = combineReducers(AllReducers);
 const persistedReducer = persistReducer(PersistConfig, mergedReducer);
