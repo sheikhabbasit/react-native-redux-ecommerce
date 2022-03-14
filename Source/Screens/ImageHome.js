@@ -44,6 +44,10 @@ const ImageHome = props => {
         label="List of Countries"
         onPress={() => props.navigation.navigate('Countries')}
       />
+      <Button
+        label="Pagination Flatlist"
+        onPress={() => props.navigation.navigate('Image With Pagination')}
+      />
       {loading && (
         <View style={styles.loadingView}>
           <ActivityIndicator size={'large'} />
