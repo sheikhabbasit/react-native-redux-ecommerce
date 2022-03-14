@@ -50,10 +50,11 @@ const Countries = () => {
             handleScroll={handleScroll}
           />
         )}
-        renderSectionHeader={({section: {title}}) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
+        renderSectionHeader={({section: {title}}) => {
+          return <Text style={styles.header}>{title}</Text>;
+        }}
         extraData={countries}
+        stickySectionHeadersEnabled={true}
       />
       <FlatList
         ref={listRef}
