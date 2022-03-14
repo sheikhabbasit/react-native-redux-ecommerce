@@ -56,7 +56,6 @@ const ImageWithBreed = props => {
     if (res.status === 'success') {
       setImageList(res.message);
     } else {
-      // console.log(typeof res.status);
       Alert.alert(
         'Error',
         'Fetching cancelled or failed!',
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 16,
     flex: 1,
+    marginBottom: 20,
   },
   loadingView: {
     flex: 1,
