@@ -1,6 +1,7 @@
 // A wrapper for the API request.
 
 const baseURL = 'https://dog.ceo/api';
+const paginationBaseURL = 'https://jsonplaceholder.typicode.com/photos';
 
 export const getRandomDog = async (limit = 1, breed) => {
   let response = {};
@@ -47,6 +48,26 @@ export const getDogsByBreed = async (breedName, limit = 1, signal) => {
         'content-type': 'application/json',
       },
     });
+    response = await res.json();
+  } catch (exception) {
+    response.status = 'error';
+  } finally {
+    return response;
+  }
+};
+
+export const getPagedImages = async (page, limit = 10) => {
+  let response = {};
+  try {
+    const res = await fetch(
+      `${paginationBaseURL}?_limit=${limit}&_page=${page}`,
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      },
+    );
     response = await res.json();
   } catch (exception) {
     response.status = 'error';
