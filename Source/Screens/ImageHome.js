@@ -3,22 +3,33 @@ import {View, Alert, StyleSheet, ActivityIndicator} from 'react-native';
 import Button from '../Components/HOC/Button';
 import DisplayDogs from '../Components/Views/DisplayDogs';
 import {getRandomDog} from '../Network/APIRequest';
+import {useSelector, useDispatch} from 'react-redux';
+import {getImages} from '../Redux/Reducer/ImagesReducer';
+import {ImagesActions} from '../Redux/Actions/ImagesActions';
 
 const ImageHome = props => {
-  const [imageList, setImageList] = useState([]);
+  let counter = 0;
+  const images = useSelector(state => state.images);
+  const dispatch = useDispatch();
+  const [imageList, setImageList] = useState(
+    images.images ? images.images : [],
+  );
+  console.log('state', imageList);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [showButton, setShowButton] = useState(true);
-
-  useEffect(() => {}, []);
 
   const getDogData = async () => {
     setShowButton(false);
     setRefreshing(true);
     imageList.length === 0 ? setLoading(true) : setLoading(false);
+    // getImages(40);
     const res = await getRandomDog(40);
     if (res.status === 'success') {
-      setImageList(res.message);
+      // setImageList(res.message);
+      dispatch({type: ImagesActions.STORE_DATA, payload: res.message});
+      // setImageList(images);
+      // console.log('Dispatch success');
     } else {
       Alert.alert(
         'Error',
@@ -29,13 +40,20 @@ const ImageHome = props => {
     }
     setRefreshing(false);
     setLoading(false);
+    // setTimeout(() => {
+    //   console.log(images);
+    // }, 5000);
   };
+
+  useEffect(() => {
+    setImageList(images.images);
+  }, [images]);
 
   return (
     <View style={styles.wrapper}>
-      {showButton && (
-        <Button label="Fetch Random Images" onPress={getDogData} />
-      )}
+      {/* {showButton && ( */}
+      <Button label="Fetch Random Images" onPress={getDogData} />
+      {/* )} */}
       <Button
         label="List of Dog Breeds"
         onPress={() => props.navigation.navigate('Image Genre')}
