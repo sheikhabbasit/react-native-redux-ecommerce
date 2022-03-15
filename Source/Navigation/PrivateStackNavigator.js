@@ -6,11 +6,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CartStackNavigator from './CartStackNavigator';
 import {useSelector} from 'react-redux';
 import ExperimentalStackNavigator from './ExperimentalSpaceNavigator';
+import {useTheme} from '../Hooks/useTheme';
 
 const Tab = createBottomTabNavigator();
 
 const PrivateStackNavigator = () => {
   const {totalQuantity} = useSelector(state => state.cart);
+  const darkMode = useTheme();
 
   return (
     <Tab.Navigator
@@ -35,7 +37,7 @@ const PrivateStackNavigator = () => {
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#470D21',
+          backgroundColor: darkMode ? '#1B1A17' : '#470D21',
         },
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
