@@ -1,15 +1,21 @@
 import {ScrollView, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import EditCredentialBox from '../Components/Views/EditCredentialBox';
 import {useSelector} from 'react-redux';
+import {useTheme} from '../Hooks/useTheme';
 
 const EditCredentials = props => {
+  const darkMode = useTheme();
   const {email, password} = useSelector(state => state.app.userInfo);
   const [emailFormActive, setEmailFormActive] = useState(false);
   const [passwordFormActive, setPasswordFormActive] = useState(false);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.container,
+        darkMode ? styles.darkContainer : null,
+      ]}>
       <EditCredentialBox
         email={email}
         setEmailFormActive={setEmailFormActive}
@@ -34,5 +40,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFBBBB',
+  },
+  darkContainer: {
+    backgroundColor: '#062C30',
   },
 });
