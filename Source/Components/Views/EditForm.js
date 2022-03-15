@@ -5,8 +5,10 @@ import {Formik, Field} from 'formik';
 import ErrorMessage from '../Typography/ErrorMessage';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../../Redux/Actions/AppActions';
+import {useTheme} from '../../Hooks/useTheme';
 
 const EditForm = props => {
+  const darkMode = useTheme();
   const [id, setId] = useState('');
   const dispatch = useDispatch();
   const [emailActive, setEmailActive] = useState(
@@ -48,7 +50,8 @@ const EditForm = props => {
         errors,
         touched,
       }) => (
-        <View style={styles.formWrapper}>
+        <View
+          style={[styles.formWrapper, darkMode ? styles.darkWrapper : null]}>
           <Field>
             {() => (
               <TextInput
@@ -93,7 +96,11 @@ const EditForm = props => {
               android_ripple={{color: 'white'}}
               onPress={handleSubmit}
               disabled={!isValid}
-              style={[styles.buttonWrapper, !isValid && styles.disabledButton]}>
+              style={[
+                styles.buttonWrapper,
+                darkMode ? styles.darkButton : null,
+                !isValid && styles.disabledButton,
+              ]}>
               <Text style={styles.buttonLabel}>
                 Change {emailActive ? 'Email' : 'Password'}
               </Text>
@@ -101,7 +108,10 @@ const EditForm = props => {
             <Pressable
               android_ripple={{color: 'white'}}
               onPress={handleCancel}
-              style={styles.buttonWrapper}>
+              style={[
+                styles.buttonWrapper,
+                darkMode ? styles.darkButton : null,
+              ]}>
               <Text style={styles.buttonLabel}>Cancel</Text>
             </Pressable>
           </View>
@@ -120,6 +130,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#9C0F48',
     borderRadius: 10,
   },
+  darkWrapper: {
+    backgroundColor: '#05595B',
+  },
   box: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
@@ -130,6 +143,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: 'flex-start',
     marginStart: 10,
+  },
+  darkButton: {
+    backgroundColor: '#062C30',
   },
   buttonLabel: {
     color: '#fff',
