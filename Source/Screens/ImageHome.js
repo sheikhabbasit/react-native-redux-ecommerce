@@ -6,6 +6,7 @@ import {getRandomDog} from '../Network/APIRequest';
 import {useSelector, useDispatch} from 'react-redux';
 import {getImages} from '../Redux/Reducer/ImagesReducer';
 import {ImagesActions} from '../Redux/Actions/ImagesActions';
+import {fetchImagesList} from '../Redux/ActionCreators/ImageActionCreator';
 
 const ImageHome = props => {
   const images = useSelector(state => state.images);
@@ -18,23 +19,13 @@ const ImageHome = props => {
     setShowButton(false);
     setRefreshing(true);
     setLoading(true);
-    // getImages(40);
-    const res = await getRandomDog(40);
-    if (res.status === 'success') {
-      dispatch({type: ImagesActions.STORE_DATA, payload: res.message});
-    } else {
-      Alert.alert(
-        'Error',
-        'Something went wrong',
-        [{text: 'OK'}, {text: 'Cancel', onPress: () => getDogData()}],
-        {cancelable: false},
-      );
-    }
+    dispatch(fetchImagesList());
     setRefreshing(false);
-    setLoading(false);
   };
 
-  useEffect(() => {}, [images.images]);
+  useEffect(() => {
+    if (images.images) setLoading(false);
+  }, [images.images]);
 
   return (
     <View style={styles.wrapper}>
