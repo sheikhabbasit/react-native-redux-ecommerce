@@ -4,20 +4,23 @@ import Settings from '../Screens/Settings';
 import EditCredentials from '../Screens/EditCredentials';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../Hooks/useTheme';
 
 const Stack = createNativeStackNavigator();
 
 const SettingsStackNavigator = () => {
   const navigation = useNavigation();
+  const darkMode = useTheme();
+
   return (
     <Stack.Navigator initialRouteName="Settings">
       <Stack.Screen
         name="Settings"
         component={Settings}
         options={{
-          headerTintColor: '#eda6c2',
+          headerTintColor: darkMode ? 'white' : '#eda6c2',
           headerStyle: {
-            backgroundColor: '#9C0F48',
+            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
           },
           headerTitleStyle: {
             fontWeight: '700',
@@ -26,7 +29,7 @@ const SettingsStackNavigator = () => {
             <Ionicons
               name="settings"
               size={30}
-              color="#eda6c2"
+              color={darkMode ? 'white' : '#eda6c2'}
               style={{marginEnd: 10}}
             />
           ),
@@ -36,9 +39,9 @@ const SettingsStackNavigator = () => {
         name="EditCredentials"
         component={EditCredentials}
         options={{
-          headerTintColor: '#eda6c2',
+          headerTintColor: darkMode ? 'white' : '#eda6c2',
           headerStyle: {
-            backgroundColor: '#9C0F48',
+            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
           },
           headerTitleStyle: {
             fontWeight: '700',
@@ -47,7 +50,7 @@ const SettingsStackNavigator = () => {
             <Ionicons
               name="arrow-back-circle-outline"
               size={30}
-              color="#eda6c2"
+              color={darkMode ? 'white' : '#eda6c2'}
               style={{marginEnd: 10}}
               onPress={() => navigation.navigate('Settings')}
             />
