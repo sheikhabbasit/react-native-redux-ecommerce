@@ -1,8 +1,17 @@
-import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../Hooks/useTheme';
+
+const {width} = Dimensions.get('window');
 
 const ProductItem = props => {
   const {imageSource, name, price, discount} = props.product;
@@ -16,20 +25,18 @@ const ProductItem = props => {
 
   return (
     <Card>
-      <Pressable onPress={navigateTo}>
+      <Pressable style={styles.wrapper} onPress={navigateTo}>
         <Image style={styles.image} source={imageSource} />
         <View style={styles.detailsContainer}>
-          <View style={styles.details}>
-            <Text
-              numberOfLines={1}
-              style={[styles.productName, darkMode ? styles.darkText : null]}>
-              {name}
-            </Text>
-            <Text
-              style={[styles.productLabel, darkMode ? styles.darkText : null]}>
-              Price: ${price}
-            </Text>
-          </View>
+          <Text
+            numberOfLines={1}
+            style={[styles.productName, darkMode ? styles.darkText : null]}>
+            {name}
+          </Text>
+          <Text
+            style={[styles.productLabel, darkMode ? styles.darkText : null]}>
+            Price: ${price}
+          </Text>
           <Text style={[styles.discount, darkMode ? styles.darkText : null]}>
             <Text style={styles.discountLabel}>{discount}</Text> off
           </Text>
@@ -42,15 +49,13 @@ const ProductItem = props => {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-  details: {
-    width: '70%',
+  wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   detailsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     borderRadius: 10,
-    width: '100%',
+    width: width / 2.4,
   },
   discount: {
     textAlign: 'center',
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   image: {
-    width: '100%',
+    width: 160,
     height: 180,
     margin: 0,
     marginBottom: 10,
@@ -77,6 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#eda6c2',
     fontWeight: 'bold',
+    overflow: 'hidden',
   },
   productLabel: {
     fontSize: 15,
