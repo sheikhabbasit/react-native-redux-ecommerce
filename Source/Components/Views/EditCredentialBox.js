@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import EditForm from './EditForm';
+import {useTheme} from '../../Hooks/useTheme';
 const EditCredentialBox = props => {
   const {
     field,
@@ -14,11 +15,13 @@ const EditCredentialBox = props => {
   const [emailActive, setEmailActive] = useState(
     field === 'email' ? true : false,
   );
+  const darkMode = useTheme();
 
   return (
-    <View style={styles.boxContainer}>
+    <View
+      style={[styles.boxContainer, darkMode ? styles.darkBoxContainer : null]}>
       <View style={styles.box}>
-        <Text style={styles.boldText}>
+        <Text style={[styles.boldText, darkMode ? styles.darkText : null]}>
           {emailActive ? 'Email' : 'Password'}:{' '}
         </Text>
         <Text style={styles.credential}>{emailActive ? email : password}</Text>
@@ -29,8 +32,8 @@ const EditCredentialBox = props => {
             ? setEmailFormActive(state => !state)
             : setPasswordFormActive(state => !state)
         }
-        style={styles.button}>
-        <Text style={styles.buttonLabel}>
+        style={[styles.button, darkMode ? styles.darkButton : null]}>
+        <Text style={[styles.buttonLabel, darkMode ? styles.darkText : null]}>
           Edit {emailActive ? 'Email' : 'Password'}
         </Text>
       </Pressable>
@@ -62,6 +65,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
+  darkBoxContainer: {
+    backgroundColor: '#05595B',
+  },
   box: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -72,11 +78,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#eda6c2',
   },
+  darkText: {
+    color: '#fff',
+  },
   button: {
     backgroundColor: '#eda6c2',
     padding: 8,
     alignSelf: 'flex-start',
     borderRadius: 5,
+  },
+  darkButton: {
+    backgroundColor: '#062C30',
   },
   buttonLabel: {
     color: '#9C0F48',
