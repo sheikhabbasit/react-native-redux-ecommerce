@@ -1,12 +1,19 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
+import {useTheme} from '../../Hooks/useTheme';
 
 const ProfileCredentials = props => {
   const {label, attribute} = props;
+  const darkMode = useTheme();
+
   return (
     <View style={styles.itemContainer}>
-      <Text style={styles.textLabel}>{label}</Text>
-      <Text style={styles.credentials}>{attribute}</Text>
+      <Text style={[styles.textLabel, darkMode ? styles.darkModeText : null]}>
+        {label}
+      </Text>
+      <Text style={[styles.credentials, darkMode ? styles.darkModeText : null]}>
+        {attribute}
+      </Text>
     </View>
   );
 };
@@ -25,5 +32,8 @@ const styles = StyleSheet.create({
   },
   credentials: {
     color: '#a39696',
+  },
+  darkModeText: {
+    color: 'white',
   },
 });
