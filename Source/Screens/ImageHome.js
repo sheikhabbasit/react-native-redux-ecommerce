@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Alert, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import Button from '../Components/HOC/Button';
 import DisplayDogs from '../Components/Views/DisplayDogs';
-import {getRandomDog} from '../Network/APIRequest';
 import {useSelector, useDispatch} from 'react-redux';
-import {getImages} from '../Redux/Reducer/ImagesReducer';
-import {ImagesActions} from '../Redux/Actions/ImagesActions';
 import {fetchImagesList} from '../Redux/ActionCreators/ImageActionCreator';
 
 const ImageHome = props => {
