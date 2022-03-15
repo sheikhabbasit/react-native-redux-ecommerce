@@ -4,11 +4,13 @@ import Home from '../Screens/Home';
 import ProductDetails from '../Screens/ProductDetails';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../Hooks/useTheme';
 
 const Stack = createNativeStackNavigator();
 
-const SettingsStackNavigator = props => {
+const HomeStackNavigator = props => {
   const navigation = useNavigation();
+  const darkMode = useTheme();
 
   return (
     <Stack.Navigator initialRouteName="FoodKhana">
@@ -31,6 +33,7 @@ const SettingsStackNavigator = props => {
               style={{marginEnd: 10}}
             />
           ),
+          headerRight: () => {},
         }}
       />
       <Stack.Screen
@@ -50,4 +53,4 @@ const SettingsStackNavigator = props => {
   );
 };
 
-export default SettingsStackNavigator;
+export default HomeStackNavigator;
