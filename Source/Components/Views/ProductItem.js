@@ -2,11 +2,13 @@ import {Image, Text, View, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../../Hooks/useTheme';
 
 const ProductItem = props => {
   const {imageSource, name, price, discount} = props.product;
   const {product} = props;
   const navigation = useNavigation();
+  const darkMode = useTheme();
 
   const navigateTo = () => {
     navigation.navigate('Product Details', {product});
@@ -18,12 +20,17 @@ const ProductItem = props => {
         <Image style={styles.image} source={imageSource} />
         <View style={styles.detailsContainer}>
           <View style={styles.details}>
-            <Text numberOfLines={1} style={styles.productName}>
+            <Text
+              numberOfLines={1}
+              style={[styles.productName, darkMode ? styles.darkText : null]}>
               {name}
             </Text>
-            <Text style={styles.productLabel}>Price: ${price}</Text>
+            <Text
+              style={[styles.productLabel, darkMode ? styles.darkText : null]}>
+              Price: ${price}
+            </Text>
           </View>
-          <Text style={styles.discount}>
+          <Text style={[styles.discount, darkMode ? styles.darkText : null]}>
             <Text style={styles.discountLabel}>{discount}</Text> off
           </Text>
         </View>
@@ -76,5 +83,8 @@ const styles = StyleSheet.create({
     color: '#eda6c2',
     fontWeight: 'bold',
     opacity: 0.7,
+  },
+  darkText: {
+    color: '#fff',
   },
 });

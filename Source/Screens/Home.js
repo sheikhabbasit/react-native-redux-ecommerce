@@ -13,8 +13,7 @@ import ProductItem from '../Components/Views/ProductItem';
 import {Products} from '../DummyData/ProductList';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-// import Button from '../Components/HOC/Button';
-// import {useTheme} from '../Hooks/useTheme';
+import {useTheme} from '../Hooks/useTheme';
 
 const Home = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -23,15 +22,13 @@ const Home = props => {
   const {email} = useSelector(state => state.app.userInfo);
   const [productList, setProductList] = useState(Products);
   const [displayCross, setDisplayCross] = useState(false);
-  // const darkMode = useTheme();
+  const darkMode = useTheme();
 
   useLayoutEffect(() => {
     const fullName = email.split('@')[0];
     const name = fullName[0].toUpperCase() + fullName.slice(1);
     navigation.setOptions({title: `Welcome ${name}`});
   });
-
-  // useEffect(() => {}, [darkMode]);
 
   const clearSearch = () => {
     setSearchValue('');
@@ -56,11 +53,7 @@ const Home = props => {
 
   return (
     <SafeAreaView
-      style={[
-        styles.wrapper,
-        // darkMode ? {backgroundColor: '#203239'} : null
-      ]}>
-      {/* <Button label="toggle theme" onPress={useThemeDispatcher} /> */}
+      style={[styles.wrapper, darkMode ? {backgroundColor: '#203239'} : null]}>
       <View style={[styles.searchWrapper, id === 'email' && styles.focus]}>
         <TextInput
           style={styles.textInput}

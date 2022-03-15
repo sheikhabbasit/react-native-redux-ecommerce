@@ -7,12 +7,14 @@ import {useDispatch} from 'react-redux';
 import {CartActions} from '../Redux/Actions/CartActions';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useTheme} from '../Hooks/useTheme';
 
 const {height, width} = Dimensions.get('window');
 const ProductDetails = props => {
   const {product} = props.route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const darkMode = useTheme();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -22,11 +24,13 @@ const ProductDetails = props => {
           <Ionicons
             name="arrow-back-circle-outline"
             size={30}
-            color="#eda6c2"
+            color={darkMode ? 'white' : '#eda6c2'}
             style={{marginEnd: 10}}
             onPress={() => navigation.goBack()}
           />
-          <Text numberOfLines={1} style={styles.header}>
+          <Text
+            numberOfLines={1}
+            style={[styles.header, darkMode ? styles.darkHeader : null]}>
             {product.name}
           </Text>
         </React.Fragment>
@@ -39,8 +43,10 @@ const ProductDetails = props => {
   };
 
   return (
-    <SafeAreaView style={styles.parent}>
-      <ScrollView style={styles.container}>
+    <SafeAreaView
+      style={[styles.parent, darkMode ? styles.darkBackground : null]}>
+      <ScrollView
+        style={[styles.container, darkMode ? styles.darkBackground : null]}>
         <Card>
           <Image style={styles.image} source={product.imageSource} />
           <Text style={styles.label}>
@@ -72,6 +78,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#eda6c2',
     padding: 10,
   },
+  darkBackground: {
+    backgroundColor: '#062C30',
+  },
   image: {
     width: '100%',
     height: 250,
@@ -83,6 +92,9 @@ const styles = StyleSheet.create({
     color: '#eda6c2',
     width: width - 70,
     overflow: 'hidden',
+  },
+  darkHeader: {
+    color: 'white',
   },
   label: {
     color: 'white',

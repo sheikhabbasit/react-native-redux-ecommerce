@@ -18,9 +18,9 @@ const HomeStackNavigator = props => {
         name="FoodKhana"
         component={Home}
         options={{
-          headerTintColor: '#eda6c2',
+          headerTintColor: darkMode ? 'white' : '#eda6c2',
           headerStyle: {
-            backgroundColor: '#9C0F48',
+            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
           },
           headerTitleStyle: {
             fontWeight: '700',
@@ -29,20 +29,19 @@ const HomeStackNavigator = props => {
             <Ionicons
               name="fast-food"
               size={30}
-              color="#eda6c2"
+              color={darkMode ? 'white' : '#eda6c2'}
               style={{marginEnd: 10}}
             />
           ),
-          headerRight: () => {},
         }}
       />
       <Stack.Screen
         name="Product Details"
         component={ProductDetails}
         options={{
-          headerTintColor: '#eda6c2',
+          headerTintColor: darkMode ? 'white' : '#eda6c2',
           headerStyle: {
-            backgroundColor: '#9C0F48',
+            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
           },
           headerTitleStyle: {
             fontWeight: '700',

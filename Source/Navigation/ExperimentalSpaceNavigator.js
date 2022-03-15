@@ -7,11 +7,13 @@ import ImageGenre from '../Screens/ImageGenre';
 import ImageWithBreed from '../Screens/ImageWithBreed';
 import Countries from '../Screens/Countries';
 import Pagination from '../Screens/Pagination';
+import {useTheme} from '../Hooks/useTheme';
 
 const Stack = createNativeStackNavigator();
 
 const ExperimentalStackNavigator = () => {
   const navigation = useNavigation();
+  const darkMode = useTheme();
 
   return (
     <Stack.Navigator initialRouteName="Image Home">
@@ -19,9 +21,9 @@ const ExperimentalStackNavigator = () => {
         name="Image Home"
         component={ImageHome}
         options={{
-          headerTintColor: '#eda6c2',
+          headerTintColor: darkMode ? 'white' : '#eda6c2',
           headerStyle: {
-            backgroundColor: '#9C0F48',
+            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
           },
           headerTitleStyle: {
             fontWeight: '700',
@@ -30,7 +32,7 @@ const ExperimentalStackNavigator = () => {
             <Ionicons
               name="md-images"
               size={30}
-              color="#eda6c2"
+              color={darkMode ? 'white' : '#eda6c2'}
               style={{marginEnd: 10}}
               onPress={() => navigation.navigate('Image Genre')}
             />

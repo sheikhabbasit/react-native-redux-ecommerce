@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   darkButton: {
-    backgroundColor: '#05595B',
+    backgroundColor: '#062C30',
   },
   buttonLabel: {
     fontWeight: 'bold',

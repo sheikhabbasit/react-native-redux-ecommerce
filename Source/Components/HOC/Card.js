@@ -26,5 +26,6 @@ const styles = StyleSheet.create({
   },
   darkCard: {
     backgroundColor: '#05595B',
+    borderColor: '#062C30',
   },
 });

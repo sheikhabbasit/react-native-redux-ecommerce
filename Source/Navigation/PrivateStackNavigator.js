@@ -32,7 +32,7 @@ const PrivateStackNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#eda6c2',
+        tabBarActiveTintColor: darkMode ? 'white' : '#eda6c2',
         tabBarInactiveTintColor: 'white',
         tabBarHideOnKeyboard: true,
         headerShown: false,

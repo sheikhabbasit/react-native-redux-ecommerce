@@ -13,8 +13,10 @@ import Card from '../Components/HOC/Card';
 import CartTotals from '../Components/Views/CartTotals';
 import CartForm from '../Components/Views/CartForm';
 import CartDiscount from '../Components/Views/CartDiscount';
+import {useTheme} from '../Hooks/useTheme';
 
 const Cart = props => {
+  const darkMode = useTheme();
   const {cartItems, idWithQuantity} = useSelector(state => state.cart);
   const [listNotEmpty, setListNotEmpty] = useState(cartItems ? true : false);
   const [discountActive, setDiscountActive] = useState(false);
@@ -41,7 +43,8 @@ const Cart = props => {
   const amountPayable = cartTotalValue + shipping + tax - discount;
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <SafeAreaView
+      style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
       <FlatList
         contentContainerStyle={styles.list}
         data={cartItems}
@@ -55,7 +58,10 @@ const Cart = props => {
               source={require('../Resources/Images/emptycart1.png')}
               style={styles.emptyCart}
             />
-            <Text style={styles.emptyCartText}>Your cart is empty!</Text>
+            <Text
+              style={[styles.emptyCartText, darkMode ? styles.darkText : null]}>
+              Your cart is empty!
+            </Text>
           </Fragment>
         }
         ListFooterComponent={
@@ -81,8 +87,18 @@ const Cart = props => {
                 )}
                 <CartTotals label="Amount Payable:" amount={amountPayable} />
               </Card>
-              <Pressable style={styles.checkoutButton}>
-                <Text style={styles.checkoutLabel}>Checkout</Text>
+              <Pressable
+                style={[
+                  styles.checkoutButton,
+                  darkMode ? styles.darkButtonWrapper : null,
+                ]}>
+                <Text
+                  style={[
+                    styles.checkoutLabel,
+                    darkMode ? styles.darkText : null,
+                  ]}>
+                  Checkout
+                </Text>
               </Pressable>
             </Fragment>
           )
@@ -96,6 +112,12 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#FFCBCB',
     flex: 1,
+  },
+  darkWrapper: {
+    backgroundColor: '#062C30',
+  },
+  darkButtonWrapper: {
+    backgroundColor: '#05595B',
   },
   list: {
     borderRadius: 10,
@@ -112,6 +134,7 @@ const styles = StyleSheet.create({
     padding: 20,
     height: '50%',
     marginTop: 10,
+    elevation: 10,
   },
   checkoutContainer: {
     flexDirection: 'row',
@@ -147,6 +170,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  darkText: {
+    color: '#fff',
   },
 });
 

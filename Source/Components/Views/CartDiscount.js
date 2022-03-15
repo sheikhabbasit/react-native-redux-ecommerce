@@ -2,6 +2,7 @@ import {Text, TextInput, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import Card from '../HOC/Card';
 import Button from '../HOC/Button';
+import {useTheme} from '../../Hooks/useTheme';
 
 const CartDiscount = ({
   placeholder,
@@ -11,6 +12,8 @@ const CartDiscount = ({
   discountActive,
 }) => {
   const [redeemCode, setRedeemCode] = useState('');
+  const darkMode = useTheme();
+
   const handleSubmit = () => {
     if (redeemCode === '10OFF') {
       handleDiscount(true);
@@ -18,12 +21,15 @@ const CartDiscount = ({
       handleDiscount(false);
     }
   };
+
   return (
     <Card>
       {!discountActive && (
         <React.Fragment>
-          <Text style={styles.generalText}>
-            <Text style={styles.boldText}>{boldTextLabel}</Text>
+          <Text style={[styles.generalText, darkMode ? styles.darkText : null]}>
+            <Text style={[styles.boldText, darkMode ? styles.darkText : null]}>
+              {boldTextLabel}
+            </Text>
             {textLabel}
           </Text>
           <TextInput
@@ -53,6 +59,9 @@ const styles = StyleSheet.create({
   },
   generalText: {
     color: '#FFCBCB',
+  },
+  darkText: {
+    color: 'white',
   },
   boldText: {
     fontWeight: 'bold',

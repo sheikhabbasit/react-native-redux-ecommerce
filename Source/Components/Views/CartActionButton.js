@@ -1,14 +1,22 @@
-import {Text, Pressable, View, StyleSheet} from 'react-native';
 import React from 'react';
+import {Text, Pressable, View, StyleSheet} from 'react-native';
+import {useTheme} from '../../Hooks/useTheme';
 
 const CartActionButton = ({onPress, label, extraMargin = false}) => {
+  const darkMode = useTheme();
   return (
     <View style={styles.buttonContainer}>
       <Pressable
         onPress={onPress}
         android_ripple={{color: 'white', borderless: false}}
-        style={[styles.cartButton, extraMargin && styles.extraMargin]}>
-        <Text style={styles.buttonLabel}>{label}</Text>
+        style={[
+          styles.cartButton,
+          darkMode ? styles.darkBackground : null,
+          extraMargin && styles.extraMargin,
+        ]}>
+        <Text style={[styles.buttonLabel, darkMode ? styles.darkText : null]}>
+          {label}
+        </Text>
       </Pressable>
     </View>
   );
@@ -23,6 +31,9 @@ const styles = StyleSheet.create({
     // elevation: 20,
     overflow: 'hidden',
     borderRadius: 5,
+  },
+  darkBackground: {
+    backgroundColor: '#062C30',
   },
   cartButton: {
     height: 30,
@@ -39,5 +50,8 @@ const styles = StyleSheet.create({
   },
   extraMargin: {
     marginHorizontal: 15,
+  },
+  darkText: {
+    color: '#fff',
   },
 });

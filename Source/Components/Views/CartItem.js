@@ -6,12 +6,14 @@ import {CartActions} from '../../Redux/Actions/CartActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import CartActionButton from './CartActionButton';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../../Hooks/useTheme';
 
 const CartItem = ({product, idWithQuantity}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {imageSource, name, price, id} = product;
   const productQuantity = idWithQuantity[id];
+  const darkMode = useTheme();
 
   const incrementQuantity = () => {
     dispatch({type: CartActions.ADD, data: {product}});
@@ -35,10 +37,12 @@ const CartItem = ({product, idWithQuantity}) => {
         <Image source={imageSource} style={styles.image} />
         <View style={styles.detailsContainer}>
           <View>
-            <Text numberOfLines={1} style={styles.title}>
+            <Text
+              numberOfLines={1}
+              style={[styles.title, darkMode ? styles.darkText : null]}>
               {name}
             </Text>
-            <Text style={styles.price}>
+            <Text style={[styles.price, darkMode ? styles.darkText : null]}>
               Subtotal: {price * productQuantity}
             </Text>
           </View>
@@ -46,7 +50,10 @@ const CartItem = ({product, idWithQuantity}) => {
             <View style={styles.quantityChangerWrapper}>
               <CartActionButton label="-" onPress={reduceQuantity} />
               <View style={styles.amountContainer}>
-                <Text style={styles.quantity}>{productQuantity}</Text>
+                <Text
+                  style={[styles.quantity, darkMode ? styles.darkText : null]}>
+                  {productQuantity}
+                </Text>
               </View>
               <CartActionButton label="+" onPress={incrementQuantity} />
             </View>
@@ -57,7 +64,7 @@ const CartItem = ({product, idWithQuantity}) => {
                   <MaterialCommunityIcons
                     name="delete"
                     size={20}
-                    color="#9C0F48"
+                    color={darkMode ? 'white' : '#9C0F48'}
                   />
                 }
                 onPress={deleteFromCart}
@@ -125,5 +132,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 5,
     marginStart: 10,
+  },
+  darkText: {
+    color: '#fff',
   },
 });

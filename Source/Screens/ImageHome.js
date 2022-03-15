@@ -4,16 +4,17 @@ import Button from '../Components/HOC/Button';
 import DisplayDogs from '../Components/Views/DisplayDogs';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchImagesList} from '../Redux/ActionCreators/ImageActionCreator';
+import Card from '../Components/HOC/Card';
+import {useTheme} from '../Hooks/useTheme';
 
 const ImageHome = props => {
+  const darkMode = useTheme();
   const images = useSelector(state => state.images);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [showButton, setShowButton] = useState(true);
 
   const getDogData = async () => {
-    setShowButton(false);
     setRefreshing(true);
     setLoading(true);
     dispatch(fetchImagesList());
@@ -25,33 +26,37 @@ const ImageHome = props => {
   }, [images.images]);
 
   return (
-    <View style={styles.wrapper}>
-      {showButton && (
+    <View style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
+      <Card>
         <Button label="Fetch Random Images" onPress={getDogData} />
-      )}
-      <Button
-        label="List of Dog Breeds"
-        onPress={() => props.navigation.navigate('Image Genre')}
-      />
-      <Button
-        label="List of Countries"
-        onPress={() => props.navigation.navigate('Countries')}
-      />
-      <Button
-        label="Pagination Flatlist"
-        onPress={() => props.navigation.navigate('Image With Pagination')}
-      />
+        <Button
+          label="List of Dog Breeds"
+          onPress={() => props.navigation.navigate('Image Genre')}
+        />
+        <Button
+          label="List of Countries"
+          onPress={() => props.navigation.navigate('Countries')}
+        />
+        <Button
+          label="Pagination Flatlist"
+          onPress={() => props.navigation.navigate('Image With Pagination')}
+        />
+      </Card>
       {loading && (
-        <View style={styles.loadingView}>
-          <ActivityIndicator size={'large'} />
-        </View>
+        <Card>
+          <View style={styles.loadingView}>
+            <ActivityIndicator size={'large'} />
+          </View>
+        </Card>
       )}
       {!loading && images.images && (
-        <DisplayDogs
-          imageList={images.images}
-          onPress={getDogData}
-          refreshing={refreshing}
-        />
+        <Card>
+          <DisplayDogs
+            imageList={images.images}
+            onPress={getDogData}
+            refreshing={refreshing}
+          />
+        </Card>
       )}
     </View>
   );
@@ -63,6 +68,9 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 16,
     flex: 1,
+  },
+  darkWrapper: {
+    backgroundColor: '#062C30',
   },
   loadingView: {
     flex: 1,

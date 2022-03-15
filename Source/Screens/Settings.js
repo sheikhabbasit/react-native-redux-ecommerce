@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import {StyleSheet, Image, Pressable, View, SafeAreaView} from 'react-native';
 import SettingItem from '../Components/Views/SettingItem';
@@ -11,7 +11,10 @@ import {ThemeActions} from '../Redux/Actions/ThemeActions';
 const Settings = props => {
   const darkMode = useSelector(state => state.theme.darkMode);
   const dispatch = useDispatch();
-  const [imagePath, setImagePath] = useState('');
+  const [showPictureMenu, setShowPictureMenu] = useState(false);
+  const [imagePath, setImagePath] = useState(
+    'https://www.clipartmax.com/png/middle/318-3182943_admin-blank-user-profile.png',
+  );
   const {email, password} = useSelector(state => state.app.userInfo);
 
   const handleLogout = () => {
@@ -51,25 +54,38 @@ const Settings = props => {
     dispatch({type: ThemeActions.TOGGLE_THEME});
   };
 
+  const showDpMenu = () => {
+    setShowPictureMenu(prevState => !prevState);
+  };
+
   return (
     <SafeAreaView
       style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
       <View style={styles.card}>
-        <Image
-          style={{
-            height: 200,
-            width: 200,
-            borderRadius: 200,
-            alignSelf: 'center',
-          }}
-          source={
-            imagePath
-              ? {uri: imagePath}
-              : require('../Resources/Images/product1.jpg')
-          }
-        />
-        <Button label="Capture" onPress={takeCameraPhoto} />
-        <Button label="Choose From Library" onPress={chooseFromLibrary} />
+        <Pressable onPress={showDpMenu}>
+          <Image
+            style={{
+              height: 200,
+              width: 200,
+              borderRadius: 200,
+              alignSelf: 'center',
+              borderWidth: 2,
+              borderColor: '#05595B',
+            }}
+            source={
+              // imagePath
+              // ?
+              {uri: imagePath}
+              // : require('../Resources/Images/product1.jpg')
+            }
+          />
+        </Pressable>
+        {showPictureMenu && (
+          <Fragment>
+            <Button label="Capture" onPress={takeCameraPhoto} />
+            <Button label="Choose From Library" onPress={chooseFromLibrary} />
+          </Fragment>
+        )}
       </View>
       <View style={styles.card}>
         <Pressable
