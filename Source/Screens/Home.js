@@ -79,6 +79,7 @@ const Home = props => {
         data={productList}
         renderItem={({item}) => <ProductItem product={item} />}
         keyExtractor={item => item.id}
+        numColumns={2}
       />
     </SafeAreaView>
   );
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   list: {
     borderRadius: 10,
-    padding: 10,
+    // padding: 10,
     paddingTop: 0,
   },
 });
