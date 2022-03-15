@@ -2,16 +2,18 @@ import React, {useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import {StyleSheet, Image, Pressable, View, SafeAreaView} from 'react-native';
 import SettingItem from '../Components/Views/SettingItem';
-import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import ProfileCredentials from '../Components/Views/ProfileCredentials';
 import Button from '../Components/HOC/Button';
+import {ThemeActions} from '../Redux/Actions/ThemeActions';
 
 const Settings = props => {
+  const darkMode = useSelector(state => state.theme.darkMode);
+  const dispatch = useDispatch();
   const [imagePath, setImagePath] = useState('');
   const {email, password} = useSelector(state => state.app.userInfo);
-  const dispatch = useDispatch();
+
   const handleLogout = () => {
     dispatch({type: AppActions.LOGOUT});
     props.navigation.reset({
@@ -45,8 +47,13 @@ const Settings = props => {
     props.navigation.navigate('EditCredentials');
   };
 
+  const toggleDarkMode = () => {
+    dispatch({type: ThemeActions.TOGGLE_THEME});
+  };
+
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <SafeAreaView
+      style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
       <View style={styles.card}>
         <Image
           style={{
@@ -63,14 +70,17 @@ const Settings = props => {
         />
         <Button label="Capture" onPress={takeCameraPhoto} />
         <Button label="Choose From Library" onPress={chooseFromLibrary} />
+      </View>
+      <View style={styles.card}>
         <Pressable
-          style={styles.credentialsDisplay}
+          style={[styles.credentialsDisplay, darkMode ? styles.darkCard : null]}
           android_ripple={{color: 'white'}}>
           <ProfileCredentials label="Email ID:" attribute={email} />
           <ProfileCredentials label="Password:" attribute={password} />
         </Pressable>
       </View>
       <SettingItem onPress={handleEditing} label="Edit Credentials" />
+      <SettingItem onPress={toggleDarkMode} label="Toggle Dark Mode" />
       <SettingItem onPress={handleLogout} label="Logout" />
     </SafeAreaView>
   );
@@ -84,6 +94,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFBBBB',
     paddingTop: 10,
   },
+  darkWrapper: {
+    backgroundColor: '#062C30',
+  },
   card: {
     marginBottom: 10,
     alignSelf: 'stretch',
@@ -91,6 +104,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 15,
     elevate: 5,
+  },
+  darkCard: {
+    backgroundColor: '#05595B',
   },
   credentialsDisplay: {
     backgroundColor: '#9C0F48',
