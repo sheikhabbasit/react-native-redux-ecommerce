@@ -4,7 +4,7 @@ import {useTheme} from '../../Hooks/useTheme';
 
 const Card = props => {
   const darkMode = useTheme();
-  console.log('Card: darkMode: ', darkMode);
+
   return (
     <View style={[styles.card, darkMode ? styles.darkCard : null]}>
       {props.children}
@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#9C0F48',
     padding: 10,
     borderRadius: 10,
-    marginBottom: 30,
+    marginHorizontal: 5,
+    marginBottom: 20,
     elevation: 10,
     borderWidth: 1,
     borderColor: '#FFCBCB',
