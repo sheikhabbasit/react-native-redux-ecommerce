@@ -4,11 +4,13 @@ import {StyleSheet, Image, Pressable, View, SafeAreaView} from 'react-native';
 import SettingItem from '../Components/Views/SettingItem';
 import {AppActions} from '../Redux/Actions/AppActions';
 import {useSelector, useDispatch} from 'react-redux';
+import {signOut} from 'firebase/auth';
+import {auth} from '../../Firebase/firebase-config';
 import ProfileCredentials from '../Components/Views/ProfileCredentials';
 import Button from '../Components/HOC/Button';
 import {ThemeActions} from '../Redux/Actions/ThemeActions';
 
-const Settings = props => {
+export const Settings = props => {
   const darkMode = useSelector(state => state.theme.darkMode);
   const dispatch = useDispatch();
   const [showPictureMenu, setShowPictureMenu] = useState(false);
@@ -18,11 +20,16 @@ const Settings = props => {
   const {email, password} = useSelector(state => state.app.userInfo);
 
   const handleLogout = () => {
-    dispatch({type: AppActions.LOGOUT});
-    props.navigation.reset({
-      index: 0,
-      routes: [{name: 'Login'}],
-    });
+    signOut(auth)
+      .then(res => {
+        console.log('success ', res);
+        dispatch({type: AppActions.LOGOUT});
+        props.navigation.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        });
+      })
+      .catch(err => console.log('fail', err));
   };
 
   const takeCameraPhoto = () => {
@@ -72,12 +79,7 @@ const Settings = props => {
               borderWidth: 2,
               borderColor: '#05595B',
             }}
-            source={
-              // imagePath
-              // ?
-              {uri: imagePath}
-              // : require('../Resources/Images/product1.jpg')
-            }
+            source={{uri: imagePath}}
           />
         </Pressable>
         {showPictureMenu && (
@@ -129,10 +131,3 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
-
-// let imageURL = require('../Resources/Images/product1.jpg');
-
-{
-  /*
-   */
-}
