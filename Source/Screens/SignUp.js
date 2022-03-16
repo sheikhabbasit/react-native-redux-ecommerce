@@ -1,3 +1,4 @@
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -5,9 +6,10 @@ import {
   ImageBackground,
   ScrollView,
   TextInput,
+  StyleSheet,
 } from 'react-native';
-import {styles} from '../Styles/SignupStyles';
-import React, {useRef, useState} from 'react';
+import {auth} from '../../Firebase/firebase-config';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {Field, Formik} from 'formik';
 import {
   SignupValidationModel,
@@ -15,6 +17,7 @@ import {
 } from '../Models/SignupValidationModel';
 import ErrorMessage from '../Components/Typography/ErrorMessage';
 import HyperLink from '../Components/Views/HyperLink';
+import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
 
 const SignUp = props => {
   const nameRef = useRef(null);
@@ -22,11 +25,29 @@ const SignUp = props => {
   const mobileNoRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
+  const [errorOccured, setErrorOccured] = useState(false);
   const [id, setId] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+  const [showSuccessfulSignup, setShowSuccessfulSignup] = useState(false);
 
   const submitForm = values => {
-    props.navigation.navigate('Login');
+    createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password,
+      values.name,
+    )
+      .then(res => {
+        if (res.user.accessToken) {
+          setErrorOccured(false);
+          setShowSuccessfulSignup(true);
+          setTimeout(() => {
+            setShowSuccessfulSignup(false);
+            props.navigation.navigate('Login');
+          }, 1000);
+        }
+      })
+      .catch(err => setErrorOccured(true));
   };
 
   return (
@@ -223,6 +244,16 @@ const SignUp = props => {
                 ]}>
                 <Text style={styles.buttonLabel}>Sign Up</Text>
               </Pressable>
+
+              {showSuccessfulSignup && (
+                <View style={styles.successSignUp}>
+                  <Text style={styles.whiteLabel}>Sign Up Successful</Text>
+                </View>
+              )}
+
+              {errorOccured && (
+                <ErrorAuthShow label="Invalid credentials / User already exists" />
+              )}
             </React.Fragment>
           )}
         </Formik>
@@ -233,3 +264,101 @@ const SignUp = props => {
 };
 
 export default SignUp;
+
+const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  parent: {
+    flex: 1,
+    margin: 10,
+    alignItems: 'center',
+  },
+  box: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  heading: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  input: {
+    marginHorizontal: 20,
+    padding: 8,
+    backgroundColor: '#fff',
+    marginTop: 10,
+    marginBottom: 2,
+    width: '90%',
+    opacity: 0.7,
+    borderRadius: 5,
+  },
+  buttonWrapper: {
+    backgroundColor: '#FF5C8D',
+    margin: 15,
+    paddingVertical: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '55%',
+  },
+  buttonLabel: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: '#d3d3d3',
+  },
+  focus: {
+    borderColor: 'green',
+    color: 'black',
+    borderWidth: 1,
+  },
+
+  errorInput: {
+    borderColor: 'red',
+    color: 'red',
+    borderWidth: 1,
+  },
+  passwordFlex: {
+    flexDirection: 'row',
+    width: '90%',
+    marginTop: 10,
+    marginBottom: 2,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    opacity: 0.7,
+    height: 47,
+  },
+  passwordInput: {
+    flex: 1,
+    borderRadius: 5,
+  },
+  passwordIcon: {
+    color: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  showHideLabel: {
+    color: 'black',
+    marginHorizontal: 5,
+  },
+  whiteLabel: {
+    color: 'white',
+  },
+  labelEmphasis: {
+    fontWeight: 'bold',
+  },
+  successSignUp: {
+    backgroundColor: '#08a626',
+    padding: 10,
+    margin: 10,
+  },
+});
