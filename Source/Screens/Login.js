@@ -1,4 +1,6 @@
+import React, {useRef, useState} from 'react';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -8,7 +10,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import {Field, Formik} from 'formik';
-import React, {useRef, useState} from 'react';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../../Firebase/firebase-config';
 import {
   LoginValidationModel,
   LoginInitialValues,
@@ -17,8 +20,11 @@ import ErrorMessage from '../Components/Typography/ErrorMessage';
 import HyperLink from '../Components/Views/HyperLink';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
+import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
 
 const Login = props => {
+  const [loading, setLoading] = useState(false);
+  const [errorOccured, setErrorOccured] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [id, setId] = useState('');
@@ -26,11 +32,25 @@ const Login = props => {
   const dispatch = useDispatch();
 
   const submitForm = async values => {
-    dispatch({type: AppActions.LOGIN, data: values});
-    props.navigation.reset({
-      index: 0,
-      routes: [{name: 'PrivateStackNavigator'}],
-    });
+    setLoading(true);
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then(res => {
+        if (res.user.accessToken) {
+          setErrorOccured(false);
+          dispatch({
+            type: AppActions.LOGIN,
+            data: {email: res.user.email, token: res.user.accessToken},
+          });
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'PrivateStackNavigator'}],
+          });
+        }
+      })
+      .catch(err => {
+        setErrorOccured(true);
+      });
+    setLoading(false);
   };
 
   return (
@@ -143,6 +163,7 @@ const Login = props => {
             )}
           </Formik>
         </View>
+        {errorOccured && <ErrorAuthShow label="Invalid Credentials" />}
         <HyperLink path="SignUp" label="Go back to sign up" />
       </ScrollView>
     </ImageBackground>
