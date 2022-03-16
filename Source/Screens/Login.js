@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {
-  Alert,
   View,
   Text,
   StyleSheet,
@@ -8,6 +7,7 @@ import {
   TextInput,
   Pressable,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import {Field, Formik} from 'formik';
 import {signInWithEmailAndPassword} from 'firebase/auth';
@@ -22,6 +22,8 @@ import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
 import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
 
+const {width, height} = Dimensions.get('window');
+
 const Login = props => {
   const [loading, setLoading] = useState(false);
   const [errorOccured, setErrorOccured] = useState(false);
@@ -35,11 +37,16 @@ const Login = props => {
     setLoading(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(res => {
+        console.log('success ', res);
         if (res.user.accessToken) {
           setErrorOccured(false);
           dispatch({
             type: AppActions.LOGIN,
-            data: {email: res.user.email, token: res.user.accessToken},
+            data: {
+              email: res.user.email,
+              token: res.user.accessToken,
+              name: res.user.displayName,
+            },
           });
           props.navigation.reset({
             index: 0,
@@ -175,8 +182,8 @@ export default Login;
 const styles = StyleSheet.create({
   bg: {
     flex: 1,
-    width: '100%',
-    height: '100%',
+    width: width,
+    height: height,
   },
   parent: {
     flex: 1,
