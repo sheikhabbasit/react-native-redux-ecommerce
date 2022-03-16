@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     width: width / 2.4,
   },
   discount: {
-    textAlign: 'center',
-    paddingHorizontal: 10,
     alignSelf: 'flex-start',
     fontSize: 14,
     fontWeight: 'bold',
