@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Pressable,
@@ -19,14 +19,12 @@ const Home = props => {
   const [searchValue, setSearchValue] = useState('');
   const [id, setId] = useState('');
   const navigation = useNavigation();
-  const {email} = useSelector(state => state.app.userInfo);
+  const {name} = useSelector(state => state.app.userInfo);
   const [productList, setProductList] = useState(Products);
   const [displayCross, setDisplayCross] = useState(false);
   const darkMode = useTheme();
 
-  useLayoutEffect(() => {
-    const fullName = email.split('@')[0];
-    const name = fullName[0].toUpperCase() + fullName.slice(1);
+  useEffect(() => {
     navigation.setOptions({title: `Welcome ${name}`});
   });
 
