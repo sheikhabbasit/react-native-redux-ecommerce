@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {auth} from '../../Firebase/firebase-config';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import {Field, Formik} from 'formik';
 import {
   SignupValidationModel,
@@ -31,21 +31,18 @@ const SignUp = props => {
   const [showSuccessfulSignup, setShowSuccessfulSignup] = useState(false);
 
   const submitForm = values => {
-    createUserWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password,
-      values.name,
-    )
+    createUserWithEmailAndPassword(auth, values.email, values.password)
       .then(res => {
         if (res.user.accessToken) {
           setErrorOccured(false);
           setShowSuccessfulSignup(true);
+          updateProfile(auth.currentUser, {displayName: values.name});
           setTimeout(() => {
             setShowSuccessfulSignup(false);
             props.navigation.navigate('Login');
           }, 1000);
         }
+        // console.log('newRes', newRes);
       })
       .catch(err => setErrorOccured(true));
   };
