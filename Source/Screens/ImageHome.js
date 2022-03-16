@@ -42,13 +42,7 @@ const ImageHome = props => {
           onPress={() => props.navigation.navigate('Image With Pagination')}
         />
       </Card>
-      {loading && (
-        <Card>
-          <View style={styles.loadingView}>
-            <ActivityIndicator size={'large'} />
-          </View>
-        </Card>
-      )}
+      {loading && <ActivityIndicator size={'large'} />}
       {!loading && images.images && (
         <Card>
           <DisplayDogs
@@ -71,10 +65,5 @@ const styles = StyleSheet.create({
   },
   darkWrapper: {
     backgroundColor: '#062C30',
-  },
-  loadingView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
