@@ -1,5 +1,4 @@
 import {ImagesActions} from '../Actions/ImagesActions';
-import {getRandomDog} from '../../Network/APIRequest';
 
 const initialState = {};
 
