@@ -1,15 +1,24 @@
-import {View, FlatList, Image, StyleSheet, RefreshControl} from 'react-native';
+import {
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  RefreshControl,
+  Pressable,
+} from 'react-native';
 import React from 'react';
 
-const DisplayDogs = ({imageList, onPress, refreshing}) => {
+const DisplayDogs = ({imageList, onPress, refreshing, notificationHandler}) => {
   return (
     <FlatList
       data={imageList}
       renderItem={({item}) => {
         return (
-          <View style={styles.imageCard}>
-            <Image style={styles.image} source={{uri: item}} />
-          </View>
+          <Pressable onPress={() => notificationHandler(item)}>
+            <View style={styles.imageCard}>
+              <Image style={styles.image} source={{uri: item}} />
+            </View>
+          </Pressable>
         );
       }}
       keyExtractor={item => item.toString()}
