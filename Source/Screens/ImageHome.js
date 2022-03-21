@@ -7,6 +7,7 @@ import {fetchImagesList} from '../Redux/ActionCreators/ImageActionCreator';
 import Card from '../Components/HOC/Card';
 import {useTheme} from '../Hooks/useTheme';
 import {getImages} from '../Redux/Reducer/ImagesReducer';
+import PushNotification from 'react-native-push-notification';
 
 const ImageHome = props => {
   const darkMode = useTheme();
@@ -27,7 +28,23 @@ const ImageHome = props => {
     setRefreshing(false);
   };
 
+  const createChannel = () => {
+    PushNotification.createChannel({
+      channelId: 'default',
+      channelName: 'default',
+    });
+  };
+
+  const notificationHandler = item => {
+    PushNotification.localNotification({
+      channelId: 'default',
+      title: 'Doggo',
+      message: `${item}`,
+    });
+  };
+
   useEffect(() => {
+    createChannel();
     if (images.images) setLoading(false);
   }, [images.images]);
 
@@ -52,6 +69,7 @@ const ImageHome = props => {
       {!loading && images.images && (
         <Card>
           <DisplayDogs
+            notificationHandler={notificationHandler}
             imageList={images.images}
             onPress={getDogData}
             refreshing={refreshing}
