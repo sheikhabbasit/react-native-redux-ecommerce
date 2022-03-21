@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {fetchImagesList} from '../Redux/ActionCreators/ImageActionCreator';
 import Card from '../Components/HOC/Card';
 import {useTheme} from '../Hooks/useTheme';
+import {getImages} from '../Redux/Reducer/ImagesReducer';
 
 const ImageHome = props => {
   const darkMode = useTheme();
@@ -17,7 +18,12 @@ const ImageHome = props => {
   const getDogData = async () => {
     setRefreshing(true);
     setLoading(true);
-    dispatch(fetchImagesList());
+
+    // Saga call
+    dispatch(getImages());
+    // Action Creator Thunk
+    // dispatch(fetchImagesList());
+
     setRefreshing(false);
   };
 
