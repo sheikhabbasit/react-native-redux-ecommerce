@@ -2,14 +2,16 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import MapView from 'react-native-maps';
 
-const Map = ({lat, lng}) => {
+const Map = props => {
+  const {lat, lng} = props.route.params.country;
+  console.log(props.route.params.country);
   return (
     <View style={styles.body}>
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: lat || 37.78825,
-          longitude: lng || -122.4324,
+          latitude: lat,
+          longitude: lng,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
