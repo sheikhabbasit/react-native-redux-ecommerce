@@ -64,7 +64,10 @@ const ImageHome = props => {
           label="Pagination Flatlist"
           onPress={() => props.navigation.navigate('Image With Pagination')}
         />
-        <Button label="Map" onPress={() => props.navigation.navigate('Map')} />
+        <Button
+          label="Map"
+          onPress={() => props.navigation.navigate('Location Select')}
+        />
       </Card>
       {loading && <ActivityIndicator size={'large'} />}
       {!loading && images.images && (
