@@ -8,6 +8,7 @@ import ImageWithBreed from '../Screens/ImageWithBreed';
 import Countries from '../Screens/Countries';
 import Pagination from '../Screens/Pagination';
 import {useTheme} from '../Hooks/useTheme';
+import Map from '../Screens/Map';
 
 const Stack = createNativeStackNavigator();
 
@@ -117,6 +118,27 @@ const ExperimentalStackNavigator = () => {
           headerLeft: props => (
             <Ionicons
               name="md-images"
+              size={30}
+              color="#eda6c2"
+              style={{marginEnd: 10}}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Map"
+        component={Map}
+        options={{
+          headerTintColor: '#eda6c2',
+          headerStyle: {
+            backgroundColor: '#9C0F48',
+          },
+          headerTitleStyle: {
+            fontWeight: '700',
+          },
+          headerLeft: props => (
+            <Ionicons
+              name="md-map"
               size={30}
               color="#eda6c2"
               style={{marginEnd: 10}}
