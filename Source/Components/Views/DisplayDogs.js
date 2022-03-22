@@ -14,11 +14,11 @@ const DisplayDogs = ({imageList, onPress, refreshing, notificationHandler}) => {
       data={imageList}
       renderItem={({item}) => {
         return (
-          <Pressable onPress={() => notificationHandler(item)}>
-            <View style={styles.imageCard}>
+          <View style={styles.imageCard}>
+            <Pressable onPress={() => notificationHandler(item)}>
               <Image style={styles.image} source={{uri: item}} />
-            </View>
-          </Pressable>
+            </Pressable>
+          </View>
         );
       }}
       keyExtractor={item => item.toString()}
