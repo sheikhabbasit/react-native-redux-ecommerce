@@ -5,6 +5,7 @@ import Cart from '../Screens/Cart';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../Hooks/useTheme';
+import Header from '../Components/Typography/Header';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,14 +27,16 @@ const CartStackNavigator = () => {
             fontWeight: '700',
           },
           headerLeft: props => (
-            <Ionicons
-              name="cart"
+            <Header
+              iconName="cart"
               size={30}
-              color={darkMode ? 'white' : '#eda6c2'}
-              style={{marginEnd: 10}}
+              theme={darkMode ? 'white' : '#eda6c2'}
+              onPress={undefined}
+              name={'Cart'}
+              variant="Bold"
             />
           ),
-          title: 'Cart',
+          title: '',
         }}
       />
       <Stack.Screen
