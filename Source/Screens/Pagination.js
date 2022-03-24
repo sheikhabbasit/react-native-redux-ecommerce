@@ -39,23 +39,6 @@ const Pagination = () => {
     getImages();
   }, []);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: 'Flatlist with Pagination',
-      headerLeft: props => (
-        <React.Fragment>
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color="#eda6c2"
-            style={{marginEnd: 10}}
-            onPress={() => navigation.goBack()}
-          />
-        </React.Fragment>
-      ),
-    });
-  });
-
   return (
     <SafeAreaView style={styles.wrapper}>
       {loading && (
