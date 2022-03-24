@@ -13,19 +13,23 @@ const CartStackNavigator = () => {
   const navigation = useNavigation();
   const darkMode = useTheme();
 
+  const headerStyles = {
+    headerTintColor: darkMode ? 'white' : '#eda6c2',
+    headerStyle: {
+      backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
+    },
+    headerTitleStyle: {
+      fontWeight: '700',
+    },
+  };
+
   return (
     <Stack.Navigator initialRouteName="Cart">
       <Stack.Screen
         name="CartPage"
         component={Cart}
         options={{
-          headerTintColor: darkMode ? 'white' : '#eda6c2',
-          headerStyle: {
-            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
-          },
-          headerTitleStyle: {
-            fontWeight: '700',
-          },
+          ...headerStyles,
           headerLeft: props => (
             <Header
               iconName="cart"
@@ -43,13 +47,7 @@ const CartStackNavigator = () => {
         name="Product Details"
         component={ProductDetails}
         options={{
-          headerTintColor: darkMode ? 'white' : '#eda6c2',
-          headerStyle: {
-            backgroundColor: darkMode ? '#1B1A17' : '#9C0F48',
-          },
-          headerTitleStyle: {
-            fontWeight: '700',
-          },
+          ...headerStyles,
           headerLeft: props => (
             <Ionicons
               name="arrow-back-circle-outline"
