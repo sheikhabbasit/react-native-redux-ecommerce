@@ -1,17 +1,11 @@
-import {
-  Image,
-  Text,
-  View,
-  StyleSheet,
-  Pressable,
-  Dimensions,
-} from 'react-native';
+import {Image, View, StyleSheet, Pressable, Dimensions} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../Hooks/useTheme';
+import CustomText from '../Typography/CustomText';
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const ProductItem = props => {
   const {imageSource, name, price, discount} = props.product;
@@ -24,22 +18,41 @@ const ProductItem = props => {
   };
 
   return (
-    <Card>
-      <Pressable style={styles.wrapper} onPress={navigateTo}>
+    <Card theme={darkMode}>
+      <Pressable onPress={navigateTo}>
         <Image style={styles.image} source={imageSource} />
         <View style={styles.detailsContainer}>
-          <Text
+          <CustomText
             numberOfLines={1}
-            style={[styles.productName, darkMode ? styles.darkText : null]}>
-            {name}
-          </Text>
-          <Text
-            style={[styles.productLabel, darkMode ? styles.darkText : null]}>
-            Price: ${price}
-          </Text>
-          <Text style={[styles.discount, darkMode ? styles.darkText : null]}>
-            <Text style={styles.discountLabel}>{discount}</Text> off
-          </Text>
+            theme={darkMode}
+            variant="Bold"
+            color="#eda6c2"
+            label={name}
+            size={18}
+          />
+          <CustomText
+            label={`Price: $${price}`}
+            theme={darkMode}
+            variant="Regular"
+            color="#eda6c2"
+            size={15}
+            opacity={0.7}
+            numberOfLines={1}
+          />
+          <CustomText
+            label={
+              <CustomText
+                label={discount}
+                variant="Bold"
+                size={20}
+                color={'#08a626'}
+              />
+            }
+            variant="Bold"
+            color={'green'}
+            size={14}
+            children=" off"
+          />
         </View>
       </Pressable>
     </Card>
@@ -49,46 +62,16 @@ const ProductItem = props => {
 export default ProductItem;
 
 const styles = StyleSheet.create({
-  wrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   detailsContainer: {
     borderRadius: 10,
-    width: width / 2.4,
-  },
-  discount: {
-    alignSelf: 'flex-start',
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#eda6c2',
-  },
-  discountLabel: {
-    fontWeight: 'bold',
-    color: '#08a626',
-    fontSize: 20,
+    width: width / 2.5,
   },
   image: {
-    width: 160,
-    height: 180,
+    width: width / 2.5,
+    height: height / 5,
     margin: 0,
     marginBottom: 10,
     borderRadius: 10,
     opacity: 0.7,
-  },
-  productName: {
-    fontSize: 18,
-    color: '#eda6c2',
-    fontWeight: 'bold',
-    overflow: 'hidden',
-  },
-  productLabel: {
-    fontSize: 15,
-    color: '#eda6c2',
-    fontWeight: 'bold',
-    opacity: 0.7,
-  },
-  darkText: {
-    color: '#fff',
   },
 });
