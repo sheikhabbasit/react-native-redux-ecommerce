@@ -1,13 +1,10 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import {useTheme} from '../../Hooks/useTheme';
 
-const Card = props => {
-  const darkMode = useTheme();
-
+const Card = ({children, theme}) => {
   return (
-    <View style={[styles.card, darkMode ? styles.darkCard : null]}>
-      {props.children}
+    <View style={[styles.card, theme ? styles.darkCard : null]}>
+      {children}
     </View>
   );
 };
