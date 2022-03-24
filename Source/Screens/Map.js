@@ -32,16 +32,16 @@ const Map = props => {
     ]);
     setFormActive(false);
     setFormCredentials({title: '', description: ''});
+    setSelectedCoords({});
     Keyboard.dismiss();
   };
 
   const dismiss = () => {
+    setSelectedCoords({});
     setFormActive(false);
     setFormCredentials({title: '', description: ''});
     Keyboard.dismiss();
   };
-
-  console.log(markers);
 
   return (
     <View style={styles.body}>
