@@ -23,7 +23,7 @@ const ProductDetails = props => {
         <Header
           iconName="arrow-back-circle-outline"
           size={30}
-          theme={darkMode ? 'white' : '#eda6c2'}
+          theme={darkMode}
           onPress={() => navigation.goBack()}
           name={product.name}
           variant="regular"
