@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   TextInput,
   Text,
@@ -14,6 +13,7 @@ import {Products} from '../DummyData/ProductList';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useTheme} from '../Hooks/useTheme';
+import FlexView from '../Components/HOC/FlexView';
 
 const Home = props => {
   const [searchValue, setSearchValue] = useState('');
@@ -50,8 +50,7 @@ const Home = props => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.wrapper, darkMode ? {backgroundColor: '#203239'} : null]}>
+    <FlexView theme={darkMode}>
       <View style={[styles.searchWrapper, id === 'email' && styles.focus]}>
         <TextInput
           style={styles.textInput}
@@ -79,26 +78,20 @@ const Home = props => {
         keyExtractor={item => item.id}
         numColumns={2}
       />
-    </SafeAreaView>
+    </FlexView>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#FFCBCB',
-    flex: 1,
-  },
   searchWrapper: {
     flexDirection: 'row',
     marginTop: 10,
     marginBottom: 10,
-    marginHorizontal: 10,
     borderColor: '#ccc',
     borderRadius: 10,
     backgroundColor: '#fff',
   },
   textInput: {
-    flex: 1,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
@@ -112,7 +105,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     borderRadius: 10,
-    margin: 3,
   },
   crossButton: {
     paddingHorizontal: 10,
@@ -125,9 +117,8 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   list: {
-    borderRadius: 10,
-    // padding: 10,
-    paddingTop: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
