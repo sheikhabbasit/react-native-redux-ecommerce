@@ -10,9 +10,9 @@ const CartDiscount = ({
   textLabel,
   handleDiscount,
   discountActive,
+  theme,
 }) => {
   const [redeemCode, setRedeemCode] = useState('');
-  const darkMode = useTheme();
 
   const handleSubmit = () => {
     if (redeemCode === '10OFF') {
@@ -23,11 +23,11 @@ const CartDiscount = ({
   };
 
   return (
-    <Card>
+    <Card theme={theme}>
       {!discountActive && (
         <React.Fragment>
-          <Text style={[styles.generalText, darkMode ? styles.darkText : null]}>
-            <Text style={[styles.boldText, darkMode ? styles.darkText : null]}>
+          <Text style={[styles.generalText, theme ? styles.darkText : null]}>
+            <Text style={[styles.boldText, theme ? styles.darkText : null]}>
               {boldTextLabel}
             </Text>
             {textLabel}
