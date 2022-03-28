@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import PublicStackNavigator from './Source/Navigation/PublicStackNavigator';
 import {Provider} from 'react-redux';
@@ -10,9 +11,11 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <PublicStackNavigator />
-        </NavigationContainer>
+        <PaperProvider>
+          <NavigationContainer>
+            <PublicStackNavigator />
+          </NavigationContainer>
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );
