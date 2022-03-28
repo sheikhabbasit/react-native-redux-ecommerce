@@ -32,7 +32,7 @@ const CartItem = ({product, idWithQuantity}) => {
   };
 
   return (
-    <Card>
+    <Card theme={darkMode}>
       <Pressable onPress={navigateToProduct} style={styles.container}>
         <Image source={imageSource} style={styles.image} />
         <View style={styles.detailsContainer}>
