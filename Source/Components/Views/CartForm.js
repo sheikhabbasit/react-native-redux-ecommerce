@@ -1,15 +1,13 @@
 import {Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
-import {useTheme} from '../../Hooks/useTheme';
 
-const CartForm = ({placeholder, boldTextLabel, textLabel}) => {
-  const darkMode = useTheme();
+const CartForm = ({placeholder, boldTextLabel, textLabel, theme}) => {
   return (
-    <Card>
+    <Card theme={theme}>
       <TextInput style={styles.textInput} placeholder={placeholder} />
-      <Text style={[styles.generalText, darkMode ? styles.darkText : null]}>
-        <Text style={[styles.boldText, darkMode ? styles.darkText : null]}>
+      <Text style={[styles.generalText, theme ? styles.darkText : null]}>
+        <Text style={[styles.boldText, theme ? styles.darkText : null]}>
           {boldTextLabel}
         </Text>
         {textLabel}
