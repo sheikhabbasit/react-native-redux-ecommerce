@@ -37,7 +37,6 @@ const Login = props => {
     setLoading(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(res => {
-        console.log('success ', res);
         if (res.user.accessToken) {
           setErrorOccured(false);
           dispatch({
