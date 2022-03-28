@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getDogsByBreed} from '../Network/APIRequest';
 import {useNavigation} from '@react-navigation/native';
 import DisplayDogs from '../Components/Views/DisplayDogs';
+import Header from '../Components/Typography/Header';
 const {height, width} = Dimensions.get('window');
 
 const ImageWithBreed = props => {
@@ -30,20 +31,15 @@ const ImageWithBreed = props => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: '',
       headerLeft: props => (
-        <React.Fragment>
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color="#eda6c2"
-            style={{marginEnd: 10}}
-            onPress={() => navigation.goBack()}
-          />
-          <Text numberOfLines={1} style={styles.header}>
-            {name}
-          </Text>
-        </React.Fragment>
+        <Header
+          iconName="arrow-back-circle-outline"
+          size={30}
+          color="#eda6c2"
+          onPress={() => navigation.navigate('Image Genre')}
+          name={name}
+          variant="Bold"
+        />
       ),
     });
   });
@@ -76,8 +72,8 @@ const ImageWithBreed = props => {
     <View style={styles.wrapper}>
       {loading && (
         <View style={styles.loadingView}>
-          <Button label="Cancel Fetching" onPress={cancelFetching} />
           <ActivityIndicator size={'large'} />
+          <Button label="Cancel Fetching" onPress={cancelFetching} />
         </View>
       )}
       {!loading && imageList.length > 0 && (
