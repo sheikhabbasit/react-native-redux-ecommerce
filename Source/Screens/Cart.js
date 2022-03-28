@@ -1,12 +1,6 @@
-import {
-  FlatList,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Pressable,
-  Image,
-} from 'react-native';
+import {FlatList, Text, StyleSheet, Pressable, Image} from 'react-native';
 import React, {Fragment, useEffect, useState} from 'react';
+import FlexView from '../Components/HOC/FlexView';
 import CartItem from '../Components/Views/CartItem';
 import {useSelector} from 'react-redux';
 import Card from '../Components/HOC/Card';
@@ -43,10 +37,8 @@ const Cart = props => {
   const amountPayable = cartTotalValue + shipping + tax - discount;
 
   return (
-    <SafeAreaView
-      style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
+    <FlexView theme={darkMode}>
       <FlatList
-        contentContainerStyle={styles.list}
         data={cartItems}
         renderItem={({item}) => (
           <CartItem product={item} idWithQuantity={idWithQuantity} />
@@ -71,14 +63,16 @@ const Cart = props => {
                 placeholder="Enter Delivery Location"
                 boldTextLabel="Destination:"
                 textLabel="Dummy Selected Location"
+                theme={darkMode}
               />
               <CartDiscount
                 boldTextLabel="Have a redeem code? Apply here 👇"
                 placeholder="Enter Redeem Code"
                 handleDiscount={setDiscountActive}
                 discountActive={discountActive}
+                theme={darkMode}
               />
-              <Card>
+              <Card theme={darkMode}>
                 <CartTotals label="Cart Total:" amount={cartTotalValue} />
                 <CartTotals label="Shipping:" amount={shipping} />
                 <CartTotals label="Tax:" amount={tax} />
@@ -104,7 +98,7 @@ const Cart = props => {
           )
         }
       />
-    </SafeAreaView>
+    </FlexView>
   );
 };
 
@@ -118,10 +112,6 @@ const styles = StyleSheet.create({
   },
   darkButtonWrapper: {
     backgroundColor: '#05595B',
-  },
-  list: {
-    borderRadius: 10,
-    padding: 20,
   },
   textInput: {
     borderRadius: 5,
