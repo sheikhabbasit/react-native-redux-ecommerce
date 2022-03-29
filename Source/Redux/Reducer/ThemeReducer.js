@@ -1,12 +1,12 @@
 import {ThemeActions} from '../Actions/ThemeActions';
 
-const initialState = {};
+const initialState = {
+  darkMode: false,
+};
 
-export const ThemeReducer = (state = {darkMode: false}, payload) => {
+export const ThemeReducer = (state = initialState, payload) => {
   switch (payload.type) {
     case ThemeActions.TOGGLE_THEME:
-      console.log(!state.darkMode);
-
       return {...state, darkMode: !state.darkMode};
 
     default:
