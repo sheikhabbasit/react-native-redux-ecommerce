@@ -18,6 +18,6 @@ export const ImagesReducer = (state = {images: []}, payload) => {
       return initialState;
 
     default:
-      return initialState;
+      return state;
   }
 };
