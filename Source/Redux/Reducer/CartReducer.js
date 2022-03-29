@@ -1,10 +1,8 @@
 import {CartActions} from '../Actions/CartActions';
 
-const initialState = {};
-export const CartReducer = (
-  state = {cartItems: [], totalQuantity: 0, idWithQuantity: {}},
-  payload,
-) => {
+const initialState = {cartItems: [], totalQuantity: 0, idWithQuantity: {}};
+
+export const CartReducer = (state = initialState, payload) => {
   switch (payload.type) {
     case CartActions.ADD:
       // when there is nothing in the cart
@@ -88,6 +86,6 @@ export const CartReducer = (
       };
 
     default:
-      return {...initialState};
+      return state;
   }
 };
