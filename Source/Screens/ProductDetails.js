@@ -8,7 +8,6 @@ import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../Hooks/useTheme';
 import ProductInfoText from '../Components/Views/ProductInfoText';
 import FlexedScrollView from '../Components/HOC/FlexedScrollView';
-import Header from '../Components/Typography/Header';
 import {Appbar} from 'react-native-paper';
 
 const ProductDetails = props => {
