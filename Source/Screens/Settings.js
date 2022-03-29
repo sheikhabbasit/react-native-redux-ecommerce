@@ -9,9 +9,12 @@ import {auth} from '../../Firebase/firebase-config';
 import ProfileCredentials from '../Components/Views/ProfileCredentials';
 import Button from '../Components/HOC/Button';
 import {ThemeActions} from '../Redux/Actions/ThemeActions';
+import {useTheme} from '../Hooks/useTheme';
+import {Avatar} from 'react-native-paper';
+import Card from '../Components/HOC/Card';
 
 export const Settings = props => {
-  const darkMode = useSelector(state => state.theme.darkMode);
+  const darkMode = useTheme();
   const dispatch = useDispatch();
   const [showPictureMenu, setShowPictureMenu] = useState(false);
   const [imagePath, setImagePath] = useState(
@@ -67,27 +70,20 @@ export const Settings = props => {
 
   return (
     <SafeAreaView
-      style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
+      style={[
+        styles.wrapper,
+        showPictureMenu && styles.opacityBackdrop,
+        darkMode ? styles.darkWrapper : null,
+      ]}>
+      {/* <View style={[showPictureMenu && styles.opacityBackdrop]}> */}
       <View style={styles.card}>
         <Pressable onPress={showDpMenu}>
-          <Image
-            style={{
-              height: 200,
-              width: 200,
-              borderRadius: 200,
-              alignSelf: 'center',
-              borderWidth: 2,
-              borderColor: '#05595B',
-            }}
+          <Avatar.Image
+            size={200}
             source={{uri: imagePath}}
+            style={{alignSelf: 'center', marginVertical: 10}}
           />
         </Pressable>
-        {showPictureMenu && (
-          <Fragment>
-            <Button label="Capture" onPress={takeCameraPhoto} />
-            <Button label="Choose From Library" onPress={chooseFromLibrary} />
-          </Fragment>
-        )}
       </View>
       <View style={styles.card}>
         <Pressable
@@ -100,6 +96,15 @@ export const Settings = props => {
       <SettingItem onPress={handleEditing} label="Edit Credentials" />
       <SettingItem onPress={toggleDarkMode} label="Toggle Dark Mode" />
       <SettingItem onPress={handleLogout} label="Logout" />
+      {/* </View> */}
+      {showPictureMenu && (
+        <View style={styles.bottomMenu}>
+          <Card theme={darkMode}>
+            <Button label="Capture" onPress={takeCameraPhoto} />
+            <Button label="Choose From Library" onPress={chooseFromLibrary} />
+          </Card>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -129,5 +134,15 @@ const styles = StyleSheet.create({
   credentialsDisplay: {
     backgroundColor: '#9C0F48',
     padding: 20,
+  },
+  bottomMenu: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  opacityBackdrop: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    //   opacity: 0.7,
   },
 });
