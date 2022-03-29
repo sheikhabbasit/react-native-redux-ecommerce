@@ -1,12 +1,20 @@
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import Card from '../HOC/Card';
 import {useDispatch} from 'react-redux';
 import {CartActions} from '../../Redux/Actions/CartActions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CartActionButton from './CartActionButton';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../Hooks/useTheme';
+import {Appbar} from 'react-native-paper';
+
+const {width, height} = Dimensions.get('window');
 
 const CartItem = ({product, idWithQuantity}) => {
   const navigation = useNavigation();
@@ -46,31 +54,20 @@ const CartItem = ({product, idWithQuantity}) => {
               Subtotal: {price * productQuantity}
             </Text>
           </View>
-          <View style={styles.quantityWrapper}>
-            <View style={styles.quantityChangerWrapper}>
-              <CartActionButton label="-" onPress={reduceQuantity} />
-              <View style={styles.amountContainer}>
-                <Text
-                  style={[styles.quantity, darkMode ? styles.darkText : null]}>
-                  {productQuantity}
-                </Text>
-              </View>
-              <CartActionButton label="+" onPress={incrementQuantity} />
+
+          <Appbar
+            style={[styles.bottom, darkMode ? styles.darkBackground : null]}
+            dark={darkMode}>
+            <Appbar.Action icon="arrow-down-thick" onPress={reduceQuantity} />
+            <View style={styles.amountContainer}>
+              <Text
+                style={[styles.quantity, darkMode ? styles.darkText : null]}>
+                {productQuantity}
+              </Text>
             </View>
-            <View>
-              <CartActionButton
-                extraMargin={true}
-                label={
-                  <MaterialCommunityIcons
-                    name="delete"
-                    size={20}
-                    color={darkMode ? 'white' : '#9C0F48'}
-                  />
-                }
-                onPress={deleteFromCart}
-              />
-            </View>
-          </View>
+            <Appbar.Action icon="arrow-up-thick" onPress={incrementQuantity} />
+            <Appbar.Action icon="delete" onPress={deleteFromCart} />
+          </Appbar>
         </View>
       </Pressable>
     </Card>
@@ -84,6 +81,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+  },
+  darkBackground: {
+    backgroundColor: '#062C30',
   },
   image: {
     height: 100,
@@ -121,11 +121,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   quantity: {
     fontSize: 16,
-    color: '#eda6c2',
+    color: '#000',
     marginHorizontal: 15,
+    fontWeight: '700',
   },
   deleteContainer: {
     backgroundColor: '#eda6c2',
@@ -135,5 +135,9 @@ const styles = StyleSheet.create({
   },
   darkText: {
     color: '#fff',
+  },
+  bottom: {
+    height: height / 15,
+    backgroundColor: 'white',
   },
 });
