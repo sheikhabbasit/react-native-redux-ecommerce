@@ -9,6 +9,7 @@ import {useTheme} from '../Hooks/useTheme';
 import ProductInfoText from '../Components/Views/ProductInfoText';
 import FlexedScrollView from '../Components/HOC/FlexedScrollView';
 import Header from '../Components/Typography/Header';
+import {Appbar} from 'react-native-paper';
 
 const ProductDetails = props => {
   const {product} = props.route.params;
@@ -19,15 +20,20 @@ const ProductDetails = props => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: '',
-      headerLeft: () => (
-        <Header
-          iconName="arrow-back-circle-outline"
-          size={30}
-          theme={darkMode}
-          onPress={() => navigation.goBack()}
-          name={product.name}
-          variant="regular"
-        />
+      header: () => (
+        <Appbar.Header
+          style={[styles.header, darkMode ? styles.darkHeader : null]}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <Appbar.Content
+            style={{marginLeft: -10}}
+            title={product.name}
+            subtitle="Product"
+          />
+        </Appbar.Header>
       ),
     });
   });
@@ -69,5 +75,11 @@ const styles = StyleSheet.create({
   productDescription: {
     fontSize: 15,
     color: 'white',
+  },
+  header: {
+    backgroundColor: '#fff',
+  },
+  darkHeader: {
+    backgroundColor: 'black',
   },
 });
