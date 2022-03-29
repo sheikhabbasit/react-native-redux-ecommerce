@@ -21,6 +21,7 @@ import HyperLink from '../Components/Views/HyperLink';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
 import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
+import SocialAuth from '../Components/Views/SocialAuthButtons/SocialAuth';
 
 const {width, height} = Dimensions.get('window');
 
@@ -55,6 +56,9 @@ const Login = props => {
       })
       .catch(err => {
         setErrorOccured(true);
+        setTimeout(() => {
+          setErrorOccured(false);
+        }, 3000);
       });
     setLoading(false);
   };
@@ -169,7 +173,8 @@ const Login = props => {
             )}
           </Formik>
         </View>
-        {errorOccured && <ErrorAuthShow label="Invalid Credentials" />}
+        {errorOccured && <ErrorAuthShow label="Wrong Username/Password" />}
+        <SocialAuth />
         <HyperLink path="SignUp" label="Go back to sign up" />
       </ScrollView>
     </ImageBackground>
@@ -231,10 +236,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 2,
     borderRadius: 5,
+    height: height / 15,
   },
   passwordFlex: {
     flexDirection: 'row',
-    width: '88%',
     marginTop: 10,
     marginBottom: 2,
     marginHorizontal: 20,
@@ -243,7 +248,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     opacity: 0.7,
-    height: 47,
+    height: height / 15,
   },
   passwordInput: {
     flex: 1,
