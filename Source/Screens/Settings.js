@@ -12,6 +12,7 @@ import {ThemeActions} from '../Redux/Actions/ThemeActions';
 import {useTheme} from '../Hooks/useTheme';
 import {Avatar} from 'react-native-paper';
 import Card from '../Components/HOC/Card';
+import {CartActions} from '../Redux/Actions/CartActions';
 
 export const Settings = props => {
   const darkMode = useTheme();
@@ -31,6 +32,7 @@ export const Settings = props => {
           index: 0,
           routes: [{name: 'Login'}],
         });
+        dispatch({type: CartActions.EMPTY_CART});
       })
       .catch(err => console.log('fail', err));
   };
