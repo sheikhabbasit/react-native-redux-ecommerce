@@ -44,4 +44,13 @@ export const Products = [
     description:
       'Nunc convallis, sapien vel commodo condimentum, nisl turpis ullamcorper dolor, laoreet condimentum augue dui sed enim. Fusce vulputate, nulla iaculis aliquam tincidunt, neque leo hendrerit turpis, non condimentum tellus felis eu leo. Integer ac ornare ipsum. Nullam vel mauris nisl. Praesent ac pharetra orci. Maecenas vulputate diam justo, a tincidunt augue iaculis vitae. Praesent bibendum lorem at lectus tempor, eu accumsan ex tempus. Proin maximus erat elit, nec interdum massa placerat in. Ut hendrerit, lectus ac congue lobortis, ipsum ipsum egestas ex, a luctus ex turpis non nulla. Suspendisse eu dapibus odio, non rutrum mi. Sed id nunc id magna dignissim ullamcorper. Proin euismod nulla ante. Praesent dui tellus, dignissim ut lorem eu, tempor volutpat leo. Suspendisse potenti.',
   },
+  {
+    id: 6,
+    name: 'The Chocolate 🍫 (100, 200 , 300) grams',
+    price: 600,
+    imageSource: require('../Resources/Images/product6.jpg'),
+    discount: '60%',
+    description:
+      'Nunc convallis, sapien vel commodo condimentum, nisl turpis ullamcorper dolor, laoreet condimentum augue dui sed enim. Fusce vulputate, nulla iaculis aliquam tincidunt, neque leo hendrerit turpis, non condimentum tellus felis eu leo. Integer ac ornare ipsum. Nullam vel mauris nisl. Praesent ac pharetra orci. Maecenas vulputate diam justo, a tincidunt augue iaculis vitae. Praesent bibendum lorem at lectus tempor, eu accumsan ex tempus. Proin maximus erat elit, nec interdum massa placerat in. Ut hendrerit, lectus ac congue lobortis, ipsum ipsum egestas ex, a luctus ex turpis non nulla. Suspendisse eu dapibus odio, non rutrum mi. Sed id nunc id magna dignissim ullamcorper. Proin euismod nulla ante. Praesent dui tellus, dignissim ut lorem eu, tempor volutpat leo. Suspendisse potenti.',
+  },
 ];
