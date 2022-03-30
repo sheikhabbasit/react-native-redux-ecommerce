@@ -8,6 +8,7 @@ import {
   Pressable,
   ImageBackground,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {Field, Formik} from 'formik';
 import {signInWithEmailAndPassword} from 'firebase/auth';
@@ -20,7 +21,6 @@ import ErrorMessage from '../Components/Typography/ErrorMessage';
 import HyperLink from '../Components/Views/HyperLink';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
-import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
 import SocialAuth from '../Components/Views/SocialAuthButtons/SocialAuth';
 
 const {width, height} = Dimensions.get('window');
@@ -62,6 +62,10 @@ const Login = props => {
       });
     setLoading(false);
   };
+
+  if (errorOccured) {
+    Alert.alert('Wrong Username/Password', 'Try again.');
+  }
 
   return (
     <ImageBackground
@@ -173,7 +177,6 @@ const Login = props => {
             )}
           </Formik>
         </View>
-        {errorOccured && <ErrorAuthShow label="Wrong Username/Password" />}
         <SocialAuth />
         <HyperLink path="SignUp" label="Go back to sign up" />
       </ScrollView>
