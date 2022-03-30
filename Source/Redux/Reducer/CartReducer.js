@@ -85,6 +85,9 @@ export const CartReducer = (state = initialState, payload) => {
         ),
       };
 
+    case CartActions.EMPTY_CART:
+      return initialState;
+
     default:
       return state;
   }
