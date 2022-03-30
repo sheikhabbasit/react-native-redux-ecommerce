@@ -1,5 +1,7 @@
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
+
+const {width, height} = Dimensions.get('window');
 
 const FlexView = ({children, theme}) => {
   return (
@@ -22,5 +24,6 @@ const styles = StyleSheet.create({
   margin: {
     marginTop: 10,
     marginHorizontal: 10,
+    marginBottom: height / 9,
   },
 });
