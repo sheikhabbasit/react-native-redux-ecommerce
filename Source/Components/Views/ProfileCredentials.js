@@ -3,11 +3,11 @@ import React from 'react';
 import {useTheme} from '../../Hooks/useTheme';
 
 const ProfileCredentials = props => {
-  const {label, attribute} = props;
+  const {label, attribute, darkness} = props;
   const darkMode = useTheme();
 
   return (
-    <View style={styles.itemContainer}>
+    <View style={[styles.itemContainer, darkness && styles.opacityBackdrop]}>
       <Text style={[styles.textLabel, darkMode ? styles.darkModeText : null]}>
         {label}
       </Text>
