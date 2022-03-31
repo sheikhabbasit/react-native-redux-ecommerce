@@ -10,6 +10,7 @@ import {useTheme} from '../Hooks/useTheme';
 import Map from '../Screens/Map';
 import LocationSelect from '../Screens/LocationSelect';
 import {headerReturn} from '../HelperFunctions/HeaderReturn';
+import Animations from '../Screens/Animations';
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +101,18 @@ const ExperimentalStackNavigator = () => {
             'arrow-back-circle-outline',
             () => navigation.goBack(),
             'Map',
+            darkMode,
+          )
+        }
+      />
+      <Stack.Screen
+        name="Animations"
+        component={Animations}
+        options={() =>
+          headerReturn(
+            'arrow-back-circle-outline',
+            () => navigation.goBack(),
+            'Animations',
             darkMode,
           )
         }
