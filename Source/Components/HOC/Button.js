@@ -2,17 +2,19 @@ import {Pressable, Text, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {useTheme} from '../../Hooks/useTheme';
 
-const Button = ({onPress, label}) => {
+const Button = ({onPress, label, color}) => {
   const darkMode = useTheme();
   return (
     <View style={styles.buttonContainer}>
       <Pressable
         onPress={onPress}
-        style={[styles.cartButton, darkMode ? styles.darkButton : null]}
+        style={[
+          styles.cartButton,
+          darkMode ? styles.darkButton : null,
+          {backgroundColor: color},
+        ]}
         android_ripple={{color: 'white', borderless: true}}>
-        <Text style={[styles.buttonLabel, darkMode ? styles.darkLabel : null]}>
-          {label}
-        </Text>
+        <Text style={[styles.buttonLabel]}>{label}</Text>
       </Pressable>
     </View>
   );
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontWeight: 'bold',
-    color: '#9C0F48',
+    color: 'white',
   },
   darkLabel: {
     color: '#fff',
