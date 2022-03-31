@@ -72,6 +72,10 @@ const ImageHome = props => {
           label="Direct to map"
           onPress={() => props.navigation.navigate('Map')}
         />
+        <Button
+          label="Animations"
+          onPress={() => props.navigation.navigate('Animations')}
+        />
       </Card>
       {loading && <ActivityIndicator size={'large'} />}
       {!loading && images.images && (
