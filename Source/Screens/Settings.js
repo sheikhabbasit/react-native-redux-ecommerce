@@ -1,18 +1,28 @@
-import React, {Fragment, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  SafeAreaView,
+  Animated,
+  Dimensions,
+} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import {StyleSheet, Image, Pressable, View, SafeAreaView} from 'react-native';
-import SettingItem from '../Components/Views/SettingItem';
-import {AppActions} from '../Redux/Actions/AppActions';
+import {Avatar} from 'react-native-paper';
 import {useSelector, useDispatch} from 'react-redux';
+import {AppActions} from '../Redux/Actions/AppActions';
+import {CartActions} from '../Redux/Actions/CartActions';
+import {ThemeActions} from '../Redux/Actions/ThemeActions';
 import {signOut} from 'firebase/auth';
 import {auth} from '../../Firebase/firebase-config';
+import SettingItem from '../Components/Views/SettingItem';
 import ProfileCredentials from '../Components/Views/ProfileCredentials';
 import Button from '../Components/HOC/Button';
-import {ThemeActions} from '../Redux/Actions/ThemeActions';
-import {useTheme} from '../Hooks/useTheme';
-import {Avatar} from 'react-native-paper';
 import Card from '../Components/HOC/Card';
-import {CartActions} from '../Redux/Actions/CartActions';
+import {useTheme} from '../Hooks/useTheme';
+import Easing from 'react-native/Libraries/Animated/Easing';
+
+const {width, height} = Dimensions.get('window');
 
 export const Settings = props => {
   const darkMode = useTheme();
@@ -21,6 +31,9 @@ export const Settings = props => {
   const [imagePath, setImagePath] = useState(
     'https://www.clipartmax.com/png/middle/318-3182943_admin-blank-user-profile.png',
   );
+  const [opacity, setOpacity] = useState(new Animated.Value(0));
+  const [transitTo, setTransitTo] = useState(new Animated.Value(height));
+
   const {email, password} = useSelector(state => state.app.userInfo);
 
   const handleLogout = () => {
@@ -38,17 +51,20 @@ export const Settings = props => {
   };
 
   const takeCameraPhoto = () => {
+    setShowPictureMenu(false);
+    setOpacity(new Animated.Value(0));
     ImagePicker.openCamera({
       width: 300,
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
       setImagePath(image.path);
     });
   };
 
   const chooseFromLibrary = () => {
+    setShowPictureMenu(false);
+    setOpacity(new Animated.Value(0));
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -67,17 +83,43 @@ export const Settings = props => {
   };
 
   const showDpMenu = () => {
-    setShowPictureMenu(prevState => !prevState);
+    if (!showPictureMenu) {
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(transitTo, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+      setShowPictureMenu(prevState => !prevState);
+    }
+    if (showPictureMenu) {
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(transitTo, {
+        toValue: height,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+      setTimeout(() => {
+        setShowPictureMenu(prevState => !prevState);
+      }, 500);
+    }
   };
+
+  useEffect(() => {}, []);
 
   return (
     <SafeAreaView
-      style={[
-        styles.wrapper,
-        showPictureMenu && styles.opacityBackdrop,
-        darkMode ? styles.darkWrapper : null,
-      ]}>
-      {/* <View style={[showPictureMenu && styles.opacityBackdrop]}> */}
+      style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
+      {/* Profile Picture */}
+
       <View style={styles.card}>
         <Pressable onPress={showDpMenu}>
           <Avatar.Image
@@ -87,6 +129,9 @@ export const Settings = props => {
           />
         </Pressable>
       </View>
+
+      {/* Credentials */}
+
       <View style={styles.card}>
         <Pressable
           style={[styles.credentialsDisplay, darkMode ? styles.darkCard : null]}
@@ -95,17 +140,33 @@ export const Settings = props => {
           <ProfileCredentials label="Password:" attribute={password} />
         </Pressable>
       </View>
+
+      {/* Settings */}
+
       <SettingItem onPress={handleEditing} label="Edit Credentials" />
       <SettingItem onPress={toggleDarkMode} label="Toggle Dark Mode" />
       <SettingItem onPress={handleLogout} label="Logout" />
-      {/* </View> */}
+
+      {/* Profile Picture Menu */}
+
       {showPictureMenu && (
-        <View style={styles.bottomMenu}>
-          <Card theme={darkMode}>
-            <Button label="Capture" onPress={takeCameraPhoto} />
-            <Button label="Choose From Library" onPress={chooseFromLibrary} />
+        <Animated.View
+          style={[
+            styles.bottomMenu,
+            {
+              opacity: opacity,
+              transform: [{translateY: transitTo}],
+            },
+          ]}>
+          <Card color="#2A7F40" theme={darkMode}>
+            <Button color="black" label="Capture" onPress={takeCameraPhoto} />
+            <Button
+              color="black"
+              label="Choose From Library"
+              onPress={chooseFromLibrary}
+            />
           </Card>
-        </View>
+        </Animated.View>
       )}
     </SafeAreaView>
   );
@@ -145,6 +206,5 @@ const styles = StyleSheet.create({
   },
   opacityBackdrop: {
     backgroundColor: 'rgba(0,0,0,0.7)',
-    //   opacity: 0.7,
   },
 });
