@@ -1,9 +1,14 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
 
-const Card = ({children, theme}) => {
+const Card = ({children, theme, color}) => {
   return (
-    <View style={[styles.card, theme ? styles.darkCard : null]}>
+    <View
+      style={[
+        styles.card,
+        theme ? styles.darkCard : null,
+        color ? {backgroundColor: color} : null,
+      ]}>
       {children}
     </View>
   );
@@ -23,7 +28,7 @@ const styles = StyleSheet.create({
     borderColor: '#FFCBCB',
   },
   darkCard: {
-    backgroundColor: '#05595B',
+    backgroundColor: '#2A7F40',
     borderColor: '#062C30',
   },
 });
