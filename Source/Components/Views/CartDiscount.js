@@ -38,7 +38,7 @@ const CartDiscount = ({
             placeholder={placeholder}
             onChangeText={text => setRedeemCode(text)}
           />
-          <Button label="Apply" onPress={handleSubmit} />
+          <Button color="#062C30" label="Apply" onPress={handleSubmit} />
         </React.Fragment>
       )}
       {discountActive && (
