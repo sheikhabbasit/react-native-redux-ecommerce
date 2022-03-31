@@ -3,11 +3,11 @@ import React from 'react';
 import {useTheme} from '../../Hooks/useTheme';
 
 const SettingItem = props => {
-  const {onPress, label} = props;
+  const {onPress, label, darkness} = props;
   const darkMode = useTheme();
 
   return (
-    <View style={styles.buttonContainer}>
+    <View style={[styles.buttonContainer, darkness && styles.opacityBackdrop]}>
       <Pressable
         android_ripple={{color: 'white'}}
         style={[styles.button, darkMode ? styles.darkModeButton : null]}
@@ -41,5 +41,8 @@ const styles = StyleSheet.create({
   textLabel: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  opacityBackdrop: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
 });
