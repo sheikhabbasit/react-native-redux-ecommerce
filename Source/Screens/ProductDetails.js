@@ -47,7 +47,7 @@ const ProductDetails = props => {
         <Image style={styles.image} source={product.imageSource} />
         <ProductInfoText text={product.name} />
         <ProductInfoText text={product.price} />
-        <Button onPress={addToCart} label="Add to Cart" />
+        <Button color="#550000" onPress={addToCart} label="Add to Cart" />
       </Card>
       <Card theme={darkMode}>
         <Text style={[styles.label, styles.description]}>Description:</Text>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#9C0F48',
   },
   darkHeader: {
     backgroundColor: 'black',
