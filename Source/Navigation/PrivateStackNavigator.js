@@ -7,8 +7,10 @@ import CartStackNavigator from './CartStackNavigator';
 import {useSelector} from 'react-redux';
 import ExperimentalStackNavigator from './ExperimentalSpaceNavigator';
 import {useTheme} from '../Hooks/useTheme';
+import {Dimensions} from 'react-native';
 
 const Tab = createBottomTabNavigator();
+const {width, height} = Dimensions.get('window');
 
 const PrivateStackNavigator = () => {
   const {totalQuantity} = useSelector(state => state.cart);
@@ -38,6 +40,7 @@ const PrivateStackNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: darkMode ? '#1B1A17' : '#470D21',
+          height: height / 14,
         },
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
