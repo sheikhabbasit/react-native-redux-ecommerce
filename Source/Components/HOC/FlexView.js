@@ -24,6 +24,5 @@ const styles = StyleSheet.create({
   margin: {
     marginTop: 10,
     marginHorizontal: 10,
-    marginBottom: height / 9,
   },
 });
