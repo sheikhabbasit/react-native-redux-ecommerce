@@ -1,4 +1,4 @@
-import {FlatList, Text, StyleSheet, Pressable, Image} from 'react-native';
+import {FlatList, Text, StyleSheet, Pressable, Image, View} from 'react-native';
 import React, {Fragment, useEffect, useState} from 'react';
 import FlexView from '../Components/HOC/FlexView';
 import CartItem from '../Components/Views/CartItem';
@@ -8,6 +8,7 @@ import CartTotals from '../Components/Views/CartTotals';
 import CartForm from '../Components/Views/CartForm';
 import CartDiscount from '../Components/Views/CartDiscount';
 import {useTheme} from '../Hooks/useTheme';
+import Button from '../Components/HOC/Button';
 
 const Cart = props => {
   const darkMode = useTheme();
@@ -58,7 +59,7 @@ const Cart = props => {
         }
         ListFooterComponent={
           listNotEmpty && (
-            <Fragment>
+            <View>
               <CartForm
                 placeholder="Enter Delivery Location"
                 boldTextLabel="Destination:"
@@ -81,20 +82,8 @@ const Cart = props => {
                 )}
                 <CartTotals label="Amount Payable:" amount={amountPayable} />
               </Card>
-              <Pressable
-                style={[
-                  styles.checkoutButton,
-                  darkMode ? styles.darkButtonWrapper : null,
-                ]}>
-                <Text
-                  style={[
-                    styles.checkoutLabel,
-                    darkMode ? styles.darkText : null,
-                  ]}>
-                  Checkout
-                </Text>
-              </Pressable>
-            </Fragment>
+              <Button color="#2A7F40" label="Checkout" onPress={() => null} />
+            </View>
           )
         }
       />
