@@ -9,6 +9,7 @@ import persistStore from 'redux-persist/es/persistStore';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from '@redux-saga/core';
 import {watcherSaga} from './Sagas/RootSaga';
+import {ToastReducer} from './Reducer/ToastReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
@@ -19,6 +20,7 @@ const AllReducers = {
   cart: CartReducer,
   theme: ThemeReducer,
   images: ImagesReducer,
+  toast: ToastReducer,
 };
 
 const PersistConfig = {
