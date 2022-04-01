@@ -39,7 +39,6 @@ export const Settings = props => {
   const handleLogout = () => {
     signOut(auth)
       .then(res => {
-        console.log('success ', res);
         dispatch({type: AppActions.LOGOUT});
         props.navigation.reset({
           index: 0,
