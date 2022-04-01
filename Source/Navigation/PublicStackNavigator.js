@@ -18,10 +18,6 @@ const PublicStackNavigator = () => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Splash" component={Splash} />
-      {/* <Stack.Screen
-        name="PrivateStackNavigator"
-        component={PrivateStackNavigator}
-      /> */}
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
     </Stack.Navigator>
   );
