@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {store} from './Source/Redux/Store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor} from './Source/Redux/Store';
+import Toast from './Source/Components/Views/Toast';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <PaperProvider>
           <NavigationContainer>
             <PublicStackNavigator />
+            <Toast />
           </NavigationContainer>
         </PaperProvider>
       </PersistGate>
