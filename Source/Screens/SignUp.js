@@ -11,13 +11,14 @@ import {
 import {auth} from '../../Firebase/firebase-config';
 import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 import {Field, Formik} from 'formik';
+import {useDispatch} from 'react-redux';
 import {
   SignupValidationModel,
   SignupInitialValues,
 } from '../Models/SignupValidationModel';
 import ErrorMessage from '../Components/Typography/ErrorMessage';
 import HyperLink from '../Components/Views/HyperLink';
-import ErrorAuthShow from '../Components/Views/ErrorAuthShow';
+import {ToastActions} from '../Redux/Actions/ToastActions';
 
 const SignUp = props => {
   const nameRef = useRef(null);
@@ -25,26 +26,22 @@ const SignUp = props => {
   const mobileNoRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
-  const [errorOccured, setErrorOccured] = useState(false);
   const [id, setId] = useState('');
+  const dispatch = useDispatch();
   const [hidePassword, setHidePassword] = useState(true);
-  const [showSuccessfulSignup, setShowSuccessfulSignup] = useState(false);
 
   const submitForm = values => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then(res => {
         if (res.user.accessToken) {
-          setErrorOccured(false);
-          setShowSuccessfulSignup(true);
+          dispatch({type: ToastActions.SET_SIGNUP_SUCCESSFUL});
           updateProfile(auth.currentUser, {displayName: values.name});
-          setTimeout(() => {
-            setShowSuccessfulSignup(false);
-            props.navigation.navigate('Login');
-          }, 1000);
+          props.navigation.navigate('Login');
         }
-        // console.log('newRes', newRes);
       })
-      .catch(err => setErrorOccured(true));
+      .catch(err => {
+        dispatch({type: ToastActions.SET_SIGNUP_ERROR, data: err.message});
+      });
   };
 
   return (
@@ -241,16 +238,6 @@ const SignUp = props => {
                 ]}>
                 <Text style={styles.buttonLabel}>Sign Up</Text>
               </Pressable>
-
-              {showSuccessfulSignup && (
-                <View style={styles.successSignUp}>
-                  <Text style={styles.whiteLabel}>Sign Up Successful</Text>
-                </View>
-              )}
-
-              {errorOccured && (
-                <ErrorAuthShow label="Invalid credentials / User already exists" />
-              )}
             </React.Fragment>
           )}
         </Formik>
