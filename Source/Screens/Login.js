@@ -8,7 +8,6 @@ import {
   Pressable,
   ImageBackground,
   Dimensions,
-  Alert,
 } from 'react-native';
 import {Field, Formik} from 'formik';
 import {signInWithEmailAndPassword} from 'firebase/auth';
@@ -22,12 +21,11 @@ import HyperLink from '../Components/Views/HyperLink';
 import {useDispatch} from 'react-redux';
 import {AppActions} from '../Redux/Actions/AppActions';
 import SocialAuth from '../Components/Views/SocialAuthButtons/SocialAuth';
+import {ToastActions} from '../Redux/Actions/ToastActions';
 
 const {width, height} = Dimensions.get('window');
 
 const Login = props => {
-  const [loading, setLoading] = useState(false);
-  const [errorOccured, setErrorOccured] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [id, setId] = useState('');
@@ -35,11 +33,9 @@ const Login = props => {
   const dispatch = useDispatch();
 
   const submitForm = async values => {
-    setLoading(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then(res => {
         if (res.user.accessToken) {
-          setErrorOccured(false);
           dispatch({
             type: AppActions.LOGIN,
             data: {
@@ -48,24 +44,22 @@ const Login = props => {
               name: res.user.displayName,
             },
           });
-          props.navigation.reset({
-            index: 0,
-            routes: [{name: 'Drawer'}],
-          });
+          dispatch({type: ToastActions.SET_LOGIN_SUCCESSFUL});
+          setTimeout(() => {
+            props.navigation.reset({
+              index: 0,
+              routes: [{name: 'Drawer'}],
+            });
+          }, 1000);
         }
       })
       .catch(err => {
-        setErrorOccured(true);
-        setTimeout(() => {
-          setErrorOccured(false);
-        }, 3000);
+        dispatch({
+          type: ToastActions.SET_LOGIN_ERROR,
+          data: err.message.toString().split(':')[1],
+        });
       });
-    setLoading(false);
   };
-
-  if (errorOccured) {
-    Alert.alert('Wrong Username/Password', 'Try again.');
-  }
 
   return (
     <ImageBackground
@@ -201,6 +195,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
     borderRadius: 10,
+    marginBottom: 60,
   },
   heading: {
     fontSize: 16,
