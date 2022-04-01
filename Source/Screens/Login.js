@@ -50,7 +50,7 @@ const Login = props => {
           });
           props.navigation.reset({
             index: 0,
-            routes: [{name: 'PrivateStackNavigator'}],
+            routes: [{name: 'Drawer'}],
           });
         }
       })

@@ -15,7 +15,7 @@ const Splash = props => {
 
     if (isLogged) {
       setLoading(false);
-      handleNavigation('PrivateStackNavigator');
+      handleNavigation('Drawer');
     } else {
       setLoading(false);
       handleNavigation('Login');

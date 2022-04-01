@@ -4,6 +4,7 @@ import SignUp from '../Screens/SignUp';
 import Login from '../Screens/Login';
 import PrivateStackNavigator from './PrivateStackNavigator';
 import Splash from '../Screens/Splash';
+import DrawerNavigator from './DrawerNavigator';
 const Stack = createNativeStackNavigator();
 
 const PublicStackNavigator = () => {
@@ -17,10 +18,11 @@ const PublicStackNavigator = () => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Splash" component={Splash} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="PrivateStackNavigator"
         component={PrivateStackNavigator}
-      />
+      /> */}
+      <Stack.Screen name="Drawer" component={DrawerNavigator} />
     </Stack.Navigator>
   );
 };
