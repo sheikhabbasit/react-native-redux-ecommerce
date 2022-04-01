@@ -15,11 +15,25 @@ export const ToastReducer = (state = initialState, payload) => {
         toastState: true,
         errorState: true,
       };
+    case ToastActions.SET_SIGNUP_ERROR:
+      return {
+        ...state,
+        message: payload.data,
+        toastState: true,
+        errorState: true,
+      };
 
     case ToastActions.SET_LOGIN_SUCCESSFUL:
       return {
         ...state,
         message: 'Login Successful',
+        toastState: true,
+        errorState: false,
+      };
+    case ToastActions.SET_SIGNUP_SUCCESSFUL:
+      return {
+        ...state,
+        message: 'Signup successful',
         toastState: true,
         errorState: false,
       };
