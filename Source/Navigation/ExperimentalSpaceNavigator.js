@@ -11,6 +11,8 @@ import Map from '../Screens/Map';
 import LocationSelect from '../Screens/LocationSelect';
 import {headerReturn} from '../HelperFunctions/HeaderReturn';
 import Animations from '../Screens/Animations';
+import OtherRoutes from '../Screens/OtherRoutes';
+import Stepper from '../Screens/Stepper';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +28,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'md-images',
-            () => navigation.navigate('Image Genre'),
+            () => navigation.navigate('Image Home'),
             'Images',
             darkMode,
           )
@@ -38,7 +40,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.navigate('Image Home'),
+            () => navigation.navigate('Other Routes'),
             'Images by Genre',
             darkMode,
           )
@@ -50,7 +52,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.navigate('Image Home'),
+            () => navigation.navigate('Other Routes'),
             'Images of Dog Breed',
             darkMode,
           )
@@ -62,7 +64,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.navigate('Image Home'),
+            () => navigation.navigate('Other Routes'),
             'Countries',
 
             darkMode,
@@ -75,7 +77,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.navigate('Image Home'),
+            () => navigation.navigate('Other Routes'),
             'Images by Pagination',
             darkMode,
           )
@@ -87,7 +89,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.navigate('Image Home'),
+            () => navigation.navigate('Other Routes'),
             'Location Select',
             darkMode,
           )
@@ -99,7 +101,7 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.goBack(),
+            () => navigation.navigate('Other Routes'),
             'Map',
             darkMode,
           )
@@ -111,8 +113,32 @@ const ExperimentalStackNavigator = () => {
         options={() =>
           headerReturn(
             'arrow-back-circle-outline',
-            () => navigation.goBack(),
+            () => navigation.navigate('Other Routes'),
             'Animations',
+            darkMode,
+          )
+        }
+      />
+      <Stack.Screen
+        name="Other Routes"
+        component={OtherRoutes}
+        options={() =>
+          headerReturn(
+            'arrow-back-circle-outline',
+            () => navigation.navigate('Image Home'),
+            'Routes',
+            darkMode,
+          )
+        }
+      />
+      <Stack.Screen
+        name="Stepper"
+        component={Stepper}
+        options={() =>
+          headerReturn(
+            'arrow-back-circle-outline',
+            () => navigation.navigate('Other Routes'),
+            'Stepper',
             darkMode,
           )
         }
