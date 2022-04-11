@@ -48,7 +48,7 @@ const Login = props => {
           setTimeout(() => {
             props.navigation.reset({
               index: 0,
-              routes: [{name: 'Drawer'}],
+              routes: [{name: 'Private'}],
             });
           }, 1000);
         }
