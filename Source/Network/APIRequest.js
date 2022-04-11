@@ -14,7 +14,7 @@ export const getRandomDog = async (limit = 1, breed) => {
     });
     response = await res.json();
   } catch (exception) {
-    response.status = 'error';
+    return exception;
   } finally {
     return response;
   }

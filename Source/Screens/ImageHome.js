@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Modal, Text} from 'react-native';
 import Button from '../Components/HOC/Button';
 import DisplayDogs from '../Components/Views/DisplayDogs';
 import {useSelector, useDispatch} from 'react-redux';
@@ -8,6 +8,7 @@ import Card from '../Components/HOC/Card';
 import {useTheme} from '../Hooks/useTheme';
 import {getImages} from '../Redux/Reducer/ImagesReducer';
 import PushNotification from 'react-native-push-notification';
+import {ImagesActions} from '../Redux/Actions/ImagesActions';
 
 const ImageHome = props => {
   const darkMode = useTheme();
@@ -42,6 +43,10 @@ const ImageHome = props => {
       message: `${item}`,
     });
   };
+  const retry = () => {
+    getDogData();
+    dispatch({type: ImagesActions.CLEAR_ERROR});
+  };
 
   useEffect(() => {
     createChannel();
@@ -50,36 +55,55 @@ const ImageHome = props => {
 
   return (
     <View style={[styles.wrapper, darkMode ? styles.darkWrapper : null]}>
-      <Card>
-        <Button label="Fetch Random Images" onPress={getDogData} />
+      <Card theme={darkMode}>
         <Button
+          color="#062C30"
+          label="Fetch Random Images"
+          onPress={getDogData}
+        />
+        <Button
+          color="#062C30"
           label="List of Dog Breeds"
           onPress={() => props.navigation.navigate('Image Genre')}
         />
         <Button
+          color="#062C30"
           label="List of Countries"
           onPress={() => props.navigation.navigate('Countries')}
         />
         <Button
+          color="#062C30"
           label="Pagination Flatlist"
           onPress={() => props.navigation.navigate('Image With Pagination')}
         />
         <Button
+          color="#062C30"
           label="Map"
           onPress={() => props.navigation.navigate('Location Select')}
         />
         <Button
+          color="#062C30"
           label="Direct to map"
           onPress={() => props.navigation.navigate('Map')}
         />
         <Button
+          color="#062C30"
           label="Animations"
           onPress={() => props.navigation.navigate('Animations')}
         />
       </Card>
+      <Modal
+        style={styles.modal}
+        animationType="slide"
+        transparent={false}
+        visible={images.errorState}
+        onRequestClose={retry}>
+        <Text>{images.error}</Text>
+        <Button color={'green'} label="Retry" onPress={retry} />
+      </Modal>
       {loading && <ActivityIndicator size={'large'} />}
       {!loading && images.images && (
-        <Card>
+        <Card theme={darkMode}>
           <DisplayDogs
             notificationHandler={notificationHandler}
             imageList={images.images}
@@ -101,5 +125,10 @@ const styles = StyleSheet.create({
   },
   darkWrapper: {
     backgroundColor: '#062C30',
+  },
+  modal: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
