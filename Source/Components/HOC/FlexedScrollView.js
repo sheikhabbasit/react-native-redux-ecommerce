@@ -5,7 +5,11 @@ const FlexedScrollView = ({variant, theme, children}) => {
   return (
     <SafeAreaView style={[styles.parent, theme ? styles.darkBackground : null]}>
       <ScrollView
-        style={[styles.container, theme ? styles.darkBackground : null]}>
+        style={[
+          styles.container,
+          theme ? styles.darkBackground : null,
+          {backgroundColor: variant},
+        ]}>
         {children}
       </ScrollView>
     </SafeAreaView>
@@ -16,6 +20,7 @@ export default FlexedScrollView;
 
 const styles = StyleSheet.create({
   parent: {
+    flex: 1,
     backgroundColor: '#eda6c2',
   },
   container: {
