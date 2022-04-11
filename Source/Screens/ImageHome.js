@@ -63,33 +63,8 @@ const ImageHome = props => {
         />
         <Button
           color="#062C30"
-          label="List of Dog Breeds"
-          onPress={() => props.navigation.navigate('Image Genre')}
-        />
-        <Button
-          color="#062C30"
-          label="List of Countries"
-          onPress={() => props.navigation.navigate('Countries')}
-        />
-        <Button
-          color="#062C30"
-          label="Pagination Flatlist"
-          onPress={() => props.navigation.navigate('Image With Pagination')}
-        />
-        <Button
-          color="#062C30"
-          label="Map"
-          onPress={() => props.navigation.navigate('Location Select')}
-        />
-        <Button
-          color="#062C30"
-          label="Direct to map"
-          onPress={() => props.navigation.navigate('Map')}
-        />
-        <Button
-          color="#062C30"
-          label="Animations"
-          onPress={() => props.navigation.navigate('Animations')}
+          label="Other Routes"
+          onPress={() => props.navigation.navigate('Other Routes')}
         />
       </Card>
       <Modal
