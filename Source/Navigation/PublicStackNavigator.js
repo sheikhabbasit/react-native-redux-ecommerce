@@ -19,6 +19,7 @@ const PublicStackNavigator = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="Private" component={PrivateStackNavigator} />
     </Stack.Navigator>
   );
 };
