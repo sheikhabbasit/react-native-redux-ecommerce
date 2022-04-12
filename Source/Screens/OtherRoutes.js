@@ -41,6 +41,11 @@ const OtherRoutes = props => {
         label="Stepper"
         onPress={() => props.navigation.navigate('Stepper')}
       />
+      <Button
+        color="#062C30"
+        label="Text Animator"
+        onPress={() => props.navigation.navigate('Text Animator')}
+      />
     </FlexedScrollView>
   );
 };

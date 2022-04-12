@@ -13,6 +13,7 @@ import {headerReturn} from '../HelperFunctions/HeaderReturn';
 import Animations from '../Screens/Animations';
 import OtherRoutes from '../Screens/OtherRoutes';
 import Stepper from '../Screens/Stepper';
+import TextAnimator from '../Screens/TextAnimator';
 
 const Stack = createNativeStackNavigator();
 
@@ -139,6 +140,18 @@ const ExperimentalStackNavigator = () => {
             'arrow-back-circle-outline',
             () => navigation.navigate('Other Routes'),
             'Stepper',
+            darkMode,
+          )
+        }
+      />
+      <Stack.Screen
+        name="Text Animator"
+        component={TextAnimator}
+        options={() =>
+          headerReturn(
+            'arrow-back-circle-outline',
+            () => navigation.navigate('Other Routes'),
+            'Text Animate',
             darkMode,
           )
         }

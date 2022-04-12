@@ -2,10 +2,16 @@ import {Pressable, Text, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {useTheme} from '../../Hooks/useTheme';
 
-const Button = ({onPress, label, color}) => {
+const Button = ({
+  onPress,
+  label,
+  color,
+  marginHorizontal = null,
+  marginTop = null,
+}) => {
   const darkMode = useTheme();
   return (
-    <View style={styles.buttonContainer}>
+    <View style={[styles.buttonContainer, {marginHorizontal, marginTop}]}>
       <Pressable
         onPress={onPress}
         style={[
