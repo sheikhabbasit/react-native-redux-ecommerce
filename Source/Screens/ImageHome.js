@@ -77,7 +77,7 @@ const ImageHome = props => {
         <Button color={'green'} label="Retry" onPress={retry} />
       </Modal>
       {loading && <ActivityIndicator size={'large'} />}
-      {!loading && images.images && (
+      {images.images.length !== 0 && !loading && (
         <Card theme={darkMode}>
           <DisplayDogs
             notificationHandler={notificationHandler}
